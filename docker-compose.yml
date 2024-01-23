@@ -1,0 +1,96 @@
+version: '3'
+services:
+# CONTAINER POSTGRES
+  db:
+    image: postgres:latest
+    container_name: ecocoleta-database
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - app-network
+
+# CONTAINER MARIADB
+  # db:
+  #   #image: mysql:5.7
+  #   image: mariadb
+  #   container_name: ecocoleta-database
+  #   restart: always
+  #   #se houver o arquivo .env, a seção environment não é executada
+  #   env_file:
+  #     - .env
+  #   #se o .env não for encontrado, em produção, usará estas variáveis esperadas pela imagem do MySQL
+  #   environment:
+  #     MYSQL_USER: ${MYSQL_USER}
+  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: ${MYSQL_DATABASE} #cria o database ao iniciar o container
+  #   volumes:
+  #     - ./data:/var/lib/mysql
+  #   ports:
+  #     - '3307:3306'
+
+# CONTAINERS BACKEND E FRONTEND - not use now
+  # backend:
+  #   image: ronifabio/ecocoleta-backend:latest
+  #   container_name: ecocoleta-backend
+  #   build:
+  #     context: ./backend/
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - '8080:8080'
+  #   env_file:
+  #     - .env
+  #   restart: always
+  #   environment:
+  #     TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+  #     TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+  #     TWILIO_VERIFY_SERVICE_SID: ${TWILIO_VERIFY_SERVICE_SID}
+  #     #acessa o banco de dados via rede interna (bridge network) criado
+  #     SPRING_DATASOURCE_URL: ${DATASOURCE_URL}
+  #     SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+  #     SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+  #     SPRING_DATASOURCE_DRIVER-CLAS-NAME: org.postgresql.Driver
+  #     SPRING_JPA_PROPERTIES_HIPERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+  #     #acessa o banco de dados via rede interna (bridge network) criado
+  #     # SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/ecocoleta_db?useSSL=false&serverTimezone=UTC
+  #     # SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+  #     # SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - app-network
+      
+  # frontend:
+  #   image: ronifabio/ecocoleta-frontend:latest
+  #   container_name: ecocoleta-frontend
+  #   build:
+  #     context: ./frontend/
+  #     dockerfile: ./Dockerfile
+  #   environment:
+  #     #ativa o modo de ambiente de produção para node, melhor desempenho
+  #     NODE_ENV: production
+  #   ports:
+  #     - '80:80'
+  #   restart: always
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - app-network
+      
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
