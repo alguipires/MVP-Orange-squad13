@@ -1,11 +1,11 @@
-import express from 'express';
+const express = require("express");
 
 const app = express();
 
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.status(200).send("Running port 3001.....");
+    res.status(200).send("Running port 3001...");
   });
 
-export default app;
+module.exports = app;
