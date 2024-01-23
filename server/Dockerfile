@@ -2,7 +2,7 @@
 FROM node:16.14-alpine
 
 # Definir o diretório de trabalho para a aplicação
-WORKDIR /app
+WORKDIR /app-server
 
 # Copiar o package.json e o package-lock.json para o diretório de trabalho
 COPY package*.json ./
