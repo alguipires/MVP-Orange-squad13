@@ -2,8 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Backend squad13",
-  "main": "index.js",
-  "type": "module",
+  "main": "src/server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +24,6 @@
     "eslint-config-airbnb-base": "15.0.0",
     "jest": "^27.2.1",
     "nodemon": "2.0.15",
-    "sequelize-cli": "6.3.0"
+    "sequelize-cli": "6.2.0"
   }
 }
