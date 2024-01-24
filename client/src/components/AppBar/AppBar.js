@@ -152,6 +152,21 @@ function ResponsiveAppBar() {
             </IconButton>
             {/* // /component */}
 
+            {/* // /component */}
+
+            {/* //TODO fazer componet sininho */}
+
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Badge badgeContent={1} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            {/* // /component */}
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
