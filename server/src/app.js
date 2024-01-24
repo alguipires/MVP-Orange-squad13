@@ -1,11 +1,12 @@
 const express = require("express");
-const { login } = require('./routes')
+const { login, createUser } = require('./routes')
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/login', login)
+app.use('/user', createUser)
 
 app.get("/", (req, res) => {
     res.status(200).send("Running port 3001...");
