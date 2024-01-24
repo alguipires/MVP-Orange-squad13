@@ -1,10 +1,10 @@
 const userValitatioFirstAndLastName = (req, res, next) => {
-  const { firstName, LastName } = req.body;
+  const { firstName, lastName } = req.body;
   if (!firstName) {
     return res.status(400).json({ 
       message: 'First name is required!' });
   }
-  if (!LastName) {
+  if (!lastName) {
     return res.status(400).json({ 
       message: 'Last name is required!' });
   }
@@ -12,7 +12,7 @@ const userValitatioFirstAndLastName = (req, res, next) => {
     return res.status(400).json({ 
       message: 'First name must be at least 2 characters long!' });
   }
-  if (LastName.length < 2) {
+  if (lastName.length < 2) {
     return res.status(400).json({ 
       message: 'Last name must be at least 2 characters long!' });
   }
@@ -43,8 +43,8 @@ const userValitationPassword = (req, res, next) => {
   next();
 };
 
-module.exports = {
+module.exports = [
   userValitatioFirstAndLastName,
   userValitationEmail,
   userValitationPassword,
-};
+];
