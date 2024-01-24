@@ -46,6 +46,7 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DB_NAME=orange_portifolio_db
     restart: 'always'
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
