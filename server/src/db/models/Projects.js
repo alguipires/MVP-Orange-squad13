@@ -10,7 +10,7 @@ const ProjectsSchema = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    content: {
+    tag: {
       allowNull: false,
       type: DataTypes.STRING,
     },
@@ -19,16 +19,18 @@ const ProjectsSchema = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       foreignKey: true,
     },
-    published: {
+    url: {
       allowNull: false,
       type: DataTypes.DATE,
     },
-    updated: {
+    description: {
       allowNull: false,
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
     },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   }, {
-    timestamps: false,
+    timestamps: true,
     tableName: 'blog_posts',
     underscored: true,
   });
