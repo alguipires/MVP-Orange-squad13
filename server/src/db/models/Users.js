@@ -15,7 +15,7 @@ const UserSchema = (sequelize, DataTypes) => {
       updated_at: DataTypes.DATE,
   }, {
       tableName: 'users',
-      timestamps: true,
+      timestamps: false,
       underscored: true,
   });
 
