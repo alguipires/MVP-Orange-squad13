@@ -11,8 +11,8 @@ module.exports = {
         // password: 'admin_123',
         role: 'admin',
         avatar: 'path/to/avatar.jpg',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       },
       {
         first_name: 'Jane',
@@ -22,8 +22,8 @@ module.exports = {
         // password: 'user_123',
         role: 'user',
         avatar: 'path/to/avatar.jpg',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       },
     ], {});
   },
