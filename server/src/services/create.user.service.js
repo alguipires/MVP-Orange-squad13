@@ -1,5 +1,5 @@
 const { createToken } = require('../auth/authfunction');
-const { compare, hashSync } = require('bcryptjs');
+const { hashSync } = require('bcryptjs');
 const { Users } = require('../db/models');
 
 const createPostService = async (firstName, lastName, email, password) => {

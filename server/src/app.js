@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/login', login)
-app.use('/create/user', createUser)
+app.use('/user', createUser)
 
 app.get("/", (req, res) => {
     res.status(200).send("Running port 3001...");
