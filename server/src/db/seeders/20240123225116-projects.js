@@ -9,8 +9,8 @@ module.exports = {
         url: 'https://project1.com',
         description: 'Description for Project 1',
         user_id: 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       },
       {
         title: 'Project 2',
@@ -18,8 +18,8 @@ module.exports = {
         url: 'https://project2.com',
         description: 'Description for Project 2',
         user_id: 2,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       },
     ], {});
   },

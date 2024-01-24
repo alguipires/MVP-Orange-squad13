@@ -11,11 +11,11 @@ const UserSchema = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       avatar: DataTypes.STRING,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
   }, {
       tableName: 'users',
-      timestamps: true,
+      timestamps: false,
       underscored: true,
   });
 
