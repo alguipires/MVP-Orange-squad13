@@ -1,4 +1,5 @@
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
+const { createUserService } = require('../services');
 
 const createUser = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;

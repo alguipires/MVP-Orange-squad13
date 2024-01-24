@@ -27,11 +27,11 @@ const ProjectsSchema = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   }, {
     timestamps: false,
-    tableName: 'blog_posts',
+    tableName: 'projects',
     underscored: true,
   });
 
