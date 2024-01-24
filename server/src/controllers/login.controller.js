@@ -1,4 +1,5 @@
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
+const { loginService } = require('../services');
 
 const loginPost = async (req, res) => {
   const { email, password } = req.body;
