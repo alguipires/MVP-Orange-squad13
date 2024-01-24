@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
-// import Logo from './Logo';
+import Logo from './Logo';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -42,6 +42,7 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Logo />
           {/* <Logo sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           {/* <Typography
