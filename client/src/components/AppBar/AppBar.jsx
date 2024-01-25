@@ -29,12 +29,24 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" className="colorBar">
+    <AppBar position="static" style={{ backgroundColor: '#113' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Logo />
+          {/* //buttons desktop */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Logo />
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
 
-          {/* //mobile */}
+          {/* //buttons mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -70,19 +82,7 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
-
-          {/* //butons palavras */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Logo />
           </Box>
 
           {/* //icones do lado direito -- passar props avatar*/}
