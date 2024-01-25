@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import validator from 'validator';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FormControl, 
         IconButton, 
         InputAdornment, 
@@ -17,20 +17,20 @@ const FormLogin = () => {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
+
+  const inputValidation = () => {
+    const emailValidation = validator.isEmail(email);
+    const passwordValidation = validator.isLength(password, { min: 5 });
+    if (emailValidation && passwordValidation) {
+      setIsDisabled(false);
+    }
+  };
 
   const handleChange = ({ target: { value } }, setState) => {
     setState(value);
     inputValidation();
-  };
-
-  const inputValidation = () => {
-    const emailValidation = validator.isEmail(email);
-    const passwordValidation = validator.isLength(password, { min: 6 });
-    if (emailValidation && passwordValidation) {
-      setIsDisabled(false);
-    }
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -40,8 +40,7 @@ const FormLogin = () => {
   };
 
   const handleSubmit = () => {
-    
-    history.push('/portfolio');
+    navigate('/portifolio');
   };
 
   return (
