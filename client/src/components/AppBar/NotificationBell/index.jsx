@@ -7,7 +7,7 @@ export default function NotificationBell(props) {
   return (
     <IconButton
       size="large"
-      aria-label="show 17 new notifications"
+      aria-label="show new notifications"
       color="inherit"
     >
       <Badge badgeContent={props.value} color="error">
