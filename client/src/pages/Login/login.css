@@ -13,7 +13,7 @@
 }
 
 .container_img {
-  width: 50%;
+  width: 40%;
   height: 100%;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .container_login_form {
-  width: 50%;
+  width: 60%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,6 @@
 }
 
 .container_login_form h1 {
-  font-family: 'Roboto', sans-serif;
   font-size: 48px;
   font-style: normal;
   font-weight: 400;
@@ -43,7 +42,6 @@
 }
 
 .container_login_form p {
-  font-family: 'Roboto', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;

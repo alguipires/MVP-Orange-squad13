@@ -7,10 +7,11 @@ import { FormControl,
         OutlinedInput } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import './form.css';
+import './formLogin.css';
+import './formRegister.css';
 import Button from '../Button/Button';
 
-function Form() {
+const FormRegister = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -20,6 +21,22 @@ function Form() {
   };
   return (
     <form  className='form_login'>
+
+    <div className='container_name_and_lastname'>
+      <TextField
+        required
+        id="outlined-required"
+        label="Nome"
+        className='input_name'
+      />
+
+      <TextField
+        required
+        id="outlined-required"
+        label="Sobrenome"
+        className='input_lastname'
+      />
+    </div>
 
     <TextField 
       id="outlined-basic" 
@@ -51,12 +68,7 @@ function Form() {
 
           <Button 
             className='button_login'
-            value='entrar'
-          />
-
-          <Button 
-            className='button_register'
-            value='Cadastre-se'
+            value='cadastrar'
           />
 
         </FormControl>
@@ -64,4 +76,4 @@ function Form() {
   )
 }
 
-export default Form;
+export default FormRegister;
