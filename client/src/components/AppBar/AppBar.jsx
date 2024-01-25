@@ -11,13 +11,17 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Badge from '@mui/material/Badge';
+// import AdbIcon from '@mui/icons-material/Adb';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+// import Badge from '@mui/material/Badge';
+import Stack from '@mui/material/Stack';
+import NotificationBell from './NotificationBell';
 import Logo from './Logo';
+import './AppBar.css';
+import AvatarIcon from './AvatarIcon';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Meus Projetos', 'Descobrir'];
+const settings = ['Perfil', 'Sair'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -39,30 +43,12 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className="colorApp">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo />
-          {/* <Logo sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography> */}
 
+          {/* //mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -99,26 +85,8 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          {/* //mobile */}
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography> */}
+
+          {/* //butons palavras */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -131,65 +99,12 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
+          {/* //icones do lado direito -- passar props avatar*/}
           <Box sx={{ flexGrow: 0 }}>
-            {/* //TODO fazer component avatar */}
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            {/* // /component */}
-
-            {/* //TODO fazer componet sininho */}
-
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={1} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            {/* // /component */}
-
-            {/* // /component */}
-
-            {/* //TODO fazer componet sininho */}
-
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={1} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            {/* // /component */}
-
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <Stack direction="row" spacing={1}>
+              <AvatarIcon nameUser="Orange" uriImageUser="/assets/" />
+              <NotificationBell value={0} />
+            </Stack>
           </Box>
         </Toolbar>
       </Container>
