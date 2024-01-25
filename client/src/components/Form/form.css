@@ -16,7 +16,13 @@
   height: 40px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  margin-bottom: 100px;
+  padding-left: 10px;
+}
+
+.input_password {
+  width: 493px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
   padding-left: 10px;
 }
 
@@ -50,4 +56,19 @@
   margin-top: 10px;
   text-align: left;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .input_email {
+    width: 312px;
+  }
+
+  .input_password {
+    width: 312px;
+  }
+
+  .button_login {
+    width: 312px;
+  }
+  
 }

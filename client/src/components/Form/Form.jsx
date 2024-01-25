@@ -33,7 +33,7 @@ function Form() {
           <OutlinedInput
             id="outlined-adornment-password"
             type={showPassword ? 'text' : 'password'}
-            style={ { width: 493 } }
+            className='input_password'
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -58,6 +58,7 @@ function Form() {
             className='button_register'
             value='Cadastre-se'
           />
+
         </FormControl>
   </form>
   )
