@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import validator from 'validator';
+import { checkUser } from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { FormControl, 
         IconButton, 
@@ -40,7 +41,16 @@ const FormLogin = () => {
   };
 
   const handleSubmit = () => {
-    navigate('/portifolio');
+    const isValidUser = checkUser(email, password)
+
+    if (isValidUser.token) {
+      console.log(isValidUser.token);
+      navigate('/portifolio');
+    }
+
+    if (isValidUser.message) {
+      alert(isValidUser.message);
+    }
   };
 
   return (
