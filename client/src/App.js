@@ -1,11 +1,19 @@
-import AppBar from './components/AppBar/AppBar';
-import BasicCard from './components/BasicCard/BasicCard';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login/Login";
+import './App.css';
 
-export default function screen(){
-  return(
-    <div>
-      <AppBar/>
-      <BasicCard/>
-    </div>
-  )
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" exact element={<Login />} />
+
+
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
+export default App;
