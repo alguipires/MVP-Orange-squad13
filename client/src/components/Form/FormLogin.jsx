@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import validator from 'validator';
+import { useHistory } from 'react-router-dom';
 import { FormControl, 
         IconButton, 
         InputAdornment, 
@@ -11,13 +13,37 @@ import './formLogin.css';
 import Button from '../Button/Button';
 
 const FormLogin = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const history = useHistory();
+
+
+  const handleChange = ({ target: { value } }, setState) => {
+    setState(value);
+    inputValidation();
+  };
+
+  const inputValidation = () => {
+    const emailValidation = validator.isEmail(email);
+    const passwordValidation = validator.isLength(password, { min: 6 });
+    if (emailValidation && passwordValidation) {
+      setIsDisabled(false);
+    }
+  };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleSubmit = () => {
+    
+    history.push('/portfolio');
+  };
+
   return (
     <form  className='form_login'>
 
@@ -26,6 +52,7 @@ const FormLogin = () => {
       label="Email address" 
       variant="outlined" 
       className='input_email'
+      onChange={ (e) => handleChange(e, setEmail) }
     />
     <FormControl style={ { marginTop: 25 } }>
 
@@ -34,6 +61,7 @@ const FormLogin = () => {
             id="outlined-adornment-password"
             type={showPassword ? 'text' : 'password'}
             className='input_password'
+            onChange={ (e) => handleChange(e, setPassword) }
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -52,6 +80,8 @@ const FormLogin = () => {
           <Button 
             className='button_login'
             value='entrar'
+            disabled={ isDisabled }  
+            onClick={ handleSubmit }
           />
 
           <Button 
