@@ -1,12 +1,12 @@
 import './Logo.css';
 
 const Logo = () => {
+  return (
+    <div className="logo">
+      <h1>LOGO</h1>
+      {/* <img src="/assets/imgs/logo-orange.png" alt="Logo da Fcamara Orange Juice" /> */}
+    </div>
+  );
+};
 
-    return (
-        <div className='logo'>
-            <img src="/assets/imgs/logo-orange.png" alt="Logo da Fcamara Orange Juice" />
-        </div>
-    )
-}
-
-export default Logo
+export default Logo;
