@@ -40,18 +40,24 @@ const FormLogin = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = () => {
-    const isValidUser = checkUser(email, password)
+  const handleSubmitLogin = async () => {
+    const isValidUser = await checkUser(email, password)
 
-    if (isValidUser.token) {
-      console.log(isValidUser.token);
+    if (isValidUser?.token) {
+      // salvar o token em algum local
       navigate('/portifolio');
     }
 
-    if (isValidUser.message) {
+    if (isValidUser?.message) {
       alert(isValidUser.message);
     }
   };
+
+  const handleSubmitRegister = async () => {
+      navigate('/register');
+  }   
+
+
 
   return (
     <form  className='form_login'>
@@ -90,12 +96,13 @@ const FormLogin = () => {
             className='button_login'
             value='entrar'
             disabled={ isDisabled }  
-            onClick={ handleSubmit }
+            onClick={ handleSubmitLogin }
           />
 
           <Button 
             className='button_register'
             value='Cadastre-se'
+            onClick={ handleSubmitRegister }
           />
 
         </FormControl>
