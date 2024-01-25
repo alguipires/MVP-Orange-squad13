@@ -34,7 +34,6 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  font-family: 'Roboto', sans-serif;
   font-size: 15px;
   background-color: #F52;
   padding: 8px 22px;
@@ -44,7 +43,6 @@
 }
 
 .button_register {
-  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

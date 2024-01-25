@@ -1,0 +1,33 @@
+.container_name_and_lastname {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.input_name {
+  width: 49%;
+}
+
+.input_lastname {
+  width: 49%;
+}
+
+@media screen and (max-width: 768px) {
+  .container_name_and_lastname {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 125px;
+    margin-bottom: 10px;
+  }
+
+  .input_name {
+    width: 100%;
+  }
+  
+  .input_lastname {
+    width: 100%;
+  }
+  
+}
