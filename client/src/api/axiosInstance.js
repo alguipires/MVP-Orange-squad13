@@ -15,9 +15,9 @@ const checkUser = async (email, password) => {
   });
 };
 
-const createNewUser = async (name, lastName, email, password) => {
-  return await axios.post(`${endpoint}/register`, {
-    name,
+const createNewUser = async (firstName, lastName, email, password) => {
+  return await axios.post(`${endpoint}/user`, {
+    firstName,
     lastName,
     email,
     password,

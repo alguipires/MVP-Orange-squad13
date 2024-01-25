@@ -16,7 +16,7 @@ import Button from '../Button/Button';
 
 const FormRegister = () => {
   const [name, setName] = useState('');
-  const [lastname, setLastname] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -25,10 +25,10 @@ const FormRegister = () => {
 
   const inputValidation = () => {
     const nameValidation = validator.isLength(name, { min: 1 });
-    const lastnameValidation = validator.isLength(lastname, { min: 1 });
+    const lastNameValidation = validator.isLength(lastName, { min: 1 });
     const emailValidation = validator.isEmail(email);
     const passwordValidation = validator.isLength(password, { min: 5 });
-    if (emailValidation && passwordValidation && nameValidation && lastnameValidation) {
+    if (emailValidation && passwordValidation && nameValidation && lastNameValidation) {
       setIsDisabled(false);
     }
   };
@@ -45,11 +45,11 @@ const FormRegister = () => {
   };
 
   const handleSubmit = async () => {
-    const isValidUser = await createNewUser(email, password)
+    const isValidUser = await createNewUser(name, lastName, email, password)
 
     if (isValidUser?.token) {
       // salvar o token em algum local
-      navigate('/login');
+      navigate('/');
     }
 
     if (isValidUser?.message) {
@@ -73,7 +73,7 @@ const FormRegister = () => {
         id="outlined-required"
         label="Sobrenome"
         className='input_lastname'
-        onChange={ (e) => handleChange(e, setLastname)}
+        onChange={ (e) => handleChange(e, setLastName)}
       />
     </div>
 
