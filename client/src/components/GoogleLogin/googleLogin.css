@@ -1,0 +1,28 @@
+.button_sing_google {
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 8px;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.button_sing_google:hover {
+  background-color: #f5f5f5d2;
+  padding: 10px 12px;
+}
+
+.button_sing_google p {
+  text-align: center;
+  margin: 0;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  color: rgba(0, 0, 0, 0.54);;
+}
