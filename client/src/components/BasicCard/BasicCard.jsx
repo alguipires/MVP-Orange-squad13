@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import './BasicCard.css';
 
 const projectsData = [
     { id: 1, title: 'Projeto 1', description: 'Descrição do Projeto 1' },
