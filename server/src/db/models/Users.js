@@ -1,9 +1,11 @@
-const UserSchema = (sequelize, DataTypes) => { 
-  const UserTable = sequelize.define('Users', {
+const UserSchema = (sequelize, DataTypes) => {
+  const UserTable = sequelize.define(
+    'Users',
+    {
       id: {
-          type: DataTypes.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
       },
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
@@ -13,18 +15,22 @@ const UserSchema = (sequelize, DataTypes) => {
       avatar: DataTypes.STRING,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
-  }, {
+    },
+    {
       tableName: 'users',
       timestamps: false,
       underscored: true,
-  });
+    }
+  );
 
   UserTable.associate = (models) => {
-      UserTable.hasMany(models.Projects,
-          { foreignKey: 'userId', as: 'Projects' });
+    UserTable.hasMany(models.Projects, {
+      foreignKey: 'userId',
+      as: 'Projects',
+    });
   };
 
   return UserTable;
-}
+};
 
 module.exports = UserSchema;
