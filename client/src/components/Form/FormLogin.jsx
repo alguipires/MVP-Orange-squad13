@@ -57,7 +57,9 @@ const FormLogin = () => {
       navigate('/register');
   }   
 
-
+  const handleSubmit = () => {
+    navigate('/portifolio');
+  };
 
   return (
     <form  className='form_login'>
@@ -97,6 +99,7 @@ const FormLogin = () => {
             value='entrar'
             disabled={ isDisabled }  
             onClick={ handleSubmitLogin }
+            onClick={ handleSubmit }
           />
 
           <Button 

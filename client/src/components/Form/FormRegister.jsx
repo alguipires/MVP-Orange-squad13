@@ -38,6 +38,8 @@ const FormRegister = () => {
     inputValidation();
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -56,6 +58,7 @@ const FormRegister = () => {
       alert(isValidUser.message);
     }
   };
+
   return (
     <form  className='form_login'>
 
@@ -74,6 +77,7 @@ const FormRegister = () => {
         label="Sobrenome"
         className='input_lastname'
         onChange={ (e) => handleChange(e, setLastName)}
+
       />
     </div>
 
