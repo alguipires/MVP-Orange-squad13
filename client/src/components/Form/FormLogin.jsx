@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import validator from 'validator';
+import { checkUser } from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { FormControl, 
         IconButton, 
@@ -38,6 +39,23 @@ const FormLogin = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleSubmitLogin = async () => {
+    const isValidUser = await checkUser(email, password)
+
+    if (isValidUser?.token) {
+      // salvar o token em algum local
+      navigate('/portifolio');
+    }
+
+    if (isValidUser?.message) {
+      alert(isValidUser.message);
+    }
+  };
+
+  const handleSubmitRegister = async () => {
+      navigate('/register');
+  }   
 
   const handleSubmit = () => {
     navigate('/portifolio');
@@ -80,12 +98,14 @@ const FormLogin = () => {
             className='button_login'
             value='entrar'
             disabled={ isDisabled }  
+            onClick={ handleSubmitLogin }
             onClick={ handleSubmit }
           />
 
           <Button 
             className='button_register'
             value='Cadastre-se'
+            onClick={ handleSubmitRegister }
           />
 
         </FormControl>
