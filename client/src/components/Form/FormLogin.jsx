@@ -60,8 +60,6 @@ const FormLogin = () => {
       navigate('/register');
   }   
 
-
-
   return (
     <form  className='form_login'>
 
