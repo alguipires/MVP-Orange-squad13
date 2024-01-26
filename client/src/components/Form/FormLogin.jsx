@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import validator from 'validator';
 import { checkUser } from '../../api/axiosInstance';
@@ -12,12 +12,15 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './formLogin.css';
 import Button from '../Button/Button';
+import { saveUser } from '../../utils/sessionStorageLogin';
+import { AuthGoogleContext } from '../../contexts/authGoogle';
 
 const FormLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const { setTokenBackend } = useContext(AuthGoogleContext);
   const navigate = useNavigate();
 
 
@@ -44,8 +47,8 @@ const FormLogin = () => {
     const isValidUser = await checkUser(email, password)
 
     if (isValidUser?.token) {
-      // salvar o token em algum local
-      navigate('/portifolio');
+      saveUser('@AuthBackend:token', isValidUser.token);
+      setTokenBackend(isValidUser.token);
     }
 
     if (isValidUser?.message) {
