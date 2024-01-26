@@ -43,9 +43,6 @@ const FormRegister = () => {
     setState(value);
     inputValidation();
   };
-
-  const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
