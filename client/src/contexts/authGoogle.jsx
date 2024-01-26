@@ -10,19 +10,25 @@ export const AuthGoogleContext = createContext({});
 
 const AuthGoogleProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [tokenBackend, setTokenBackend] = useState(null);
 
   const auth = getAuth(app);
 
   useEffect(() => {
     const token = getSavedUser("@AuthFirebase:token");
     const user = getSavedUser("@AuthFirebase:user");
+    const tokenBackend = getSavedUser("@AuthBackend:token");
     
     if (Object.keys(token).length > 0 && Object.keys(user).length > 0) {
       setCurrentUser(user);
     }
+
+    if (Object.keys(tokenBackend).length > 0) {
+      setCurrentUser(tokenBackend);
+    }
     
-  }, []);
-  
+  }, [tokenBackend, token]);
 
   const signInGoogle = () => {
     signInWithPopup(auth, provider)
@@ -31,6 +37,7 @@ const AuthGoogleProvider = ({ children }) => {
         const token = credential.accessToken;
         const user = result.user;
         setCurrentUser(user);
+        setToken(token);
         saveUser("@AuthFirebase:token", token);
         saveUser("@AuthFirebase:user", user);
       }).catch((error) => {
@@ -50,7 +57,7 @@ const AuthGoogleProvider = ({ children }) => {
     }
 
     return (
-      <AuthGoogleContext.Provider value={ { signInGoogle, signed: !!currentUser, currentUser, signOutGoogle } }>
+      <AuthGoogleContext.Provider value={ { signInGoogle, signed: !!currentUser, currentUser, signOutGoogle, setTokenBackend}} >;
         { children }
       </AuthGoogleContext.Provider>
     );
