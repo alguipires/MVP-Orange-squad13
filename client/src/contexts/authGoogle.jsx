@@ -18,7 +18,6 @@ const AuthGoogleProvider = ({ children }) => {
     const user = getSavedUser("@AuthFirebase:user");
     
     if (Object.keys(token).length > 0 && Object.keys(user).length > 0) {
-      console.log("entrou no if");
       setCurrentUser(user);
     }
     
@@ -47,7 +46,7 @@ const AuthGoogleProvider = ({ children }) => {
       removeUser("@AuthFirebase:user");
       setCurrentUser(null);
 
-      Navigate('/');
+      return <Navigate to="/" />;
     }
 
     return (
