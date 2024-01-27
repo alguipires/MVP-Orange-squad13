@@ -4,7 +4,7 @@ const userValidation = require('../middlewares/createUserValidation');
 
 const router = express.Router();
 
-router.post('/', userValidation, createUserController.createUser);
+router.post('/user', userValidation, createUserController.createUser);
 //TODO fazer rotas get etc...
 
 module.exports = router;

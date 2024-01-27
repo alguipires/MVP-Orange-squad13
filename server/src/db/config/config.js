@@ -1,5 +1,5 @@
 const options = {
-  host: process.env.MYSQL_HOST || 'db',
+  host: process.env.MYSQL_HOST || 'localhost',
   port: process.env.MYSQL_PORT || '3306',
   database: process.env.MYSQL_DB_NAME || 'orange_portifolio_db',
   username: process.env.MYSQL_USER || 'root',

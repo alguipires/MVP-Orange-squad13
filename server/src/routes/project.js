@@ -1,14 +1,15 @@
 const express = require('express');
-const { ProjectController } = require('../controllers/projectController');
-// const { createUserController } = require('../controllers');
-// const userValidation = require('../middlewares/createUserValidation');
+const tokenValidation = require('../middlewares/tokenValidation');
+const projectController = require('../controllers/project.controller');
 
 const router = express.Router();
 
-routes.get('/project', ProjectController.getAllProjects); //TODO fazer rota pega tudo
-routes.get('/project/:id', ProjectController.getProjectsbyId); //TODO fazer rota listar por id
-routes.post('/project', ProjectController.createProjects); //TODO fazer rota cadastro
-// routes.put('/project/:id', ProjectController.); //TODO fazer rota de atualizar
-// routes.delete('/project/:id', LivroCProjectControllerontroller.); //TODO fazer rota deletar
+// routes.get('/project', ProjectController.getAllProjects);
+// routes.get('/project/:id', ProjectController.getProjectsbyId);
+router.post('/project', tokenValidation, projectController.createProjects);
+// routes.put('/project/:id', ProjectController.);
+// routes.delete('/project/:id', LivroCProjectControllerontroller.);
 
 module.exports = router;
+
+//TODO rotas get, etc,
