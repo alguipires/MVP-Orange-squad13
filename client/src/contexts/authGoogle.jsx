@@ -1,3 +1,4 @@
+import React from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../services/firebaseConfig";
 import { createContext, useEffect, useState } from "react";
@@ -42,9 +43,13 @@ const AuthGoogleProvider = ({ children }) => {
         saveUser("@AuthFirebase:user", user);
       }).catch((error) => {
         const errorCode = error.code;
+        console.log(errorCode);
         const errorMessage = error.message;
+        console.log(errorMessage);
         const email = error.customData.email;
+        console.log(email);
         const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(credential);
       });
     };
 
@@ -57,7 +62,7 @@ const AuthGoogleProvider = ({ children }) => {
     }
 
     return (
-      <AuthGoogleContext.Provider value={ { signInGoogle, signed: !!currentUser, currentUser, signOutGoogle, setTokenBackend}} >;
+      <AuthGoogleContext.Provider value={ { signInGoogle, signed: !!currentUser, currentUser, signOutGoogle, setTokenBackend}} >
         { children }
       </AuthGoogleContext.Provider>
     );
