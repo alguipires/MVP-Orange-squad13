@@ -10,10 +10,11 @@ import { FormControl,
         OutlinedInput } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import './formLogin.css';
-import './formRegister.css';
 import Button from '../Button/Button';
 import handleAlert from '../../utils/handleAlert';
+import useStore from '../../zustand/store';
+import './formLogin.css';
+import './formRegister.css';
 
 const FormRegister = () => {
   const [name, setName] = useState('');
@@ -24,8 +25,11 @@ const FormRegister = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState(false);
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [ updateHidden ] = useStore((state) => 
+  [ state.updateHidden ]
+  );
+  const navigate = useNavigate();
 
   const inputValidation = () => {
     const nameValidation = validator.isLength(name, { min: 1 });
@@ -79,13 +83,15 @@ const FormRegister = () => {
   const handleSubmitRegister = async () => {
     const isValidUser = await createNewUser(name, lastName, email, password)
 
+    
     if (isValidUser.token !== undefined && isValidUser.message === undefined) {
+      updateHidden(false);
       // salvar o token em algum local
       navigate('/');
     }
 
     if (isValidUser.message !== undefined) {
-      alert(isValidUser.message);
+      handleAlert(isValidUser.message);
     }
   };
 

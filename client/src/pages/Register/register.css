@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .container_register_form h1 {
@@ -14,6 +15,14 @@
   line-height: 40px;
   color: #224;
   margin-bottom: 30px;
+}
+
+.alert {
+  position: absolute;
+  width: 320px;
+  padding: 6px 16px;
+  top: 150px;
+
 }
 
 @media screen and (max-width: 768px) {
@@ -26,8 +35,14 @@
     height: 100%;
   }
 
+  .alert {
+    width: 312px;
+    padding: 6px 16px;
+    top: 60px;
+  }
+
   .container_register_form h1 {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
     font-size: 24px;
   }
   
