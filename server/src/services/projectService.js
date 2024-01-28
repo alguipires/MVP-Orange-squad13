@@ -1,5 +1,3 @@
-// const { createToken } = require('../auth/authfunction');
-// const { hashSync } = require('bcryptjs');
 const { Projects } = require('../db/models');
 
 const createProjectPostService = async (
@@ -10,13 +8,6 @@ const createProjectPostService = async (
   userId
 ) => {
   try {
-    // const project = await Project.findOne({ where: { email } });
-    // if (user) {
-    //   return { status: 'CONFLICT', data: { message: 'Email already exists' } };
-    // }
-
-    // const passwordHash = hashSync(password, 10);
-
     const newProject = await Projects.create({
       title,
       tag,
@@ -24,10 +15,6 @@ const createProjectPostService = async (
       description,
       userId,
     });
-
-    // const { password: _, ...userWithoutPassword } = newUser.dataValues;
-
-    // const token = createToken(userWithoutPassword);
 
     return { status: 'CREATED', data: { title } };
   } catch (error) {

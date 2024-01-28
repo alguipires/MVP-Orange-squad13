@@ -2,10 +2,7 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP.js');
 const projectService = require('../services/projectService.js');
 
 const createProjects = async (req, res) => {
-  console.log('ENTROU NO CONTROLLE CREATE PROJECT....', req.getPayload.id);
-
   const tokenUserId = req.getPayload.id;
-
   const { title, tag, url, description } = req.body;
   const { status, data } = await projectService.createProjectPostService(
     title,
@@ -15,20 +12,6 @@ const createProjects = async (req, res) => {
     tokenUserId
   );
   return res.status(mapStatusHTTP(status)).json(data);
-
-  // const newProject = req.body;
-  // try {
-  //   const searchUser = await user.findById(newProject.autor);
-  //   const projectCompleted = { ...newProject, autor: { ...searchUser._doc } };
-  //   const projectCreate = await project.create(projectCompleted);
-  //   res
-  //     .status(201)
-  //     .json({ message: 'criado com sucesso', project: projectCreate });
-  // } catch (error) {
-  //   res
-  //     .status(500)
-  //     .json({ message: `${error.message} - falha ao cadastrar Projeto` });
-  // }
 };
 
 module.exports = {

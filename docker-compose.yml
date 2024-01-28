@@ -26,27 +26,31 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
-      - APP_PORT=3001
-      - JWT_SECRET=jwt_secret
+      - APP_PORT=${API_PORT}
+      - JWT_SECRET=${JWT_SECRET}
       # Os dados abaixo se referem ao container `db`
       # Dica: Relembre aqui da comunicação interna entre containers
-      - DB_USER=root
-      - DB_PASS=123456
-      - DB_HOST=db
-      - DB_PORT=3306
+      # - DB_USER=${MYSQL_USER}
+      - DB_PASS=${MYSQL_PASSWORD}
+      - DB_HOST=${MYSQL_HOST}
+      - DB_PORT=${MYSQL_PORT}
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
       timeout: 10s
       retries: 5
   db:
-    image: mysql:8.0.32
+    image: mysql:5.7.32
     container_name: db
     ports:
       - 3306:3306
+    env_file:
+      - .env
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DB_NAME=orange_portifolio_db
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DB_NAME=${MYSQL_DB_NAME}
     restart: 'always'
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
@@ -54,3 +58,5 @@ services:
       retries: 5
     cap_add:
       - SYS_NICE # Deve omitir alertas menores
+
+      # TODO fazer carregamento do .env
