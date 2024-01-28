@@ -3,48 +3,72 @@ import TextField from '@mui/material/TextField';
 import validator from 'validator';
 import { createNewUser } from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from '@mui/material';
+import { FormControl, 
+        IconButton, 
+        InputAdornment, 
+        InputLabel, 
+        OutlinedInput } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './formLogin.css';
 import './formRegister.css';
 import Button from '../Button/Button';
+import handleAlert from '../../utils/handleAlert';
 
 const FormRegister = () => {
   const [name, setName] = useState('');
+  const [errorName, setErrorName] = useState(false);
   const [lastName, setLastName] = useState('');
+  const [errorLastName, setErrorLastName] = useState(false);
   const [email, setEmail] = useState('');
+  const [errorEmail, setErrorEmail] = useState(false);
   const [password, setPassword] = useState('');
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [errorPassword, setErrorPassword] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const inputValidation = () => {
     const nameValidation = validator.isLength(name, { min: 1 });
     const lastNameValidation = validator.isLength(lastName, { min: 1 });
     const emailValidation = validator.isEmail(email);
     const passwordValidation = validator.isLength(password, { min: 5 });
-    if (
-      emailValidation &&
-      passwordValidation &&
-      nameValidation &&
-      lastNameValidation
-    ) {
-      setIsDisabled(false);
+    
+    if (!name && !lastName && !email && !password) {
+      handleAlert('Preencha os campos');
+      return;
+    }
+
+    if (!nameValidation) {
+      handleAlert('Nome inválido, insira um nome com mais de 1 caractere');
+      setErrorName(true);
+    } else {
+      setErrorName(false);
+    }
+
+    if (!lastNameValidation) {
+      handleAlert('Sobrenome inválido, insira um sobrenome com mais de 1 caractere');
+      setErrorLastName(true);
+    } else {
+      setErrorLastName(false);
+    }
+
+    if (!emailValidation) {
+      handleAlert('Email inválido');
+      setErrorEmail(true);
+    } else {
+      setErrorEmail(false);
+    }
+    if (!passwordValidation) {
+      handleAlert('A senha deve possuir um mínimo de 5 caracteres');
+      setErrorPassword(true);
+    } else {
+      setErrorPassword(false);
     }
   };
 
   const handleChange = ({ target: { value } }, setState) => {
     setState(value);
-    inputValidation();
   };
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -52,77 +76,96 @@ const FormRegister = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = async () => {
-    const isValidUser = await createNewUser(name, lastName, email, password);
+  const handleSubmitRegister = async () => {
+    const isValidUser = await createNewUser(name, lastName, email, password)
 
-    if (isValidUser?.token) {
+    if (isValidUser.token !== undefined && isValidUser.message === undefined) {
       // salvar o token em algum local
       navigate('/');
     }
 
-    if (isValidUser?.message) {
+    if (isValidUser.message !== undefined) {
       alert(isValidUser.message);
     }
   };
 
-  return (
-    <form className="form_login">
-      <div className="container_name_and_lastname">
-        <TextField
-          required
-          id="outlined-required"
-          label="Nome"
-          className="input_name"
-          onChange={(e) => handleChange(e, setName)}
-        />
+  const handleButtonClick = () => {
+    inputValidation();
 
-        <TextField
-          required
-          id="outlined-required"
-          label="Sobrenome"
-          className="input_lastname"
-          onChange={(e) => handleChange(e, setLastName)}
-        />
-      </div>
+    const nameValidation = validator.isLength(name, { min: 1 });
+    const lastNameValidation = validator.isLength(lastName, { min: 1 });
+    const emailValidation = validator.isEmail(email); 
+    const passwordValidation = validator.isLength(password, { min: 5 });
+
+    if (emailValidation && passwordValidation && nameValidation && lastNameValidation) {
+      handleSubmitRegister();
+    }
+  };
+
+  return (
+    <form  className='form_login'>
+
+    <div className='container_name_and_lastname'>
+      <TextField
+        required
+        id="outlined-required"
+        label="Nome"
+        className='input_name'
+        onChange={ (e) => handleChange(e, setName)}
+        error={ errorName }
+      />
 
       <TextField
-        id="outlined-basic"
-        label="Email address"
-        variant="outlined"
-        className="input_email"
-        onChange={(e) => handleChange(e, setEmail)}
+        required
+        id="outlined-required"
+        label="Sobrenome"
+        className='input_lastname'
+        onChange={ (e) => handleChange(e, setLastName)}
+        error={ errorLastName }
       />
-      <FormControl style={{ marginTop: 25 }}>
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-        <OutlinedInput
-          id="outlined-adornment-password"
-          type={showPassword ? 'text' : 'password'}
-          className="input_password"
-          onChange={(e) => handleChange(e, setPassword)}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-          label="Password"
-        />
+    </div>
 
-        <Button
-          className="button_login"
-          value="cadastrar"
-          isDisabled={isDisabled}
-          onClick={handleSubmit}
-        />
-      </FormControl>
-    </form>
-  );
-};
+    <TextField 
+      id="outlined-basic" 
+      label="Email address" 
+      variant="outlined" 
+      className='input_email'
+      onChange={ (e) => handleChange(e, setEmail) }
+      error={ errorEmail }
+    />
+    <FormControl style={ { marginTop: 25 } }>
+
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            className='input_password'
+            error={ errorPassword }
+            onChange={ (e) => handleChange(e, setPassword) }
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+
+          <Button 
+            className='button_login'
+            value='cadastrar'
+            onClick={ handleButtonClick }
+          />
+
+        </FormControl>
+  </form>
+  )
+}
 
 export default FormRegister;
