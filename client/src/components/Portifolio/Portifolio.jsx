@@ -1,25 +1,36 @@
 import React from "react";
-import AppBar from '../AppBar/AppBar'
-import "./Portifolio.css"
-import AvatarIcon from '../AvatarIcon/index'
-import FormCardProjec from '../FormCardProject/FormCardProject'
-import { TextField } from "@mui/material";
-import BasicCard from '../BasicCard/BasicCard'
+import AppBar from '../AppBar/AppBar';
+import "./Portifolio.css";
+import AvatarIcon from '../AvatarIcon/index';
+import TextField from "../TextFild/TextFild";
+import BasicCard from '../BasicCard2/BasicCard2';
+import Profile from '../ProfileHome/ProfileHome';
+import Modal from '../Modal/Modal'
+
+
 
 function Portifolio(){
     return(
-        <section>
+        <section className="styles.portifolio_container">
            <div>
            <AppBar/>
            </div>
-           <div>
-           <AvatarIcon/>
+           <div class="profile">
+                <Profile/>
            </div>
-           <div name="meusProjetos">
+           <div class="meusProjetos">
             Meus Projetos
            </div>
-           <TextField/>
-           <FormCardProjec/>
+           <div class="buscarTags">
+            <TextField/>
+           </div>
+           <div>
+           <BasicCard/>
+           </div>
+           <div>
+            <Modal/>
+           </div>
+           
            
         </section>
         
