@@ -75,7 +75,7 @@ const FormLogin = () => {
       }
   
       if (isValidUser.message !== undefined) {
-        alert(isValidUser.message);
+        handleAlert(isValidUser.message);
       }
   };
 
