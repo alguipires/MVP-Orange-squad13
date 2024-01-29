@@ -2,6 +2,7 @@ import * as React from 'react';
 import './BasicCard.css';
 
 
+
 const projectsData = [
   { 
     id: 1, 
@@ -42,7 +43,7 @@ const projectsData = [
   // Adicione mais projetos conforme necessário
 ];
 
-const Projects = () => {
+const BasicCard = () => {
     return (
       <section class="BasicCards">
            {projectsData.map((project) => (
@@ -60,5 +61,8 @@ const Projects = () => {
       </section>
     );
   };
+
+
+
   
-  export default Projects;
+  export default BasicCard;
