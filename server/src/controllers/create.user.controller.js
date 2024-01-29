@@ -7,6 +7,14 @@ const createUser = async (req, res) => {
     return res.status(mapStatusHTTP(status)).json(data);
 }
 
+const createUserWithGoogle = async (req, res) => {
+    const token = req.headers.authorization;
+    const { firstName, lastName, email, password, avatar } = req.body;
+    const { status, data } = await createUserService.createUserWithGooglePostService(firstName, lastName, email, password, avatar, token)
+    return res.status(mapStatusHTTP(status)).json(data);
+}
+
 module.exports = {
-    createUser
+    createUser,
+    createUserWithGoogle
 }

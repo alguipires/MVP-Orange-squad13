@@ -28,6 +28,38 @@ const createPostService = async (firstName, lastName, email, password) => {
   }
 };
 
+const createUserWithGooglePostService = async ( firstName, lastName, email, password, avatar, token ) => {
+  if (!token) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized' } };
+  }
+
+  try {
+    const user = await Users.findOne({ where: { email } });
+    if (user) {
+      return { status: 'CONFLICT', data: { message: 'Email already exists' } };
+    }
+
+    const passwordHash = hashSync(password, 10);
+
+    const newUser = await Users.create({
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      avatar,
+    });
+
+    const { password: _, ...userWithoutPassword } = newUser.dataValues;
+
+    const token = createToken(userWithoutPassword);
+
+    return { status: 'CREATED', data: { token } };
+  } catch (error) {
+    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+  }
+};
+
 module.exports = {
   createPostService,
+  createUserWithGooglePostService,
 };

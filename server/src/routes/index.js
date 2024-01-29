@@ -3,5 +3,5 @@ const createUser = require('./create.user')
 
 module.exports = {
   login,
-  createUser
+  createUser,
 }
