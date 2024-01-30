@@ -30,7 +30,7 @@ function AvatarIcon(props) {
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={props.nameUser} src={props.uriImageUser} />
+          <Avatar alt={props.nameUser} src="https://avatars.githubusercontent.com/u/91149014?v=4"/>
         </IconButton>
       </Tooltip>
       <Menu
