@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -30,7 +30,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static" style={{ backgroundColor: '#113' }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="x1">
         <Toolbar disableGutters>
           {/* //buttons desktop */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
