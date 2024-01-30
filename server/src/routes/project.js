@@ -4,12 +4,20 @@ const projectController = require('../controllers/project.controller');
 
 const router = express.Router();
 
-// routes.get('/project', ProjectController.getAllProjects);
-// routes.get('/project/:id', ProjectController.getProjectsbyId);
+router.get('/project', tokenValidation, projectController.getAllProjects);
+router.get('/project/:id', tokenValidation, projectController.getProjectsbyId);
 router.post('/project', tokenValidation, projectController.createProjects);
-// routes.put('/project/:id', ProjectController.);
-// routes.delete('/project/:id', LivroCProjectControllerontroller.);
+router.put(
+  '/project/:id',
+  tokenValidation,
+  projectController.updateProjectById
+);
+router.delete(
+  '/project/:id',
+  tokenValidation,
+  projectController.deleteProjectById
+);
 
 module.exports = router;
 
-//TODO rotas get, etc,
+//TODO revisar rotas get, etc,

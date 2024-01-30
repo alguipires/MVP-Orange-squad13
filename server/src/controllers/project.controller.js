@@ -14,51 +14,50 @@ const createProjects = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
-module.exports = {
-  createProjects,
+const getProjectsbyId = async (req, res) => {
+  const projectId = req.params.id;
+  const { status, data } = await projectService.getProjectByIdService(
+    projectId
+  );
+  return res.status(mapStatusHTTP(status)).json(data);
 };
 
-/* class ProjectController {
-  static async getAllProjects(req, res) {
-    try {
-      const getProjects = await project.find({});
-      res.status(200).json(getProjects);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: `${error.message} - falha na requisição` });
-    }
-  }
+const getAllProjects = async (req, res) => {
+  const { status, data } = await projectService.getAllProjectService();
+  return res.status(mapStatusHTTP(status)).json(data);
+};
 
-  static async getProjectsbyId(req, res) {
-    try {
-      const id = req.params.id;
-      const searchProjects = await project.findById(id);
-      res.status(200).json(searchProjects);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: `${error.message} - falha na requisição do projeto` });
-    }
-  }
+const updateProjectById = async (req, res) => {
+  const { title, tag, url, description } = req.body;
+  const projectId = req.params.id;
+  const tokenUserId = req.getPayload.id;
 
-  static async createProjects(req, res) {
-    console.log('ENTROU NO CONTROLLE CREATE PROJECT....');
-    const newProject = req.body;
-    try {
-      const searchUser = await user.findById(newProject.autor);
-      const projectCompleted = { ...newProject, autor: { ...searchUser._doc } };
-      const projectCreate = await project.create(projectCompleted);
-      res
-        .status(201)
-        .json({ message: 'criado com sucesso', project: projectCreate });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: `${error.message} - falha ao cadastrar Projeto` });
-    }
-  }
-}
+  const { status, data } = await projectService.updateProjectByIdService(
+    title,
+    tag,
+    url,
+    description,
+    projectId,
+    tokenUserId
+  );
+  return res.status(mapStatusHTTP(status)).json(data);
+};
 
-export default ProjectController;
- */
+const deleteProjectById = async (req, res) => {
+  const projectId = req.params.id;
+  const tokenUserId = req.getPayload.id;
+
+  const { status, data } = await projectService.deleteProjectByIdService(
+    projectId,
+    tokenUserId
+  );
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
+module.exports = {
+  createProjects,
+  getProjectsbyId,
+  getAllProjects,
+  updateProjectById,
+  deleteProjectById,
+};
