@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import AuthGoogleProvider from './contexts/authGoogle';
 import AppRoutes from './routes/routes';
