@@ -1,3 +1,4 @@
+import * as React from 'react';
 import './Logo.css';
 
 // TODO verificar tamanho img

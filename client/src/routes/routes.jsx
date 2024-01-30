@@ -13,7 +13,7 @@ const AppRoutes = () => {
 
         <Route path="/register" exact element={<Register />} />
 
-        <Route path="portifolio" element={<PrivateRoutes />}>
+        <Route path="/portifolio" element={<PrivateRoutes />}>
           <Route path="/portifolio" element={<Portifolio />} />
         </Route>
       </Routes>
