@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+.portifolio_container{
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+  padding: 4em;
+}
+.meusProjetos{
+  padding-bottom: 10px;
+  padding-left: 20px;
+  font-size: 25px;
+  color: rgb(90, 83, 83);
+}
