@@ -1,7 +1,7 @@
 import React from "react";
 import AppBar from '../AppBar/AppBar';
 import "./Portifolio.css";
-import AvatarIcon from '../AvatarIcon/index';
+// import AvatarIcon from '../AvatarIcon/index';
 import TextField from "../TextFild/TextFild";
 import BasicCard2 from '../BasicCard2/BasicCard2';
 import Profile from '../ProfileHome/ProfileHome';
@@ -15,13 +15,13 @@ function Portifolio(){
            <div>
            <AppBar/>
            </div>
-           <div class="profile">
+           <div className="profile">
                 <Profile/>
            </div>
-           <div class="meusProjetos">
+           <div className="meusProjetos">
             Meus Projetos
            </div>
-           <div class="buscarTags">
+           <div className="buscarTags">
             <TextField/>
            </div>
            <div>

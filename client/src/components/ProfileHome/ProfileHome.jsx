@@ -1,12 +1,14 @@
 import React from "react";
-import AvatarIcon from "../AvatarIcon";
-import Button from '@mui/material/Button';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import './ProfileHome.css'
-import Avatar from '../AvatarIcon/index'
-//import Button from '../Button/Button'
+import Button from '../Button/Button'
+// import useStore from "../../zustand/store";
+
 
 export default function ProfileHome () {
+  // const [ openModal, updateOpenModal ] = useStore((state) => 
+  // [ state.openModal, state.updateOpenModal ]
+  // );
+
     return (
       <div className="container">
         <div className="content">
@@ -16,7 +18,11 @@ export default function ProfileHome () {
             <br></br>
             <p>Brasil</p>
             <br></br>
-            <button className="buttonProfileHome">Adicionar projeto</button>
+            <Button 
+              className="buttonProfileHome"
+              // onClick={updateOpenModal(!openModal)}
+              value="Adicionar projeto"  
+            />
           </div>
         </div>
       </div>

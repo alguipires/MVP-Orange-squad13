@@ -1,13 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
 import "./TexFild.css";
 
 
 export default function TextFieldDemo() {
 
   return (
-    <div class="buscarTags">
+    <div className="buscarTags">
         <TextField id="buscarTags"
           hiddenLabel
           label="Buscar Tags"
