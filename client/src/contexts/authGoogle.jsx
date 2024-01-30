@@ -56,6 +56,7 @@ const AuthGoogleProvider = ({ children }) => {
     const signOutGoogle = () => {
       removeUser("@AuthFirebase:token");
       removeUser("@AuthFirebase:user");
+      removeUser("@AuthBackend:token");
       setCurrentUser(null);
 
       return <Navigate to="/" />;

@@ -1,5 +1,5 @@
-import './Logo.css';
 import React from 'react';
+import './Logo.css';
 
 // TODO verificar tamanho img
 const Logo = () => {
