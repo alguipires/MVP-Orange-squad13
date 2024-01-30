@@ -17,7 +17,8 @@ COPY . .
 EXPOSE 3001
 
 # Iniciar o server
+# ENTRYPOINT [ "npm", "run" ]
+# CMD ["dev"]
 
-ENTRYPOINT [ "npm", "run" ]
-
-CMD ["dev"]
+# Iniciar o server e executar o script db:reset após o script dev
+CMD ["sh", "-c", "npm run db:reset && npm run dev"]

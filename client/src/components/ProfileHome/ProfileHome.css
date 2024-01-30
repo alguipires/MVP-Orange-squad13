@@ -1,49 +1,46 @@
-
-
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh; /* 100% da altura da viewport */
-    background-color: #ffff; /* Cor de fundo, ajuste conforme necessário */
+    height: 50vh; 
+    background-color: #ffff; 
   }
-  
+
   .content {
     display: flex;
     align-items: center;
   }
-  
+
   .content img {
-    width: 150px; /* Ajuste conforme necessário */
+    width: 150px; 
     height: auto;
-    margin-right: 20px; /* Espaçamento entre a imagem e o texto, ajuste conforme necessário */
+    margin-right: 20px; 
   }
-  
+
   .content p {
     margin: 0;
-    font-size: 16px; /* Ajuste conforme necessário */
-    color: #0B0C0D; /* Cor do texto, ajuste conforme necessário */
+    font-size: 16px;
+    color: #0B0C0D; 
   }
   .text-container {
     display: flex;
-    flex-direction: column; /* Textos empilhados verticalmente */
+    flex-direction: column; 
     padding: 30px;
   }
 
   .buttonProfileHome {
-    margin-top: 20px; /* Adicione margem acima do botão, ajuste conforme necessário */
-    padding: 10px 20px; /* Ajuste conforme necessário */
-    font-size: 16px; /* Ajuste conforme necessário */
-    background-color: #00000061; /* Cor de fundo do botão, ajuste conforme necessário */
-    color: white; /* Cor do texto do botão, ajuste conforme necessário */
+    margin-top: 20px; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    background-color: #00000061; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .buttonProfileHome:hover {
     background-color: #111133;
-    ; /* Cor de fundo do botão ao passar o mouse, ajuste conforme necessário */
+    ; 
   }
 
   .imgProfileHome{
