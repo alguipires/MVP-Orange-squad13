@@ -4,7 +4,6 @@ import './Portifolio.css';
 import AvatarIcon from '../AvatarIcon/index';
 import FormCardProjec from '../FormCardProject/FormCardProject';
 import { TextField } from '@mui/material';
-import BasicCard from '../BasicCard/BasicCard';
 
 function Portifolio() {
   return (
