@@ -1,0 +1,12 @@
+
+.container_box_modal {
+    display: inline-flex;
+    height: 336px;
+    padding: var(--none, 0px);
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--3, 24px);
+    flex-shrink: 0;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }

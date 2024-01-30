@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import {getSavedUser} from '../../utils/sessionStorageLogin'
 
 const settings = ['Perfil', 'Sair'];
 
@@ -19,12 +20,21 @@ function AvatarIcon(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const [ user, setUser] = useState({});
+
+    useEffect(() => {
+      const userSession = getSavedUser("@AuthFirebase:user")
+
+      if (userSession) {
+        setUser(userSession)
+      }
+    }, [])
 
   return (
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={props.nameUser} src="https://avatars.githubusercontent.com/u/91149014?v=4"/>
+          <Avatar alt={props.nameUser} src= {user.photoURL}/>
         </IconButton>
       </Tooltip>
       <Menu
