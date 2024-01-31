@@ -7,6 +7,6 @@ const useStore = create((set) => ({
   updateHidden: (hidden) => set(() => ({ isHidden: hidden })),
   updateOpenModal: (open) => set(() => ({ openModal: open })),
   updateCloseModal: (close) => set(() => ({ closeModal: close })),
-}))
+}));
 
 export default useStore;

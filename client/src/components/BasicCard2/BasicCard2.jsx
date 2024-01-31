@@ -1,13 +1,11 @@
-import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-import Modal from '../Modal/Modal'
-import useStore from "../../zustand/store";
-
-
+import React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import Modal from '../Modal/Modal';
+import useStore from '../../zustand/store';
 
 // const style = {
 //   position: "absolute",
@@ -24,12 +22,13 @@ import useStore from "../../zustand/store";
 // };
 
 export default function MultiActionAreaCard() {
-  const [ openModal,  updateOpenModal] = useStore((state) => 
-  [ state.openModal, state.updateOpenModal ]
-  );
+  const [openModal, updateOpenModal] = useStore((state) => [
+    state.openModal,
+    state.updateOpenModal,
+  ]);
 
   const abrirModal = () => {
-    updateOpenModal(!openModal)
+    updateOpenModal(!openModal);
   };
 
   // const handleUpload = (event) => {
@@ -39,16 +38,24 @@ export default function MultiActionAreaCard() {
 
   return (
     <div>
-      <Card sx={{ width: 389, height: 245, margin:3 }}>
-        <CardActionArea sx={{ maxWidth: 389, height: 245 }} onClick={abrirModal}>
+      <Card sx={{ width: 389, height: 245, margin: 3 }}>
+        <CardActionArea
+          sx={{ maxWidth: 389, height: 245 }}
+          onClick={abrirModal}
+        >
           <CardMedia
-            style={{ display: "block", margin: "auto", width: "20%", height: "auto" }}
+            style={{
+              display: 'block',
+              margin: 'auto',
+              width: '20%',
+              height: 'auto',
+            }}
             component="img"
             image="https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"
             alt="imagem do projeto"
           />
           <CardContent>
-            <Typography sx={{ fontSize: 12, textAlign: "center" }}>
+            <Typography sx={{ fontSize: 12, textAlign: 'center' }}>
               Adicione seu primeiro projeto
               <br />
               Compartilhe seu talento com milhares de pessoas
@@ -57,7 +64,7 @@ export default function MultiActionAreaCard() {
         </CardActionArea>
       </Card>
 
-      <Modal/>
+      <Modal />
     </div>
   );
 }
