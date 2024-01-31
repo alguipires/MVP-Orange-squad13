@@ -1,7 +1,6 @@
 const { createToken, getPayload } = require('../auth/authfunction');
 const { compare } = require('bcryptjs');
 const { Users } = require('../db/models');
-const firebaseConfig = require('../firebase/firebaseConfig');
 
 const loginPostService = async (email, password) => {
   try {
@@ -26,12 +25,6 @@ const loginPostService = async (email, password) => {
   }
 }
 
-const loginWhitGoogleService = async (token) => {
-  
-  return {status: 'SUCCESSFUL', data: payLoad}
-};
-
 module.exports = {
   loginPostService,
-  loginWhitGoogleService,
 }

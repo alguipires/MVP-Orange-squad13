@@ -59,7 +59,29 @@ const createUserWithGooglePostService = async ( firstName, lastName, email, pass
   }
 };
 
+const projectsWhitGoogleService = async (token, email) => {
+  if (!token) return { status: 'UNAUTHORIZED', data: { message: 'Invalid token' } };
+
+  if (!email) return { status: 'UNAUTHORIZED', data: { message: 'Email is required' } };
+
+  try {
+    const user = await Users.findOne({ where: { email } })
+  
+    if (!user) {
+      return { status: 'UNAUTHORIZED', data: { message: 'Invalid email' } };
+    }
+  
+    const projectsByUser = getProjectByIdService(user.id);
+      
+  
+    return {status: 'SUCCESSFUL', data: projectsByUser };
+  } catch (error) {
+    return { status: "INTERNAL_ERROR", data: { message: error.message } }
+  }
+};
+
 module.exports = {
   createPostService,
   createUserWithGooglePostService,
+  projectsWhitGoogleService,
 };
