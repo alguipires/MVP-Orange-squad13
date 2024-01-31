@@ -1,5 +1,3 @@
-
-
 .container {
     display: flex;
     justify-content: center;
@@ -7,22 +5,22 @@
     height: 50vh; 
     background-color: #ffff; 
   }
-  
+
   .content {
     display: flex;
     align-items: center;
   }
-  
+
   .content img {
     width: 150px; 
     height: auto;
     margin-right: 20px; 
   }
-  
+
   .content p {
     margin: 0;
-    font-size: 16px; 
-    color: var(--Neutral-Colors-Neutral-120, #303133);
+    font-size: 16px;
+    color: #0B0C0D; 
   }
   .text-container {
     display: flex;
@@ -31,18 +29,18 @@
   }
 
   .buttonProfileHome {
-    margin-top: 15px;
+    margin-top: 20px; 
     padding: 10px 20px; 
     font-size: 16px; 
     background-color: #00000061; 
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .buttonProfileHome:hover {
-    background-color: #F52;
+    background-color: #111133;
+    ; 
   }
 
   .imgProfileHome{
@@ -50,29 +48,4 @@
   }
   .avatarProfile{
     size: 500px;
-  }
-  @media screen and (max-width: 768px) {
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 50vh; 
-      background-color: #ffff; 
-      flex-direction: column;
-    }
-  
-    .content {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-    }
-    
-    .content img {
-      width: 100px; 
-      height: auto;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    
   }

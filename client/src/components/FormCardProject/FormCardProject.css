@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+.simplepaper{
+    width: 389px;
+    height: 258px;
+    top: 495px;
+    left: 32px;
+    padding: 68px, 59px, 68px, 60px;
+    border-radius: 4px;
+    align-items: end;
+}

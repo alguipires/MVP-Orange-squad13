@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {getSavedUser} from '../../utils/sessionStorageLogin'
+import { AuthGoogleContext } from '../../contexts/authGoogle';
 
-const settings = ['Perfil', 'Sair'];
+// const settings = ['Perfil', 'Sair'];
 
 // porops nameUser e uriImageUser
 function AvatarIcon(props) {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const { signOutGoogle } = useContext(AuthGoogleContext);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -20,21 +21,16 @@ function AvatarIcon(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const [ user, setUser] = useState({});
 
-    useEffect(() => {
-      const userSession = getSavedUser("@AuthFirebase:user")
-
-      if (userSession) {
-        setUser(userSession)
-      }
-    }, [])
+  const logout = () => {
+    signOutGoogle();
+  };
 
   return (
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={props.nameUser} src= {user.photoURL}/>
+          <Avatar alt={props.nameUser} src="https://avatars.githubusercontent.com/u/91149014?v=4"/>
         </IconButton>
       </Tooltip>
       <Menu
@@ -53,11 +49,15 @@ function AvatarIcon(props) {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography onClick={logout} textAlign="center">
+            Sair
+          </Typography>
+        </MenuItem>
+
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography textAlign="center">Perfil</Typography>
+        </MenuItem>
       </Menu>
     </>
   );
