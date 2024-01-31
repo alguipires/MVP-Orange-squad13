@@ -22,16 +22,13 @@ const createProjectPostService = async (
   }
 };
 
-const getProjectByIdService = async (id) => {
+const getProjectByIdService = async (userId) => {
   try {
-    const project = await Projects.findByPk(id);
-    if (project === null) {
-      console.log('Not found!');
-    } else {
-      console.log(project instanceof Projects); // true
-    }
-
-    return { status: 'SUCCESSFUL', data: { project } };
+    const projects = await Projects.findAll({ where: { userId } });
+    if (!projects) {
+      return { status: 'NOT_FOUND', data: [] };
+    } 
+    return { status: 'SUCCESSFUL', data: projects };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }

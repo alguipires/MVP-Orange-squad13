@@ -36,7 +36,7 @@ const createUserWithGooglePostService = async ( firstName, lastName, email, pass
   try {
     const user = await Users.findOne({ where: { email } });
     if (user) {
-      return { status: 'CONFLICT', data: { message: 'Email already exists' } };
+      return { status: 'CREATED', data: [] };
     }
 
     const passwordHash = hashSync(password, 10);
