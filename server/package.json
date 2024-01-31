@@ -19,7 +19,8 @@
     "express-async-errors": "3.1.1",
     "jsonwebtoken": "8.5.1",
     "mysql2": "2.3.3",
-    "sequelize": "6.25.5"
+    "sequelize": "6.25.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "eslint": "7.32.0",

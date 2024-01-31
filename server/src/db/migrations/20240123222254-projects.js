@@ -25,13 +25,23 @@ module.exports = {
         description: {
           allowNull: false,
           type: Sequelize.STRING,
-        },        
+        },
         user_id: {
           allowNull: false,
           type: Sequelize.INTEGER,
           references: {
             model: 'users',
             key: 'id',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
+        user_uuid: {
+          allowNull: false,
+          type: Sequelize.STRING,
+          references: {
+            model: 'users',
+            key: 'uuid',
           },
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
@@ -47,7 +57,7 @@ module.exports = {
           defaultValue: Sequelize.fn('now'),
         },
       }
-    )
+    );
   },
 
   down: async (queryInterface, Sequelize) => {

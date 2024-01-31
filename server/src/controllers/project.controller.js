@@ -1,5 +1,5 @@
 const mapStatusHTTP = require('../utils/mapStatusHTTP.js');
-const projectService = require('../services/projectService.js');
+const projectService = require('../services/project.service.js');
 
 const createProjects = async (req, res) => {
   const tokenUserId = req.getPayload.id;

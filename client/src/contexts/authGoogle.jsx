@@ -8,6 +8,7 @@ import {
   saveUser,
 } from '../utils/sessionStorageLogin';
 import { Navigate } from 'react-router-dom';
+import { loginWithGoogle } from '../api/axiosInstance';
 
 const provider = new GoogleAuthProvider();
 
@@ -42,6 +43,7 @@ const AuthGoogleProvider = ({ children }) => {
         const user = result.user;
         setCurrentUser(user);
         setToken(token);
+        loginWithGoogle(token, user);
         saveUser('@AuthFirebase:token', token);
         saveUser('@AuthFirebase:user', user);
       })

@@ -1,4 +1,4 @@
-const { createToken } = require('../auth/authfunction');
+const { createToken, getPayload } = require('../auth/authfunction');
 const { compare } = require('bcryptjs');
 const { Users } = require('../db/models');
 
@@ -26,5 +26,5 @@ const loginPostService = async (email, password) => {
 }
 
 module.exports = {
-  loginPostService
+  loginPostService,
 }

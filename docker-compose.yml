@@ -29,6 +29,8 @@ services:
     working_dir: /app-client
     # Os `healthcheck` devem garantir que a aplicação
     # está operacional, antes de liberar o container
+    volumes:
+      - ./client/src:/app-client/src
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
       timeout: 10s
@@ -46,7 +48,6 @@ services:
     # command: dev
     volumes: 
       - ./server/src:/app-server/src
-      - ./client/src:/app-client/src
     depends_on:
       db:
         condition: service_healthy
