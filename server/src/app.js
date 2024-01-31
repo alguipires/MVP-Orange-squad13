@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const routes = require('./routes/index.js');
+const { login, user, project } = require('./routes/index.js');
 
 const app = express();
 
@@ -13,6 +13,8 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-routes(app);
+app.use('/login', login);
+app.use('/user', user);
+app.use('/project', project);
 
 module.exports = app;
