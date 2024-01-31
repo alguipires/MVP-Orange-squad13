@@ -5,7 +5,10 @@ import Button from '../Button/Button';
 import useStore from '../../zustand/store';
 import { TextField } from '@mui/material';
 import './Modal.css'
-
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
 
 
 const style = {
@@ -24,16 +27,30 @@ const style = {
 
 export function FormToAddProject(){
   return(
-<Box
+    <Box
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
       noValidate
       autoComplete="off"
-      
     >
-      
+    <Card sx={{ width: 389, height: 258, }}>
+      <CardActionArea sx={{ maxWidth: 389, height: 258 }} >
+        <CardMedia
+           style={{ display: "block", margin: "auto", width: "10%", height: "auto", }}
+           component="img"
+           image="https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"
+           alt="imagem do projeto"
+        />
+          <Typography sx={{ fontSize: 12, textAlign: "center" }}>
+          <input type="file"></input>
+              Compartilhe seu talento com milhares de pessoas
+          </Typography>
+      </CardActionArea>
+    </Card>
+    <p>Visualizar publicação</p>
+    
       <div className='container_box_modal'>
         <TextField
           id="outlined-multiline-flexible"
@@ -42,10 +59,10 @@ export function FormToAddProject(){
           maxRows={4}
         />
         <TextField
-        id="outlined-multiline-flexible"
-        label="Tags"
-        multiline
-        maxRows={4}
+          id="outlined-multiline-flexible"
+          label="Tags"
+          multiline
+          maxRows={4}
         />
         <TextField
           id="outlined-textarea"
@@ -58,10 +75,8 @@ export function FormToAddProject(){
           label="Descrição"
           multiline
           rows={4}
-          defaultValue="Default Value"
         />
       </div>
-     
     </Box>
   )
 }
@@ -101,19 +116,14 @@ export default function NestedModal() {
       >
         <>
           <Box sx={{ ...style, width: 800 }}>
-            <h1 >Adicionar Projeto</h1>
-
-
-            
+            <h1>Adicionar Projeto</h1>
+            <p>Selecione o conteúdo que você deseja fazer upload</p>
             <FormToAddProject/>
-  
-
-            <Button 
+            <Button className= "button_salvar"
               value="salvar"
               onClick={ closeModalFunc }
             />
-
-            <Button 
+            <Button className="button_cancelar"
               value="cancelar"
               onClick={ closeModalFunc }
           />

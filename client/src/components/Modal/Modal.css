@@ -1,12 +1,46 @@
 
 .container_box_modal {
-    display: inline-flex;
-    height: 336px;
-    padding: var(--none, 0px);
+    display: flex;
+    height: 36px;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: var(--3, 24px);
     flex-shrink: 0;
     flex-direction: column;
     margin-bottom: 10px;
   }
+
+.button_salvar{
+  color: white;
+  width: 100px;
+  height: 42px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 15px;
+  background-color: #F52;
+  padding: 8px 22px;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.button_salvar:hover {
+  background-color: #F52;
+  opacity: 0.8;
+}
+.button_cancelar{
+  color: white;
+  width: 120px;
+  height: 42px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 15px;
+  color: #818388;
+  margin-left: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}

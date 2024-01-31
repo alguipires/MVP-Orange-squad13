@@ -39,10 +39,10 @@ export default function MultiActionAreaCard() {
 
   return (
     <div>
-      <Card sx={{ width: 389, height: 245, margin:3 }}>
-        <CardActionArea sx={{ maxWidth: 389, height: 245 }} onClick={abrirModal}>
+      <Card sx={{ width: 389, height: 258, margin:3 }}>
+        <CardActionArea sx={{ maxWidth: 389, height: 258 }} onClick={abrirModal}>
           <CardMedia
-            style={{ display: "block", margin: "auto", width: "20%", height: "auto" }}
+            style={{ display: "block", margin: "auto", width: "10%", height: "auto", }}
             component="img"
             image="https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"
             alt="imagem do projeto"
