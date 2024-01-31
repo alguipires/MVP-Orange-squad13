@@ -1,5 +1,42 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.buscarTags {
+  width: 450px;
+  padding: 10px;
+}
+
+.buscarTags .MuiTextField-root {
+  width: 100%;
+}
+
+.buscarTags .MuiOutlinedInput-input {
+  padding: 10px;
+}
+
+.buscarTags .MuiInputLabel-root {
+  background-color: #ffffff; 
+ }
+
+.buscarTags .MuiOutlinedInput-notchedOutline {
+  border-color: #ccc;
+}
+
+@media only screen and (max-width: 600px) {
+  .buscarTags {
+    width: 450px;
   }
+  
+  .buscarTags .MuiTextField-root {
+    width: 100%;
+  }
+  
+  .buscarTags .MuiOutlinedInput-input {
+    padding: 10px;
+  }
+  
+  .buscarTags .MuiInputLabel-root {
+    background-color: #ffffff; 
+   }
+  
+  .buscarTags .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+  }
+}
