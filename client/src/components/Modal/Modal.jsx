@@ -7,7 +7,7 @@ import { TextField } from '@mui/material';
 import './Modal.css'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
 
@@ -27,57 +27,61 @@ const style = {
 
 export function FormToAddProject(){
   return(
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-    <Card sx={{ width: 389, height: 258, }}>
-      <CardActionArea sx={{ maxWidth: 389, height: 258 }} >
-        <CardMedia
-           style={{ display: "block", margin: "auto", width: "10%", height: "auto", }}
-           component="img"
-           image="https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"
-           alt="imagem do projeto"
-        />
-          <Typography sx={{ fontSize: 12, textAlign: "center" }}>
-          <input type="file"></input>
-              Compartilhe seu talento com milhares de pessoas
-          </Typography>
-      </CardActionArea>
-    </Card>
-    <p>Visualizar publicação</p>
+    <section className='container_modal_project' >
+    <div>
+
+      <p className='subtitulo'>Selecione o conteúdo que você deseja fazer upload</p>
+      <Card sx={{ width: 389, height: 258, }}>
+        <CardActionArea sx={{ maxWidth: 389, height: 258, display: 'flex', flexDirection: 'column', backgroundColor: '#E6E9F2' }} >
+          <CardMedia
+            style={{ display: "block", marginBottom: "50px", width: "10%", height: "auto", position: 'absolute'}}
+            component="img"
+            image="https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"
+            alt="imagem do projeto"
+            />
+            
+            
+            <p style={{ position: 'relative', top: 30}}>Compartilhe seu talento com milhares de pessoas</p>  
+        </CardActionArea>
+      </Card>
+      <a  href="visualização " className='visualizar'>Visualizar Publicação</a>
+    
+    </div>
     
       <div className='container_box_modal'>
         <TextField
           id="outlined-multiline-flexible"
+          className='inputs_box_modal'
           label="Título"
-          multiline
-          maxRows={4}
+          variant='outlined'
+          style={{ width: '324px', marginBottom: '7px', marginLeft: '15px' }}
         />
         <TextField
           id="outlined-multiline-flexible"
+          className='inputs_box_modal'
           label="Tags"
-          multiline
-          maxRows={4}
+          variant='outlined'
+          style={{ width: '324px', marginBottom: '7px', marginLeft: '15px' }}
         />
         <TextField
           id="outlined-textarea"
+          className='inputs_box_modal'
           label="Links"
           placeholder="Placeholder"
-          multiline
+          variant='outlined'
+          style={{ width: '324px', marginBottom: '7px', marginLeft: '15px' }}
         />
         <TextField
           id="outlined-multiline-static"
+          className='inputs_box_modal input_description'
           label="Descrição"
           multiline
-          rows={4}
+          rows={3}
+          style={{ width: '324px', height: "35px", marginLeft: '15px'}}
         />
       </div>
-    </Box>
+
+    </section>
   )
 }
 
@@ -116,8 +120,9 @@ export default function NestedModal() {
       >
         <>
           <Box sx={{ ...style, width: 800 }}>
-            <h1>Adicionar Projeto</h1>
-            <p>Selecione o conteúdo que você deseja fazer upload</p>
+            <header >
+              <h5 className='titulo'>Adicionar Projeto</h5>
+            </header>
             <FormToAddProject/>
             <Button className= "button_salvar"
               value="salvar"

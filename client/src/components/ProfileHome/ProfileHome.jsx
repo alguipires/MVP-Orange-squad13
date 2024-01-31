@@ -2,18 +2,13 @@ import React, { useEffect, useState } from "react";
 import './ProfileHome.css'
 import Button from '../Button/Button'
 import {getSavedUser} from '../../utils/sessionStorageLogin'
-import Modal from '../Modal/Modal'
-import { FormToAddProject } from '../Modal/Modal'
+import NestedModal from '../Modal/Modal'
+//import { FormToAddProject } from '../Modal/Modal'
 //import useStore from "../../zustand/store";
 
 
 export default function ProfileHome () {
-  const handleClick = () => {
-    // Chama a função FormToAddProject
-    FormToAddProject();
-    console.log("erro")
-  };
-
+ 
     const [ user, setUser] = useState({});
     const [ userCountry , setUserCoutry] = useState('');
 
@@ -45,7 +40,7 @@ export default function ProfileHome () {
             <br></br>
             <Button 
               className="buttonProfileHome"
-              onClick={handleClick}
+              onClick={NestedModal}
               value="Adicionar projeto"  
             />
           </div>

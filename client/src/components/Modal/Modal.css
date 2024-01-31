@@ -1,14 +1,17 @@
+.container_modal_project {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+}
 
 .container_box_modal {
     display: flex;
-    height: 36px;
+    height: 100%;
+    margin-top: 15px;
     justify-content: center;
-    align-items: flex-end;
-    gap: var(--3, 24px);
-    flex-shrink: 0;
+    align-items: center;
     flex-direction: column;
-    margin-bottom: 10px;
-  }
+}
 
 .button_salvar{
   color: white;
@@ -17,12 +20,10 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
   font-size: 15px;
   background-color: #F52;
   padding: 8px 22px;
-  justify-content: center;
-  align-items: center;
+
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -35,12 +36,77 @@
   width: 120px;
   height: 42px;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
   font-size: 15px;
   color: #818388;
   margin-left: 10px;
   text-transform: uppercase;
   cursor: pointer;
+}
+.button_cancelar:hover {
+  background-color: white;
+  opacity: 0.8;
+}
+.titulo{
+  width: 826;
+  color: var(--Neutral-Colors-Neutral-110, #515255);
+/* [Orange P] Style Guide/H5 */
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 100% */
+}
+.subtitulo{
+  width: 389px;
+align-self: stretch;
+color: var(--Neutral-Colors-Neutral-110, #515255);
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 100% */
+letter-spacing: 0.15px;
+margin-top: 15px;
+align-items: center;
+margin-bottom: 15px;
+}
+.visualizar{
+  text-decoration: none;
+  color: #515255;
+  margin-top: 15px;
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+@media screen and (max-width: 768px) {
+  .container_box_modal {
+    display: flex;
+    height: 10%;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+  .container_modal_project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+.titulo{
+  align-items:center ;
+  justify-content: center;
+  display: flex;
+}
+.button_cancelar{
+
+
+}
+.visualizar{
+  
 }
