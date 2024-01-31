@@ -5,7 +5,8 @@ const createProjectPostService = async (
   tag,
   url,
   description,
-  userId
+  userId,
+  userUuid
 ) => {
   try {
     const newProject = await Projects.create({
@@ -14,6 +15,7 @@ const createProjectPostService = async (
       url,
       description,
       userId,
+      userUuid,
     });
 
     return { status: 'CREATED', data: { title } };
@@ -22,9 +24,21 @@ const createProjectPostService = async (
   }
 };
 
-const getProjectByIdService = async (userId) => {
+const getProjectByIdService = async (userUuid) => {
   try {
-    const projects = await Projects.findAll({ where: { userId } });
+    const projects = await Projects.findAll({ where: { userUuid } });
+    if (!projects) {
+      return { status: 'NOT_FOUND', data: [] };
+    } 
+    return { status: 'SUCCESSFUL', data: projects };
+  } catch (error) {
+    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+  }
+};
+
+const getProjectByGoogleId = async (userUuid) => {
+  try {
+    const projects = await Projects.findAll({ where: { userUuid } });
     if (!projects) {
       return { status: 'NOT_FOUND', data: [] };
     } 
@@ -98,6 +112,7 @@ const deleteProjectByIdService = async (projectId, userId) => {
 module.exports = {
   createProjectPostService,
   getProjectByIdService,
+  getProjectByGoogleId,
   getAllProjectService,
   updateProjectByIdService,
   deleteProjectByIdService,

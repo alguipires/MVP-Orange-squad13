@@ -10,6 +10,12 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
+        uuid: {
+          allowNull: false,
+          type: Sequelize.STRING,
+          unique: true,
+          foreignKey: true,
+        },
         first_name: {
           allowNull: false,
           type: Sequelize.STRING,

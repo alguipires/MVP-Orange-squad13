@@ -19,6 +19,11 @@ const ProjectsSchema = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       foreignKey: true,
     },
+    userUuid: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      foreignKey: true,
+    },
     url: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -35,9 +40,18 @@ const ProjectsSchema = (sequelize, DataTypes) => {
     underscored: true,
   });
 
+  // Projects.associate = (models) => {
+  //   Projects.belongsTo(models.Users, {
+  //     foreignKey: 'userId',
+  //     as: 'Users',
+  //   });
+  // };
+
   Projects.associate = (models) => {
-    Projects.belongsTo(models.Users,
-      { foreignKey: 'userId', as: 'users' });
+    Projects.belongsTo(models.Users, {
+      foreignKey: 'userUuid',
+      as: 'Users',
+    });
   };
 
   return Projects;

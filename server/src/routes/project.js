@@ -4,16 +4,16 @@ const projectController = require('../controllers/project.controller');
 
 const router = express.Router();
 
-router.get('/project', tokenValidation, projectController.getAllProjects);
-router.get('/project/:id', tokenValidation, projectController.getProjectsbyId);
-router.post('/project', tokenValidation, projectController.createProjects);
+router.get('/', projectController.getAllProjects);
+router.get('/:id', tokenValidation, projectController.getProjectsbyId);
+router.post('/', tokenValidation, projectController.createProjects);
 router.put(
-  '/project/:id',
+  '/:id',
   tokenValidation,
   projectController.updateProjectById
 );
 router.delete(
-  '/project/:id',
+  '/:id',
   tokenValidation,
   projectController.deleteProjectById
 );

@@ -16,15 +16,15 @@ const createUserWithGoogle = async (req, res) => {
 }
 
 const getProjectsByUserId = async (req, res) => {
-    const userId = req.getPayload.id;
-    const { status, data } = await getProjectByIdService(userId);
+    const userUuid = req.getPayload.uuid;
+    const { status, data } = await userService.projectWhitIdService(userUuid);
     return res.status(mapStatusHTTP(status)).json(data);
 }
 
 const getProjectsByUserIdGoogle = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
-    const { email } = req.body;
-    const { status, data } = await userService.projectsWhitGoogleService(token, email);
+    const { uuid } = req.params;
+    const { status, data } = await userService.projectsWhitGoogleService(token, uuid);
     return res.status(mapStatusHTTP(status)).json(data);
 }
 

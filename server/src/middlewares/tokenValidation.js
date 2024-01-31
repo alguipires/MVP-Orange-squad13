@@ -8,15 +8,19 @@ const tokenVerify = (req, res, next) => {
 
   const token = authorization.split(' ')[1];
 
-  const validate = verifyToken.getPayload(token);
-
-  if (!validate) {
+  try {
+    const validate = verifyToken.getPayload(token);
+  
+    if (!validate) {
+      return res.status(401).json({ message: 'Token must be a valid token' });
+    }
+  
+    req.getPayload = validate;
+  
+    next();
+  } catch (error) {
     return res.status(401).json({ message: 'Token must be a valid token' });
   }
-
-  req.getPayload = validate;
-
-  next();
 };
 
 module.exports = tokenVerify;

@@ -12,7 +12,7 @@ router.post(
   [...userValidation, ...userGoogleValidation],
   createUserController.createUserWithGoogle
 );
-router.get('/projects', tokenValidation, createUserController.getProjectsByUserId);
-router.get('/projects', tokenValidation, createUserController.getProjectsByUserIdGoogle);
+router.get('/', tokenValidation, createUserController.getProjectsByUserId);
+router.get('/google/:uuid', createUserController.getProjectsByUserIdGoogle);
 
 module.exports = router;
