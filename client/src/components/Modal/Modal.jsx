@@ -7,8 +7,8 @@ import { TextField } from '@mui/material';
 import './Modal.css'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-// import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+//import BotaoSalvarModal from '../BotaoSalvarModal/BotaoSalvarModal';
 
 
 const style = {
@@ -24,28 +24,27 @@ const style = {
   px: 4,
   pb: 3,
 };
+var closeModalFunc=null;
 
-export function FormToAddProject(){
+export function FormToAddProject({opened}){
   const inputRef = useRef(null);
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
+  const [ openModal, closeModal, updateOpenModal, updateCloseModal] = useStore((state) => 
+  [ state.openModal, state.closeModal, state.updateOpenModal, state.updateCloseModal ]
+  );
 
+  console.log(openModal, closeModal)
+  closeModalFunc = () => {
+    updateOpenModal(!opened)
+    updateCloseModal(!closeModal)
+  }
 
-  /*const handleFileChange = (event) => {
-    // Lógica para lidar com o arquivo selecionado
-    const arquivo = event.target.files[0];
-    console.log('Arquivo selecionado:', arquivo);
-
-    // Aqui você pode adicionar lógica para processar a imagem
-  };*/
   const handleCardClick = () => {
-    // Ao clicar no CardActionArea, acionar o clique no input de arquivo
     inputRef.current.click();
   };
   const handleFileChange = (event) => {
-    // Lógica para lidar com o arquivo selecionado
     const arquivo = event.target.files[0];
     
-    // Atualizar o estado com o URL da imagem selecionada
     if (arquivo) {
       const urlImagem = URL.createObjectURL(arquivo);
       setImagemSelecionada(urlImagem);
@@ -55,7 +54,9 @@ export function FormToAddProject(){
   return(
     <section className='container_modal_project' >
     <div>
-
+    <header >
+        <h5 className='titulo'>Adicionar Projeto</h5>
+    </header>
       <p className='subtitulo'>Selecione o conteúdo que você deseja fazer upload</p>
       <Card sx={{ width: 389, height: 258, }}>
         <CardActionArea sx={{ maxWidth: 389, height: 258, display: 'flex', flexDirection: 'column', backgroundColor: '#E6E9F2' }} onClick={handleCardClick}>
@@ -83,13 +84,19 @@ export function FormToAddProject(){
             image={imagemSelecionada || "https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"}
             alt="imagem do projeto"
           />
-            
-            
-             
+
         </CardActionArea>
       </Card>
       <a  href="visualização " className='visualizar'>Visualizar Publicação</a>
-    
+
+      <Button className= "button_salvar"
+        value="salvar"
+        
+      />
+      <Button className="button_cancelar"
+        value="cancelar"
+        onClick={ closeModalFunc }
+      />
     </div>
     
       <div className='container_box_modal'>
@@ -129,32 +136,15 @@ export function FormToAddProject(){
   )
 }
 
-
-
 export default function NestedModal() {
-  const [ openModal, closeModal, updateOpenModal, updateCloseModal] = useStore((state) => 
+  const [ openModal, closeModal] = useStore((state) => 
   [ state.openModal, state.closeModal, state.updateOpenModal, state.updateCloseModal ]
   );
 
   console.log(openModal, closeModal)
 
-  const closeModalFunc = () => {
-    updateOpenModal(!openModal)
-    updateCloseModal(!closeModal)
-  }
-
-  // const botaoStyle = {
-  //   display: 'grid',
-  //   placeItems: 'center',
-  // };
-
-  // const textoStyle = {
-  //   marginBottom: 2, // Ajuste conforme necessário para espaçamento entre os textos
-  // };
-
   return (
     <div>
-
       <Modal
         open={ openModal }
         onClose={ closeModalFunc }
@@ -164,18 +154,8 @@ export default function NestedModal() {
       >
         <>
           <Box sx={{ ...style, width: 800 }}>
-            <header >
-              <h5 className='titulo'>Adicionar Projeto</h5>
-            </header>
-            <FormToAddProject/>
-            <Button className= "button_salvar"
-              value="salvar"
-              onClick={ closeModalFunc }
-            />
-            <Button className="button_cancelar"
-              value="cancelar"
-              onClick={ closeModalFunc }
-          />
+            <FormToAddProject opened={true}/>
+            
           </Box>
         </>
       </Modal>

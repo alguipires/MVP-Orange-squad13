@@ -1,0 +1,14 @@
+.buttonModal {
+    margin-top: 15px;
+    padding: 10px 20px; 
+    font-size: 16px; 
+    background-color: #00000061; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .buttonModal:hover {
+    background-color: #F52;
+  }

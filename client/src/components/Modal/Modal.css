@@ -7,7 +7,7 @@
 .container_box_modal {
     display: flex;
     height: 100%;
-    margin-top: 15px;
+    margin-top: 42px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -83,7 +83,7 @@ margin-bottom: 15px;
   .container_box_modal {
     justify-content: center;
     flex-direction: column;
-
+  
 }
 
   .container_modal_project {

@@ -67,10 +67,11 @@ export default function BasicCard({url, tag, createdAt}) {
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                width: isSmallScreen ? '10%' : '20%',
+                width: isSmallScreen ? '10%' : '46px',
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: 'auto',
+                marginLeft: '45%'
               }}
               component="img"
               image={isProject ? url : noProjectImage}

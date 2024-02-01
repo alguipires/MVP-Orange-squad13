@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import './ProfileHome.css'
-import Button from '../Button/Button'
 import {getSavedUser} from '../../utils/sessionStorageLogin'
-import NestedModal from '../Modal/Modal'
+import BotaoSalvarModal from "../BotaoSalvarModal/BotaoSalvarModal";
+//import { Button } from "@mui/material";
+//import Button from "../Button/Button";
+//import NestedModal from '../Modal/Modal'
 //import { FormToAddProject } from '../Modal/Modal'
 //import useStore from "../../zustand/store";
 
@@ -38,11 +40,8 @@ export default function ProfileHome () {
             <br></br>
             <p>{userCountry}</p>
             <br></br>
-            <Button 
-              className="buttonProfileHome"
-              onClick={NestedModal}
-              value="Adicionar projeto"  
-            />
+            <BotaoSalvarModal/>
+            
           </div>
         </div>
       </div>
