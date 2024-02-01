@@ -16,9 +16,9 @@ function Portifolio(){
 
   useEffect(() => {
     const loadingProjects = async () => {
-    const tokenGoogle = getSavedUser('@AuthFirebase:token');
-    const tokenBackend = getSavedUser('@AuthBackend:token');
-    const user = getSavedUser('@AuthFirebase:user');
+    const tokenGoogle = await getSavedUser('@AuthFirebase:token');
+    const tokenBackend = await getSavedUser('@AuthBackend:token');
+    const user = await getSavedUser('@AuthFirebase:user');
 
     if (Object.keys(tokenGoogle).length !== 0 && Object.keys(user).length !== 0) {
       const projectsLoginGoogle = await projectWhitGoogle(tokenGoogle, user.uid)
