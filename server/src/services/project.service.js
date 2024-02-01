@@ -1,4 +1,6 @@
+const { url } = require('inspector');
 const { Projects } = require('../db/models');
+const fs = require('fs'); //import filesystem
 
 const createProjectPostService = async (
   title,
@@ -18,9 +20,7 @@ const createProjectPostService = async (
       userUuid,
     });
 
-    // console.log('log Novo projeto...', newProject);
-
-    return { status: 'CREATED', data: { title } };
+    return { status: 'SUCCESSFUL', data: newProject };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }
@@ -52,11 +52,11 @@ const getProjectByGoogleId = async (userUuid) => {
 
 const getAllProjectService = async () => {
   try {
-    const project = await Projects.findAll(); // trocar {}
-    if (!project) {
+    const projects = await Projects.findAll(); // trocar {}
+    if (!projects) {
       return { status: 'NOT_FOUND', data: [] };
-    } 
-    return { status: 'SUCCESSFUL', data: project };
+    }
+    return { status: 'SUCCESSFUL', data: projects };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }
@@ -89,20 +89,42 @@ const updateProjectByIdService = async (
   }
 };
 
-const deleteProjectByIdService = async (projectId, userId) => {
+const deleteProjectByIdService = async (projectId, getPayload) => {
   try {
-    const existingProject = await Projects.destroy(
-      { where: { id: projectId, userId: userId } } // Condição de busca
-    );
+    const project = await Projects.findOne({ where: { id: projectId } });
+    console.log('projetos service....', project);
 
-    if (existingProject == 0) {
+    // Valida se existe o projeto
+    if (!project) {
       return {
         status: 'NOT_FOUND_2',
         data: { message: 'Projeto não encontrado' },
       };
     }
 
-    return { status: 'SUCCESSFUL', data: existingProject };
+    // Valida se o usuário ou a função correspondem
+    if (
+      project.userUuid === getPayload.userUuid ||
+      getPayload.role === 'admin'
+    ) {
+      console.log('deletissss....');
+
+      // Remove arquivo local assíncrono
+      fs.unlinkSync(project.url);
+
+      // Remove do banco de dados
+      await Projects.destroy({ where: { id: projectId } });
+
+      return {
+        status: 'SUCCESSFUL',
+        data: { message: 'Projeto excluído com sucesso' },
+      };
+    } else {
+      return {
+        status: 'UNAUTHORIZED',
+        data: { message: 'Usuário não autorizado a excluir este projeto' },
+      };
+    }
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }

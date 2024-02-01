@@ -5,18 +5,10 @@ const createProjects = async (req, res) => {
   const userId = req.getPayload.id;
   const userUuid = req.getPayload.uuid;
 
-  const { title, tag, url, description } = req.body;
+  //pegando o fieldname "url" e extraindo o file e path
+  const url = req.file.path;
 
-  /*   console.log(
-    title,
-    tag,
-    url,
-    description,
-    'userid: ',
-    userId,
-    '  uuid: ',
-    userUuid
-  ); */
+  const { title, tag, description } = req.body;
 
   const { status, data } = await projectService.createProjectPostService(
     title,
@@ -59,12 +51,12 @@ const updateProjectById = async (req, res) => {
 };
 
 const deleteProjectById = async (req, res) => {
+  const getPayload = req.getPayload;
   const projectId = req.params.id;
-  const tokenUserId = req.getPayload.id;
 
   const { status, data } = await projectService.deleteProjectByIdService(
     projectId,
-    tokenUserId
+    getPayload
   );
   return res.status(mapStatusHTTP(status)).json(data);
 };
