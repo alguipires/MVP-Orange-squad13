@@ -2,14 +2,29 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP.js');
 const projectService = require('../services/project.service.js');
 
 const createProjects = async (req, res) => {
-  const tokenUserId = req.getPayload.id;
+  const userId = req.getPayload.id;
+  const userUuid = req.getPayload.uuid;
+
   const { title, tag, url, description } = req.body;
+
+  /*   console.log(
+    title,
+    tag,
+    url,
+    description,
+    'userid: ',
+    userId,
+    '  uuid: ',
+    userUuid
+  ); */
+
   const { status, data } = await projectService.createProjectPostService(
     title,
     tag,
     url,
     description,
-    tokenUserId
+    userId,
+    userUuid
   );
   return res.status(mapStatusHTTP(status)).json(data);
 };

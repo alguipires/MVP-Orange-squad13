@@ -18,6 +18,8 @@ const createProjectPostService = async (
       userUuid,
     });
 
+    // console.log('log Novo projeto...', newProject);
+
     return { status: 'CREATED', data: { title } };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
@@ -29,7 +31,7 @@ const getProjectByIdService = async (userUuid) => {
     const projects = await Projects.findAll({ where: { userUuid } });
     if (!projects) {
       return { status: 'NOT_FOUND', data: [] };
-    } 
+    }
     return { status: 'SUCCESSFUL', data: projects };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
@@ -41,7 +43,7 @@ const getProjectByGoogleId = async (userUuid) => {
     const projects = await Projects.findAll({ where: { userUuid } });
     if (!projects) {
       return { status: 'NOT_FOUND', data: [] };
-    } 
+    }
     return { status: 'SUCCESSFUL', data: projects };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
