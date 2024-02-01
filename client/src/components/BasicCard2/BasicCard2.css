@@ -4,18 +4,68 @@
 }
 
 .container_img_project img {
-  width: 100%;
+  width: 102%;
   height: 100%;
   object-fit: cover;
+  border-radius: 5px;
+}
+
+.container_avatar_date_tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 389px;
+}
+
+.container_avatar_date {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 60%;
+  margin-top: 10px;
+}
+
+.user_data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.tag_project {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 5px;
+  padding: 4px;
+  background-color: rgb(235, 235, 235);
+  border-radius: 15px;
+}
+
+.bullet_point {
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  background-color: #000;
+  margin: 0 5px;
 }
 
 .container_avatar_user {
   width: 25px;
   border-radius: 100%;
-  margin-top: 10px;
 }
 
 .container_avatar_user img {
   width: 100%;
   border-radius: 100%;
+}
+
+@media screen and (max-width: 768px){
+  .container_avatar_date_tag {
+    width: 305px;
+  }
 }

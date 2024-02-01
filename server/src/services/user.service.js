@@ -80,7 +80,9 @@ const projectsWhitGoogleService = async (token, uuid) => {
   if (!uuid) return { status: 'UNAUTHORIZED', data: { message: 'Id is required' } };
 
   try {
+    console.log('uuid', uuid);
     const user = await Users.findOne({ where: { uuid } })
+    console.log('user', user);
     if (!user) {
       return { status: 'UNAUTHORIZED', data: { message: 'Invalid id' } };
     }

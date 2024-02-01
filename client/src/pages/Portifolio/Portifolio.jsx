@@ -8,6 +8,7 @@ import Profile from '../../components/ProfileHome/ProfileHome';
 import Modal from '../../components/Modal/Modal'
 import { getSavedUser } from "../../utils/sessionStorageLogin";
 import { projectWhitGoogle, projectsWithUser } from "../../api/axiosInstance";
+import ModalToView from "../../components/Modal/ModalToView";
 
 
 
@@ -59,7 +60,7 @@ function Portifolio(){
                   projects.map(({id, url, tag, createdAt }) => {
                     console.log('entrei aqui :', id);
                     return (
-                      <BasicCard key={id} url={url} tag={tag} createdAt={createdAt}/>
+                      <BasicCard key={id} projectId={id} url={url} tag={tag} createdAt={createdAt}/>
                     )
                   })
                 :
@@ -68,10 +69,14 @@ function Portifolio(){
               </div>
 
             </section>
-
-            <div>
-              <Modal/>
-            </div>
+            
+            {containsProjects ?
+              <ModalToView/>
+              :
+              <div>
+                <Modal/>
+              </div>
+            }
 
         </section>
         

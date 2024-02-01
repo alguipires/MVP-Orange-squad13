@@ -22,31 +22,45 @@ import './BasicCard2.css';
 //   pb: 3,
 // };
 
-export default function BasicCard({url, tag, createdAt}) {
+export default function BasicCard({projectId, url, tag, createdAt}) {
   const [openModal,
-    user, 
+    user,
+    idProject,
+    updateIdProject,
     updateOpenModal, 
     openVisualizerModalProject, 
     updateOpenVisualizerModalProject
   ] = useStore((state) => [
     state.openModal,
     state.user,
+    state.idProject,
+    state.updateIdProject,
     state.updateOpenModal,
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
   ]); 
 
-  console.log('user:', user);
   const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
-
   const noProjectImage = 'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
+
+  // Convertendo a string para um objeto Date
+const originalDate = new Date(createdAt);
+
+// Obtendo o mês e o ano da data
+const month = originalDate.getUTCMonth() + 1; // Adicionando 1 porque os meses começam do zero
+const year = originalDate.getUTCFullYear() % 100; // Obtendo os dois últimos dígitos do ano
+
+// Criando uma nova string no formato desejado (MM/YY)
+const formattedDate = `${month < 10 ? '0' : ''}${month}/${year < 10 ? '0' : ''}${year}`;
+
 
   const openModalCreateProject = () => {
     updateOpenModal(!openModal);
   };
 
-  const openModalVisualizeProject = () => {
+  const openModalVisualizeProject = (id) => {
+    updateIdProject(id);
     updateOpenVisualizerModalProject(!openVisualizerModalProject);
   };
 
@@ -55,12 +69,14 @@ export default function BasicCard({url, tag, createdAt}) {
   //   console.log("Arquivo enviado:", event.target.files[0]);
   // };
 
+  console.log('idProject:', idProject);
+
   return (
     <div className='container_info_project'>
         <CardActionArea
           sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
           className='img_modal_project'
-          onClick={isProject ? openModalVisualizeProject : openModalCreateProject}
+          onClick={isProject ? () => openModalVisualizeProject(projectId) : openModalCreateProject}
         >
           {!isProject && 
             <CardMedia
@@ -94,14 +110,27 @@ export default function BasicCard({url, tag, createdAt}) {
         </CardActionArea>
       
       {isProject &&  
-        <div className='container_avatar_date'>
-          <div className='container_avatar_user'>
-            <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
-          </div>
 
-          <div className='container_date_project'>
-            <p>{createdAt}</p>
-          </div>  
+      <div className='container_avatar_date_tag'>
+          <div className='container_avatar_date'>
+            <div className='container_avatar_user'>
+              <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
+            </div>
+
+            <div className='container_date_project'>
+              <div className='user_data'>
+                {user.displayName} 
+                <div className='bullet_point'>
+              </div>{formattedDate}</div>
+            </div>  
+
+          </div>
+            <div className='container_tag_project'>
+              <div
+              className='tag_project'>
+                {tag}
+              </div>
+            </div>
         </div>
       }
 
