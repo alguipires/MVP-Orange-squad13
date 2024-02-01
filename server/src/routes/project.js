@@ -4,10 +4,14 @@ const projectController = require('../controllers/project.controller');
 const upload = require('../../config/multer');
 const router = express.Router();
 
-router.get('/', projectController.getAllProjects); //TODO pegar todos os projetos  e paginar
+//rota para buscar todos os projetos e paginar
+//ex req> http://localhost:3001/project/?page=1&pageSize=2
+router.get('/', projectController.getAllProjects);
 
-//TODO rota para pegar todos os projetos pelo UserId e paginar (PEGAR PELO USERID E USERUUID)
-router.get('/:id', tokenValidation, projectController.getProjectsbyId); //TODO pegar proj pelo id de projeto
+// rota para pegar todos os projetos pelo UserUuid e paginar
+//ex req> http://localhost:3001/project/userId?page=1&pageSize=2
+router.get('/userId', tokenValidation, projectController.getProjectsbyUserId);
+// router.get('/:id', tokenValidation, projectController.getProjectsbyId); // rota pega projeto pelo projectId
 
 router.post(
   '/',

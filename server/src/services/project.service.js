@@ -26,7 +26,40 @@ const createProjectPostService = async (
   }
 };
 
-const getProjectByIdService = async (userUuid) => {
+const getAllProjectService = async (page, pageSize) => {
+  try {
+    const offset = (page - 1) * pageSize;
+    const projects = await Projects.findAndCountAll({
+      limit: pageSize,
+      offset: offset,
+    });
+
+    return { status: 'SUCCESSFUL', data: projects };
+  } catch (error) {
+    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+  }
+};
+
+const getProjectByUserIdService = async (getPayload, page, pageSize) => {
+  const offset = (page - 1) * pageSize;
+  console.log('log,,, paylod... ', getPayload.uuid);
+  // const uuid = getPayload.uuid;
+  try {
+    const projects = await Projects.findAndCountAll({
+      where: { userUuid: getPayload.uuid },
+      limit: pageSize,
+      offset: offset,
+    });
+    if (!projects) {
+      return { status: 'NOT_FOUND', data: [] };
+    }
+    return { status: 'SUCCESSFUL', data: projects };
+  } catch (error) {
+    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+  }
+};
+
+/* const getProjectByIdService = async (userUuid) => {
   try {
     const projects = await Projects.findAll({ where: { userUuid } });
     if (!projects) {
@@ -48,19 +81,7 @@ const getProjectByGoogleId = async (userUuid) => {
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }
-};
-
-const getAllProjectService = async () => {
-  try {
-    const projects = await Projects.findAll(); // trocar {}
-    if (!projects) {
-      return { status: 'NOT_FOUND', data: [] };
-    }
-    return { status: 'SUCCESSFUL', data: projects };
-  } catch (error) {
-    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
-  }
-};
+}; */
 
 const updateProjectByIdService = async (
   title,
@@ -185,8 +206,9 @@ const deleteProjectByIdService = async (projectId, getPayload) => {
 
 module.exports = {
   createProjectPostService,
-  getProjectByIdService,
-  getProjectByGoogleId,
+  getProjectByUserIdService,
+  // getProjectByIdService,
+  // getProjectByGoogleId,
   getAllProjectService,
   updateProjectByIdService,
   deleteProjectByIdService,

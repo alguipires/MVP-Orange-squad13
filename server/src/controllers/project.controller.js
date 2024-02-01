@@ -21,16 +21,35 @@ const createProjects = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getAllProjects = async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Página atual padrão
+  const pageSize = parseInt(req.query.pageSize) || 10; // Tamanho da página padrão
+
+  const { status, data } = await projectService.getAllProjectService(
+    page,
+    pageSize
+  );
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
+const getProjectsbyUserId = async (req, res) => {
+  const getPayload = req.getPayload;
+  const page = parseInt(req.query.page) || 1; // Página atual padrão
+  const pageSize = parseInt(req.query.pageSize) || 10; // Tamanho da página padrão
+
+  const { status, data } = await projectService.getProjectByUserIdService(
+    getPayload,
+    page,
+    pageSize
+  );
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 const getProjectsbyId = async (req, res) => {
   const projectId = req.params.id;
   const { status, data } = await projectService.getProjectByIdService(
     projectId
   );
-  return res.status(mapStatusHTTP(status)).json(data);
-};
-
-const getAllProjects = async (req, res) => {
-  const { status, data } = await projectService.getAllProjectService();
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
@@ -70,6 +89,7 @@ const deleteProjectById = async (req, res) => {
 
 module.exports = {
   createProjects,
+  getProjectsbyUserId,
   getProjectsbyId,
   getAllProjects,
   updateProjectById,
