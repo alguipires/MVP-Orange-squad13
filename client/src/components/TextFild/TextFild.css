@@ -15,7 +15,7 @@
 
 .buscarTags .MuiInputLabel-root {
   background-color: #ffffff; 
- }
+}
 
 .buscarTags .MuiOutlinedInput-notchedOutline {
   border-color: #ccc;
@@ -23,7 +23,10 @@
 
 @media only screen and (max-width: 600px) {
   .buscarTags {
-    width: 450px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .buscarTags .MuiTextField-root {
@@ -36,7 +39,7 @@
   
   .buscarTags .MuiInputLabel-root {
     background-color: #ffffff; 
-   }
+  }
   
   .buscarTags .MuiOutlinedInput-notchedOutline {
     border-color: #ccc;

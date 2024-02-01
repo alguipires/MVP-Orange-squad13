@@ -1,20 +1,51 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
 .portifolio_container{
-  width: 100%;
+  width: 100vw;
+  height: 100%;
   display:flex;
   flex-direction: column;
   align-items: baseline;
   justify-content: center;
-  padding: 4em;
 }
-.meusProjetos{
+
+.portifolio_container .profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48vh;
+  padding: 20px;
+}
+
+.container_appBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+.container_text_my_projects{
   padding-bottom: 10px;
   padding-left: 20px;
   font-size: 25px;
   color: rgb(90, 83, 83);
 }
 
+@media screen and (max-width: 768px) {
+  .container_text_my_projects{
+    padding-bottom: 10px;
+    padding-left: 25px;
+    font-size: 25px;
+    color: rgb(90, 83, 83);
+  }
+
+  .container_basic_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}
