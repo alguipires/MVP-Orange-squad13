@@ -68,22 +68,75 @@ const updateProjectByIdService = async (
   url,
   description,
   projectId,
-  userId
+  getPayload
 ) => {
   try {
-    const existingProject = await Projects.update(
-      { title, tag, url, description }, // Valores a serem atualizados
-      { where: { id: projectId, userId: userId } } // Condição de busca
-    );
+    const project = await Projects.findOne({ where: { id: projectId } });
+    console.log('projetos service....', project);
 
-    if (existingProject === 0) {
+    // Valida se existe o projeto
+    if (!project) {
       return {
         status: 'NOT_FOUND_2',
         data: { message: 'Projeto não encontrado' },
       };
     }
 
-    return { status: 'SUCCESSFUL', data: existingProject };
+    // Valida se o usuário ou a função correspondem
+    if (
+      project.userUuid === getPayload.userUuid ||
+      getPayload.role === 'admin'
+    ) {
+      console.log('updatisss....');
+
+      const projectToUpdate = {}; // Objeto para armazenar os campos a serem atualizados
+
+      // Verifique quais campos foram fornecidos na solicitação e adicione-os ao objeto de atualização
+      if (title) projectToUpdate.title = title;
+      if (tag) projectToUpdate.tag = tag;
+
+      if (url) {
+        try {
+          fs.unlinkSync(url); // Tenta excluir o arquivo
+          projectToUpdate.url = url;
+        } catch (error) {
+          console.error('Erro ao excluir arquivo:', error.message);
+          // Se ocorrer um erro ao excluir o arquivo, apenas continue sem atualizar o URL
+        }
+      }
+
+      if (description) projectToUpdate.description = description;
+
+      // Verifique se há pelo menos um campo para atualizar
+      if (Object.keys(projectToUpdate).length <= 0) {
+        return {
+          status: 'BAD_REQUEST',
+          data: { message: 'Nenhum campo para atualizar fornecido' },
+        };
+      }
+
+      // Atualize o projeto apenas se o usuário corresponder e o projeto for encontrado
+      const [updatedRowsCount] = await Projects.update(projectToUpdate, {
+        where: { id: projectId },
+      });
+
+      if (updatedRowsCount <= 0) {
+        return {
+          status: 'NOT_FOUND_2',
+          data: { message: 'Projeto não encontrado ou usuário não autorizado' },
+        };
+      }
+
+      return {
+        status: 'SUCCESSFUL',
+        data: { message: 'Projeto atualizado com sucesso' },
+      };
+    } else {
+      return {
+        status: 'UNAUTHORIZED',
+        data: { message: 'Usuário não autorizado a atualizar este projeto' },
+      };
+    }
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }

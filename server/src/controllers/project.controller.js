@@ -35,9 +35,16 @@ const getAllProjects = async (req, res) => {
 };
 
 const updateProjectById = async (req, res) => {
-  const { title, tag, url, description } = req.body;
+  const getPayload = req.getPayload;
   const projectId = req.params.id;
-  const tokenUserId = req.getPayload.id;
+  let url = null; // Inicialize a variável url como null
+
+  // Verifique se há um arquivo enviado na requisição
+  if (req.file !== undefined) {
+    url = req.file.path; // Se houver um arquivo, atualize a variável url
+  }
+
+  const { title, tag, description } = req.body;
 
   const { status, data } = await projectService.updateProjectByIdService(
     title,
@@ -45,7 +52,7 @@ const updateProjectById = async (req, res) => {
     url,
     description,
     projectId,
-    tokenUserId
+    getPayload
   );
   return res.status(mapStatusHTTP(status)).json(data);
 };
