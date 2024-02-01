@@ -2,15 +2,11 @@
 
 .buscarTags {
   width: 450px;
-  padding: 10px;
+  margin-top: 15px;
 }
 
 .buscarTags .MuiTextField-root {
   width: 100%;
-}
-
-.buscarTags .MuiOutlinedInput-input {
-  padding: 10px;
 }
 
 .buscarTags .MuiInputLabel-root {
@@ -25,16 +21,11 @@
   .buscarTags {
     width: 100vw;
     display: flex;
-    justify-content: center;
     align-items: center;
   }
   
   .buscarTags .MuiTextField-root {
     width: 100%;
-  }
-  
-  .buscarTags .MuiOutlinedInput-input {
-    padding: 10px;
   }
   
   .buscarTags .MuiInputLabel-root {

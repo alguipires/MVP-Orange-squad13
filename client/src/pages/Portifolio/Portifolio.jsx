@@ -34,7 +34,7 @@ function Portifolio(){
   }
   , []);
 
-  console.log(projects);
+  const containsProjects = projects.length > 0;
 
     return(
         <section className="portifolio_container">
@@ -44,21 +44,35 @@ function Portifolio(){
             <div className="profile">
               <Profile/>
             </div>
-            <div className="container_text_my_projects">
-              Meus Projetos
-            </div>
-            <div className="container_input_search">
-              <TextField/>
-            </div>
-            <div className="container_basic_card">
-              {projects.map(({id, url, tag, createdAt }) => (
-                <BasicCard key={id} url={url} tag={tag} createdAt={createdAt} />
-              ))  
+            <section className="container_my_project">
+
+              <div className="container_text_my_projects">
+                Meus Projetos
+              </div>
+
+              <div className="container_input_search">
+                <TextField/>
+              </div>
+
+              <div className="container_basic_card">
+                {containsProjects ? 
+                  projects.map(({id, url, tag, createdAt }) => {
+                    console.log('entrei aqui :', id);
+                    return (
+                      <BasicCard key={id} url={url} tag={tag} createdAt={createdAt}/>
+                    )
+                  })
+                :
+                <BasicCard/>
               }
-            </div>
+              </div>
+
+            </section>
+
             <div>
               <Modal/>
             </div>
+
         </section>
         
     )

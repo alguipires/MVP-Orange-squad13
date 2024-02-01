@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -6,13 +6,14 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {getSavedUser} from '../../utils/sessionStorageLogin'
+import useStore from "../../zustand/store";
 
 const settings = ['Perfil', 'Sair'];
 
 // porops nameUser e uriImageUser
 function AvatarIcon(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const [ user, updateUser ] = useStore((state) => [state.user, state.updateUser]);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -20,13 +21,12 @@ function AvatarIcon(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const [ user, setUser] = useState({});
 
     useEffect(() => {
       const userSession = getSavedUser("@AuthFirebase:user")
 
       if (userSession) {
-        setUser(userSession)
+        updateUser(userSession)
       }
     }, [])
 
