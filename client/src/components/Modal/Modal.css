@@ -51,7 +51,6 @@
 .titulo{
   width: 826;
   color: var(--Neutral-Colors-Neutral-110, #515255);
-/* [Orange P] Style Guide/H5 */
   font-family: Roboto;
   font-size: 24px;
   font-style: normal;
@@ -82,25 +81,22 @@ margin-bottom: 15px;
 }
 @media screen and (max-width: 768px) {
   .container_box_modal {
-    display: flex;
-    height: 10%;
-    margin-top: 15px;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
-    position: relative;
+
 }
 
   .container_modal_project {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    width: 312px;
+    height: 859px;
+    padding: 16px, 21px, 40px, 25px;
   }
 }
 .titulo{
   align-items:center ;
-  justify-content: center;
+
   display: flex;
 }
 /* .button_cancelar{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '../Button/Button';
@@ -26,22 +26,66 @@ const style = {
 };
 
 export function FormToAddProject(){
+  const inputRef = useRef(null);
+  const [imagemSelecionada, setImagemSelecionada] = useState(null);
+
+
+  /*const handleFileChange = (event) => {
+    // Lógica para lidar com o arquivo selecionado
+    const arquivo = event.target.files[0];
+    console.log('Arquivo selecionado:', arquivo);
+
+    // Aqui você pode adicionar lógica para processar a imagem
+  };*/
+  const handleCardClick = () => {
+    // Ao clicar no CardActionArea, acionar o clique no input de arquivo
+    inputRef.current.click();
+  };
+  const handleFileChange = (event) => {
+    // Lógica para lidar com o arquivo selecionado
+    const arquivo = event.target.files[0];
+    
+    // Atualizar o estado com o URL da imagem selecionada
+    if (arquivo) {
+      const urlImagem = URL.createObjectURL(arquivo);
+      setImagemSelecionada(urlImagem);
+    }
+  };
+
   return(
     <section className='container_modal_project' >
     <div>
 
       <p className='subtitulo'>Selecione o conteúdo que você deseja fazer upload</p>
       <Card sx={{ width: 389, height: 258, }}>
-        <CardActionArea sx={{ maxWidth: 389, height: 258, display: 'flex', flexDirection: 'column', backgroundColor: '#E6E9F2' }} >
+        <CardActionArea sx={{ maxWidth: 389, height: 258, display: 'flex', flexDirection: 'column', backgroundColor: '#E6E9F2' }} onClick={handleCardClick}>
+        <input
+          type="file"
+          accept="image/*"
+          ref={inputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
           <CardMedia
             style={{ display: "block", marginBottom: "50px", width: "10%", height: "auto", position: 'absolute'}}
             component="img"
-            image="https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"
+            image={"https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"}
             alt="imagem do projeto"
             />
+          <p style={{ position: 'relative', top: 30}}>Compartilhe seu talento com milhares de pessoas</p> 
+          <CardMedia
+            style={{ display: "block",
+              marginBottom: imagemSelecionada ? 'auto' : "50px", 
+              width: imagemSelecionada ? '100%' : '10%', 
+              height: imagemSelecionada ? '100%' : 'auto',
+              position: 'absolute'}}
+            component="img"
+            image={imagemSelecionada || "https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"}
+            alt="imagem do projeto"
+          />
             
             
-            <p style={{ position: 'relative', top: 30}}>Compartilhe seu talento com milhares de pessoas</p>  
+             
         </CardActionArea>
       </Card>
       <a  href="visualização " className='visualizar'>Visualizar Publicação</a>
