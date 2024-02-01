@@ -56,8 +56,64 @@ const loginWithGoogle = async (token, user) => {
     .finally(() => {
       // always executed
     });
+};
 
+const projectsWithUser = async (token) => {
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+
+  return await axios.get(`${endpoint}/user`, config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response.data;
+    })
+    .finally(() => {
+      // always executed
+    });
+};
+
+const projectWhitGoogle = async (token, uuid) => {
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+
+  return await axios.get(`${endpoint}/user/google/${uuid}`, config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response.data;
+    })
+    .finally(() => {
+      // always executed
+    });
+};
+
+const allProjects = async () => {
+  return await axios.get(`${endpoint}/projects`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response.data;
+    })
+    .finally(() => {
+      // always executed
+    });
 };
 
 
-export { checkUser, createNewUser, loginWithGoogle };
+export { checkUser,
+        createNewUser, 
+        loginWithGoogle, 
+        projectsWithUser, 
+        projectWhitGoogle,
+        allProjects,
+      };

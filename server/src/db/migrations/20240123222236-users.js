@@ -13,8 +13,6 @@ module.exports = {
         uuid: {
           allowNull: false,
           type: Sequelize.STRING,
-          unique: true,
-          foreignKey: true,
         },
         first_name: {
           allowNull: false,

@@ -9,13 +9,17 @@ import {
 } from '../utils/sessionStorageLogin';
 import { Navigate } from 'react-router-dom';
 import { loginWithGoogle } from '../api/axiosInstance';
+import useStore from '../zustand/store';
 
 const provider = new GoogleAuthProvider();
 
 export const AuthGoogleContext = createContext({});
 
 const AuthGoogleProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, updateCurrentUser] = useStore((state) => [
+    state.currentUser,
+    state.updateCurrentUser,
+  ]);
   const [token, setToken] = useState(null);
   const [tokenBackend, setTokenBackend] = useState(null);
 
@@ -27,11 +31,11 @@ const AuthGoogleProvider = ({ children }) => {
     const tokenBackend = getSavedUser('@AuthBackend:token');
 
     if (Object.keys(token).length > 0 && Object.keys(user).length > 0) {
-      setCurrentUser(user);
+      updateCurrentUser(user);
     }
 
     if (Object.keys(tokenBackend).length > 0) {
-      setCurrentUser(tokenBackend);
+      updateCurrentUser(tokenBackend);
     }
   }, [tokenBackend, token]);
 
@@ -41,7 +45,7 @@ const AuthGoogleProvider = ({ children }) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        setCurrentUser(user);
+        updateCurrentUser(user);
         setToken(token);
         loginWithGoogle(token, user);
         saveUser('@AuthFirebase:token', token);
@@ -63,7 +67,7 @@ const AuthGoogleProvider = ({ children }) => {
     removeUser('@AuthFirebase:token');
     removeUser('@AuthFirebase:user');
     removeUser('@AuthBackend:token');
-    setCurrentUser(null);
+    updateCurrentUser(null);
 
     return <Navigate to="/" />;
   };

@@ -17,6 +17,15 @@
   padding: 20px;
 }
 
+.container_basic_card {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
 .container_appBar {
   display: flex;
   justify-content: space-between;
