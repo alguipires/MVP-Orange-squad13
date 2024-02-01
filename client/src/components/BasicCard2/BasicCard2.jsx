@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, useMediaQuery } from '@mui/material';
 import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
 
@@ -26,6 +26,7 @@ export default function MultiActionAreaCard() {
     state.openModal,
     state.updateOpenModal,
   ]);
+  const isSmallScreen = useMediaQuery('(max-width:768px)');
 
   const abrirModal = () => {
     updateOpenModal(!openModal);
@@ -37,17 +38,18 @@ export default function MultiActionAreaCard() {
   // };
 
   return (
-    <div>
-      <Card sx={{ width: 389, height: 245, margin: 3 }}>
+    <>
+      <Card sx={{  width: isSmallScreen ? 312 : 389, height: 258, margin: 3 }}>
         <CardActionArea
-          sx={{ maxWidth: 389, height: 245 }}
+          sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
+          className='img_modal_project'
           onClick={abrirModal}
         >
           <CardMedia
             style={{
               display: 'block',
               margin: 'auto',
-              width: '20%',
+              width: isSmallScreen ? '10%' : '20%',
               height: 'auto',
             }}
             component="img"
@@ -65,6 +67,6 @@ export default function MultiActionAreaCard() {
       </Card>
 
       <Modal />
-    </div>
+    </>
   );
 }

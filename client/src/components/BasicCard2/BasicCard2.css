@@ -1,9 +1,9 @@
 .basicCard{
     padding-left: 20px;
   }
+
 .body{
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
-  background-color: aqua;
 }
