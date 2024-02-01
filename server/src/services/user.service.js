@@ -67,7 +67,6 @@ const createUserWithGooglePostService = async ( firstName, lastName, email, pass
 
 const projectWhitIdService = async (userUuid) => {
   try {
-    console.log('entrei aqui', userUuid);
     const {status, data} = await getProjectByIdService(userUuid);
     return { status, data};
   } catch (error) {
