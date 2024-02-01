@@ -7,7 +7,6 @@ import { TextField } from '@mui/material';
 import './Modal.css';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-// import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 // import validator from 'validator';
@@ -26,6 +25,7 @@ const style = {
   px: 4,
   pb: 3,
 };
+var closeModalFunc = null;
 
 export function FormToAddProject() {
   // alvaro>>>
@@ -147,13 +147,26 @@ export function FormToAddProject() {
   // alvaro^^
 
   const inputRef = useRef(null);
+  const [imagemSelecionada, setImagemSelecionada] = useState(null);
+  const [openModal, closeModal, updateOpenModal, updateCloseModal] = useStore(
+    (state) => [
+      state.openModal,
+      state.closeModal,
+      state.updateOpenModal,
+      state.updateCloseModal,
+    ]
+  );
+
+  console.log(openModal, closeModal);
+  closeModalFunc = () => {
+    updateOpenModal(!opened);
+    updateCloseModal(!closeModal);
+  };
 
   const handleCardClick = () => {
-    // Ao clicar no CardActionArea, acionar o clique no input de arquivo
     inputRef.current.click();
   };
   const handleFileChange = (event) => {
-    // Lógica para lidar com o arquivo selecionado
     const arquivo = event.target.files[0];
 
     // Atualizar o estado com o URL da imagem selecionada

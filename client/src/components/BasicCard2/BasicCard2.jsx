@@ -55,8 +55,8 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
   // console.log('user:', user);
   const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
-
-  const noProjectImage = '/assets/imgs/fundo-sem-img.jpg';
+  const noProjectImage =
+    'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
 
   const openModalCreateProject = () => {
     updateOpenModal(!openModal);
@@ -73,9 +73,9 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
   // };
   console.log('discovery', discoveryPage);
   return (
-    <div className="container_info_project">
+    <section className="container_info_project">
       {isProject && (
-        <div>
+        <div className="container_edit_icon">
           {discoveryPage && (
             <button className="edit_icon" onClick={handleClick}>
               <EditIcon />
@@ -174,6 +174,6 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
