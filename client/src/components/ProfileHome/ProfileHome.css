@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 48vh; 
+  height: 46vh; 
   background-color: #ffff; 
 }
 
@@ -14,7 +14,6 @@
 .content img {
   width: 150px; 
   height: auto;
-  margin-right: 20px; 
 }
 
 .content p {
