@@ -7,10 +7,7 @@ const UserSchema = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      uuid: {
-        type: DataTypes.STRING,
-        unique: true,
-      },
+      uuid: DataTypes.STRING,
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
       role: DataTypes.ENUM('admin', 'user'),
@@ -27,19 +24,19 @@ const UserSchema = (sequelize, DataTypes) => {
     }
   );
 
-  // UserTable.associate = (models) => {
-  //   UserTable.hasMany(models.Projects, {
-  //     foreignKey: 'userId',
-  //     as: 'Projects',
-  //   });
-  // };
-
   UserTable.associate = (models) => {
     UserTable.hasMany(models.Projects, {
-      foreignKey: 'userUuid',
+      foreignKey: 'userId',
       as: 'Projects',
     });
   };
+
+  // UserTable.associate = (models) => {
+  //   UserTable.hasMany(models.Projects, {
+  //     foreignKey: 'userUuid',
+  //     as: 'Projects',
+  //   });
+  // };
 
   return UserTable;
 };

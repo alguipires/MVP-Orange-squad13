@@ -76,14 +76,12 @@ const projectWhitIdService = async (userUuid) => {
 }
 
 const projectsWhitGoogleService = async (token, uuid) => {
-  console.log(uuid);
   if (!token) return { status: 'UNAUTHORIZED', data: { message: 'Invalid token' } };
 
   if (!uuid) return { status: 'UNAUTHORIZED', data: { message: 'Id is required' } };
 
   try {
     const user = await Users.findOne({ where: { uuid } })
-
     if (!user) {
       return { status: 'UNAUTHORIZED', data: { message: 'Invalid id' } };
     }

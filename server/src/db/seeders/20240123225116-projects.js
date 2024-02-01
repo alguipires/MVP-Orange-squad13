@@ -43,6 +43,26 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       },
+      {
+        title: 'Paulo Teste 1',
+        tag: 'Tech',
+        url: 'https://project1.com',
+        description: 'Description for Project 1',
+        user_id: 2,
+        user_uuid: 'svcYJgsqCGZnRw6VPVrUljyLsWx1',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        title: 'Paulo Teste 2',
+        tag: 'Design',
+        url: 'https://project2.com',
+        description: 'Description for Project 2',
+        user_id: 2,
+        user_uuid: 'svcYJgsqCGZnRw6VPVrUljyLsWx1',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
     ], {});
   },
 

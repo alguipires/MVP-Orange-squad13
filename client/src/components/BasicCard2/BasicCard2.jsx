@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea, useMediaQuery } from '@mui/material';
 import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
+import './BasicCard2.css';
 
 // const style = {
 //   position: "absolute",
@@ -21,12 +22,15 @@ import useStore from '../../zustand/store';
 //   pb: 3,
 // };
 
-export default function MultiActionAreaCard() {
+export default function BasicCard({url, tag, createdAt}) {
   const [openModal, updateOpenModal] = useStore((state) => [
     state.openModal,
     state.updateOpenModal,
   ]);
+  const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
+
+  const noProjectImage = 'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
 
   const abrirModal = () => {
     updateOpenModal(!openModal);
@@ -45,23 +49,30 @@ export default function MultiActionAreaCard() {
           className='img_modal_project'
           onClick={abrirModal}
         >
-          <CardMedia
-            style={{
-              display: 'block',
-              margin: 'auto',
-              width: isSmallScreen ? '10%' : '20%',
-              height: 'auto',
-            }}
-            component="img"
-            image="https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"
-            alt="imagem do projeto"
-          />
+          {!isProject && 
+            <CardMedia
+              style={{
+                display: 'block',
+                margin: 'auto',
+                width: isSmallScreen ? '10%' : '20%',
+                height: 'auto',
+              }}
+              component="img"
+              image={isProject ? url : noProjectImage}
+              alt="imagem do projeto"
+            />
+          }
           <CardContent>
-            <Typography sx={{ fontSize: 12, textAlign: 'center' }}>
-              Adicione seu primeiro projeto
-              <br />
-              Compartilhe seu talento com milhares de pessoas
-            </Typography>
+            {!isProject  ? 
+              <Typography sx={{ fontSize: 12, textAlign: 'center' }}>
+                Adicione seu primeiro projeto
+                <br />
+                Compartilhe seu talento com milhares de pessoas
+              </Typography>
+              :
+              <img src={url} alt="imagem do projeto" className='img_project'/>
+            }
+
           </CardContent>
         </CardActionArea>
       </Card>
