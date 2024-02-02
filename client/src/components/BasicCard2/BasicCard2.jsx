@@ -4,45 +4,31 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, useMediaQuery } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 // import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
 import './BasicCard2.css';
 import formattedDate from '../../utils/formatedData';
 
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: 400,
-//   bgcolor: "background.paper",
-//   border: "2px solid #000",
-//   boxShadow: 24,
-//   pt: 2,
-//   px: 4,
-//   pb: 3,
-// };
-
-export default function BasicCard({projectId, url, tag, createdAt}) {
+export default function BasicCard({index, url, tag, createdAt}) {
   const [openModal,
     user,
-    idProject,
-    updateIdProject,
+    indexProject,
+    updateIndexProject,
     updateOpenModal, 
     openVisualizerModalProject, 
     updateOpenVisualizerModalProject
   ] = useStore((state) => [
     state.openModal,
     state.user,
-    state.idProject,
-    state.updateIdProject,
+    state.indexProject,
+    state.updateIndexProject,
     state.updateOpenModal,
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
   ]); 
 
-  console.log('user:', user);
-
+  // console.log('user:', user);
   const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
   const noProjectImage = 'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
@@ -51,8 +37,9 @@ export default function BasicCard({projectId, url, tag, createdAt}) {
     updateOpenModal(!openModal);
   };
 
-  const openModalVisualizeProject = (id) => {
-    updateIdProject(id);
+  const openModalVisualizeProject = (indexChange) => {
+    console.log('indexChange:', indexChange);
+    updateIndexProject(indexChange);
     updateOpenVisualizerModalProject(!openVisualizerModalProject);
   };
 
@@ -61,14 +48,16 @@ export default function BasicCard({projectId, url, tag, createdAt}) {
   //   console.log("Arquivo enviado:", event.target.files[0]);
   // };
 
-  console.log('idProject:', idProject);
+  console.log('index:', index);
 
+  console.log('indexProject:', indexProject);
+  
   return (
     <div className='container_info_project'>
         <CardActionArea
           sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
           className='img_modal_project'
-          onClick={isProject ? () => openModalVisualizeProject(projectId) : openModalCreateProject}
+          onClick={isProject ? () => openModalVisualizeProject(index) : openModalCreateProject}
         >
           {!isProject && 
             <CardMedia
@@ -96,11 +85,13 @@ export default function BasicCard({projectId, url, tag, createdAt}) {
             </CardContent>
             :
               <div className='container_img_project'>
+                <button className='edit_icon'>
+                  <EditIcon />
+                </button>
                 <img src={url} alt='imagem do projeto'/>
               </div>
           }
         </CardActionArea>
-      
       {isProject &&  
 
       <div className='container_avatar_date_tag'>
@@ -118,8 +109,7 @@ export default function BasicCard({projectId, url, tag, createdAt}) {
 
           </div>
             <div className='container_tag_project'>
-              <div
-              className='tag_project'>
+              <div className='tag_project'>
                 {tag}
               </div>
             </div>

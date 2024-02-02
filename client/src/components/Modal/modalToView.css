@@ -5,7 +5,16 @@
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  border: solid 2px red;
+  position: relative;
+}
+
+.close_button_modal {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: -25px;
+  right: -20px;
+  cursor: pointer;
 }
 
 .container_name_data_title_tags {
@@ -14,7 +23,19 @@
   justify-content: space-between;
   width: 100%;
   height: 50px;
-  border: solid 2px green;
+}
+
+.container_avatar_user_modal {
+  width: 50px;
+  border-radius: 100%;
+  margin-right: 5px;
+}
+
+.container_avatar_user_modal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 100%;
 }
 
 .container_name_data {
@@ -24,7 +45,17 @@
   justify-content: center;
   width: 200px;
   height: 50px;
-  border: solid 2px blue;
+}
+
+.user_data_modal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  margin-left: 5px;
+
 }
 
 .container_title {
@@ -32,44 +63,65 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 200px;
+  width: 400px;
   height: 50px;
-  border: solid 2px yellow;
 }
 
 .container_tags {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   width: 200px;
   height: 50px;
-  border: solid 2px pink;
 }
 
-.container_img {
+.tag_project_modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 5px;
+  padding: 4px;
+  background-color: #0000000e;
+  border-radius: 15px;
+}
+
+.container_img_project_modal {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 25px;
   width: 100%;
   height: 60%;
-  border: solid 2px purple;
+}
+
+.container_img_project_modal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .container_description {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin-top: 50px;
   width: 100%;
   height: 20%;
-  border: solid 2px orange;
 }
 
 .container_url {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: flex-start;
   width: 100%;
   height: 20%;
-  border: solid 2px black;
+}
+
+.container_url a {
+  text-decoration: solid;
+  color: #1200b8;
+  cursor: pointer;
 }

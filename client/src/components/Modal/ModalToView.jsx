@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './modalToView.css'
 import formattedDate from '../../utils/formatedData';
 
@@ -53,27 +54,33 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
       >
         <Box sx={style}>
           <section className='container_to_view_project'>
+            <button className='close_button_modal' onClick={handleClose}>
+              <CloseOutlinedIcon onClick={handleClose} />
+            </button>
             <div className='container_name_data_title_tags'>
 
-            <div className='container_avatar_user'>
-              <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
-            </div>
+              <div className='container_name_data'>
+                
+                <div className='container_avatar_user_modal'>
+                  <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
+                </div>
 
-            <div className='container_date_project'>
-              <div className='user_data'>
-                {user.displayName} 
-                <div className='bullet_point'>
-              </div>{createdAt ? formattedDate(createdAt) : getFormattedMonthAndYear() }</div>
-            </div>  
+                <div className='user_data_modal'>
+                  <div><strong>{user.displayName}</strong></div> 
+                  {createdAt ? formattedDate(createdAt) : getFormattedMonthAndYear() }</div>
+                </div>  
+
               <div className='container_title'>
                 <h1>{title}</h1>
               </div>
               <div className='container_tags'>
-                {tag}
+                <div className='tag_project_modal'>
+                  {tag}
+                </div>
               </div>
             </div>
 
-            <div className='container_img'>
+            <div className='container_img_project_modal'>
               <img src={urlImg} alt='imagem do projeto'/>
             </div>
 
@@ -83,7 +90,7 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
 
             <div className='container_url'>
               <p><strong>Download</strong></p>
-              <a href={link} target='_blank' rel='noreferrer'></a>
+              <a href={link} target='_blank' rel='noreferrer'>{urlImg}</a>
             </div>
 
           </section>
