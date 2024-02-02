@@ -54,7 +54,8 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
   // console.log('user:', user);
   const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
-  const noProjectImage = 'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
+
+  const noProjectImage = '/assets/imgs/fundo-sem-img.jpg';
 
   const openModalCreateProject = () => {
     updateOpenModal(!openModal);
@@ -170,8 +171,7 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
               </div>
             </div>
         </div>
-      }
-
+      )}
     </div>
   );
 }

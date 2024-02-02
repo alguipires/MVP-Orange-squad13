@@ -6,14 +6,15 @@ const createProjects = async (req, res) => {
   const userUuid = req.getPayload.uuid;
 
   //pegando o fieldname "url" e extraindo o file e path
-  const url = req.file.path;
+  const imgFile = req.file.path;
 
-  const { title, tag, description } = req.body;
+  const { title, tag, description, url } = req.body;
 
   const { status, data } = await projectService.createProjectPostService(
     title,
     tag,
     url,
+    imgFile,
     description,
     userId,
     userUuid
@@ -56,19 +57,20 @@ const getProjectsbyId = async (req, res) => {
 const updateProjectById = async (req, res) => {
   const getPayload = req.getPayload;
   const projectId = req.params.id;
-  let url = null; // Inicialize a variável url como null
+  let imgFile = null; // Inicialize a variável url como null
 
   // Verifique se há um arquivo enviado na requisição
   if (req.file !== undefined) {
-    url = req.file.path; // Se houver um arquivo, atualize a variável url
+    imgFile = req.file.path; // Se houver um arquivo, atualize a variável url
   }
 
-  const { title, tag, description } = req.body;
+  const { title, tag, description, url } = req.body;
 
   const { status, data } = await projectService.updateProjectByIdService(
     title,
     tag,
     url,
+    imgFile,
     description,
     projectId,
     getPayload

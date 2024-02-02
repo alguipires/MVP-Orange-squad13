@@ -30,6 +30,10 @@ const ProjectsSchema = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.STRING,
       },
+      imgFile: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
       description: {
         allowNull: false,
         type: DataTypes.STRING,
