@@ -6,6 +6,7 @@ const createProjectPostService = async (
   title,
   tag,
   url,
+  imgFile,
   description,
   userId,
   userUuid
@@ -15,6 +16,7 @@ const createProjectPostService = async (
       title,
       tag,
       url,
+      imgFile,
       description,
       userId,
       userUuid,
@@ -42,7 +44,7 @@ const getAllProjectService = async (page, pageSize) => {
 
 const getProjectByUserIdService = async (getPayload, page, pageSize) => {
   const offset = (page - 1) * pageSize;
-  console.log('log,,, paylod... ', getPayload.uuid);
+  // console.log('log,,, paylod... ', getPayload.uuid);
   // const uuid = getPayload.uuid;
   try {
     const projects = await Projects.findAndCountAll({
@@ -87,13 +89,14 @@ const updateProjectByIdService = async (
   title,
   tag,
   url,
+  imgFile,
   description,
   projectId,
   getPayload
 ) => {
   try {
     const project = await Projects.findOne({ where: { id: projectId } });
-    console.log('projetos service....', project);
+    // console.log('projetos service....', project);
 
     // Valida se existe o projeto
     if (!project) {
@@ -108,7 +111,7 @@ const updateProjectByIdService = async (
       project.userUuid === getPayload.userUuid ||
       getPayload.role === 'admin'
     ) {
-      console.log('updatisss....');
+      // console.log('updatisss....');
 
       const projectToUpdate = {}; // Objeto para armazenar os campos a serem atualizados
 
@@ -116,17 +119,18 @@ const updateProjectByIdService = async (
       if (title) projectToUpdate.title = title;
       if (tag) projectToUpdate.tag = tag;
 
-      if (url) {
+      if (imgFile) {
         try {
-          fs.unlinkSync(url); // Tenta excluir o arquivo
-          projectToUpdate.url = url;
+          fs.unlinkSync(imgFile); // Tenta excluir o arquivo
+          projectToUpdate.imgFile = imgFile;
         } catch (error) {
           console.error('Erro ao excluir arquivo:', error.message);
-          // Se ocorrer um erro ao excluir o arquivo, apenas continue sem atualizar o URL
+          // Se ocorrer um erro ao excluir o arquivo, apenas continue sem atualizar o imgFile
         }
       }
 
       if (description) projectToUpdate.description = description;
+      if (url) projectToUpdate.url = url;
 
       // Verifique se há pelo menos um campo para atualizar
       if (Object.keys(projectToUpdate).length <= 0) {
@@ -166,7 +170,7 @@ const updateProjectByIdService = async (
 const deleteProjectByIdService = async (projectId, getPayload) => {
   try {
     const project = await Projects.findOne({ where: { id: projectId } });
-    console.log('projetos service....', project);
+    // console.log('projetos service....', project);
 
     // Valida se existe o projeto
     if (!project) {
@@ -181,10 +185,10 @@ const deleteProjectByIdService = async (projectId, getPayload) => {
       project.userUuid === getPayload.userUuid ||
       getPayload.role === 'admin'
     ) {
-      console.log('deletissss....');
+      // console.log('deletissss....');
 
       // Remove arquivo local assíncrono
-      fs.unlinkSync(project.url);
+      fs.unlinkSync(project.imgFile);
 
       // Remove do banco de dados
       await Projects.destroy({ where: { id: projectId } });
