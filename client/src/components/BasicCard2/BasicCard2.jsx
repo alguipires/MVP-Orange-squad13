@@ -7,6 +7,7 @@ import { CardActionArea, useMediaQuery } from '@mui/material';
 // import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
 import './BasicCard2.css';
+import formattedDate from '../../utils/formatedData';
 
 // const style = {
 //   position: "absolute",
@@ -40,20 +41,11 @@ export default function BasicCard({projectId, url, tag, createdAt}) {
     state.updateOpenVisualizerModalProject,
   ]); 
 
+  console.log('user:', user);
+
   const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
   const noProjectImage = 'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
-
-  // Convertendo a string para um objeto Date
-const originalDate = new Date(createdAt);
-
-// Obtendo o mês e o ano da data
-const month = originalDate.getUTCMonth() + 1; // Adicionando 1 porque os meses começam do zero
-const year = originalDate.getUTCFullYear() % 100; // Obtendo os dois últimos dígitos do ano
-
-// Criando uma nova string no formato desejado (MM/YY)
-const formattedDate = `${month < 10 ? '0' : ''}${month}/${year < 10 ? '0' : ''}${year}`;
-
 
   const openModalCreateProject = () => {
     updateOpenModal(!openModal);
@@ -121,7 +113,7 @@ const formattedDate = `${month < 10 ? '0' : ''}${month}/${year < 10 ? '0' : ''}$
               <div className='user_data'>
                 {user.displayName} 
                 <div className='bullet_point'>
-              </div>{formattedDate}</div>
+              </div>{formattedDate(createdAt)}</div>
             </div>  
 
           </div>

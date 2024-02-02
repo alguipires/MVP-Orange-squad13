@@ -1,19 +1,31 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
+import './modalToView.css'
+import formattedDate from '../../utils/formatedData';
 
-const ModalToView = () => {
+const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
   const [
+    user,
     openVisualizerModalProject, 
     updateOpenVisualizerModalProject
   ] = useStore((state) => [
+    state.user,
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
   ]); 
 
   const handleClose = () => updateOpenVisualizerModalProject(!openVisualizerModalProject);
+
+  function getFormattedMonthAndYear() {
+    const currentDate = new Date();
+  
+    const year = currentDate.getFullYear().toString().slice(-2);
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+  
+    return `${month}/${year}`;
+  }
 
   // console.log('openVisualizerModalProject:', openVisualizerModalProject);
 
@@ -40,12 +52,41 @@ const ModalToView = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <section className='container_to_view_project'>
+            <div className='container_name_data_title_tags'>
+
+            <div className='container_avatar_user'>
+              <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
+            </div>
+
+            <div className='container_date_project'>
+              <div className='user_data'>
+                {user.displayName} 
+                <div className='bullet_point'>
+              </div>{createdAt ? formattedDate(createdAt) : getFormattedMonthAndYear() }</div>
+            </div>  
+              <div className='container_title'>
+                <h1>{title}</h1>
+              </div>
+              <div className='container_tags'>
+                {tag}
+              </div>
+            </div>
+
+            <div className='container_img'>
+              <img src={urlImg} alt='imagem do projeto'/>
+            </div>
+
+            <div className='container_description'>
+              <p>{description}</p>
+            </div>
+
+            <div className='container_url'>
+              <p><strong>Download</strong></p>
+              <a href={link} target='_blank' rel='noreferrer'></a>
+            </div>
+
+          </section>
         </Box>
       </Modal>
     </div>
