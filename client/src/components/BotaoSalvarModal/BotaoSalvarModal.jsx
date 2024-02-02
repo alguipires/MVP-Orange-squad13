@@ -37,7 +37,7 @@ function BotaoSalvarModal() {
           transform: 'translate(-50%, -50%)',
         }}>
 
-          <FormToAddProject opened={true}/>
+          <FormToAddProject />
         </Box>
       </Modal>
     </div>

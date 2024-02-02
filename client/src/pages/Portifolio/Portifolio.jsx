@@ -68,7 +68,7 @@ function Portifolio(){
               </div>
 
             </section>
-
+      
             <div>
               <Modal/>
             </div>

@@ -7,10 +7,18 @@
 .container_box_modal {
     display: flex;
     height: 100%;
-    margin-top: 42px;
+    margin-top: 15px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding-left: 20px;
+}
+.card_area{
+  width: 389px;
+   height: 258px;
+   display: flex; 
+   flex-direction: column; 
+   background-color: #E6E9F2
 }
 
 .button_salvar{
@@ -49,13 +57,12 @@
   opacity: 0.8;
 }
 .titulo{
-  width: 826;
   color: var(--Neutral-Colors-Neutral-110, #515255);
   font-family: Roboto;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px; /* 100% */
+ 
 }
 .subtitulo{
   width: 389px;
@@ -79,30 +86,56 @@ margin-bottom: 15px;
   cursor: pointer;
   margin-bottom: 15px;
 }
-@media screen and (max-width: 768px) {
-  .container_box_modal {
-    justify-content: center;
-    flex-direction: column;
-  
+.box_Form{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 890;
+  height: 522;
+  background-color: #ffffff;
+  padding: 25px;
 }
 
-  .container_modal_project {
-    display: flex;
-    flex-direction: column-reverse;
-    width: 312px;
-    height: 859px;
-    padding: 16px, 21px, 40px, 25px;
+
+
+@media only screen and (max-width: 768px) {
+  .section_modal{
+    padding: 10px;
   }
-}
+  .container_modal_project {
+    flex-direction: column-reverse;
+    width: 100%;
+    height: 100%;
+  }
+  .container_box_modal {
+    display: flex;
+    height: 100%;
+    padding-left: 0;
+    width: 100%;
+  }
+  .box_Form{
+    position: relative;
+    width: 300px;
+    height: 750px;
+    padding: 10px;
+  }
+
 .titulo{
-  align-items:center ;
 
   display: flex;
+  position: relative;
 }
-/* .button_cancelar{
-
-
+.div_area_card{
+  width: 100%;
+  height: 100%;
+  margin-top: 70px;
 }
-.visualizar{
-  
-} */
+.card_area{
+  height: 200px;
+  width: 100%;
+}
+.subtitulo{
+  width: 100%;
+}
+}
