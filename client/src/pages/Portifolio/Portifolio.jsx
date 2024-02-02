@@ -8,11 +8,14 @@ import Profile from '../../components/ProfileHome/ProfileHome';
 import Modal from '../../components/Modal/Modal'
 import { getSavedUser } from "../../utils/sessionStorageLogin";
 import { projectWhitGoogle, projectsWithUser } from "../../api/axiosInstance";
+import ModalToView from "../../components/Modal/ModalToView";
+import useStore from "../../zustand/store";
 
 
 
 function Portifolio(){
   const [projects, setProjects] = useState([]);
+  const [ indexProject ] = useStore((state) => [ state.indexProject ]); 
 
   useEffect(() => {
     const loadingProjects = async () => {
@@ -35,6 +38,8 @@ function Portifolio(){
   , []);
 
   const containsProjects = projects.length > 0;
+  console.log('projectid:', indexProject);
+  const projectByIndex = projects && projects[indexProject];
 
     return(
         <section className="portifolio_container">
@@ -56,10 +61,15 @@ function Portifolio(){
 
               <div className="container_basic_card">
                 {containsProjects ? 
-                  projects.map(({id, url, tag, createdAt }) => {
-                    console.log('entrei aqui :', id);
+                  projects.map(({id, url, tag, createdAt }, index) => {
                     return (
-                      <BasicCard key={id} url={url} tag={tag} createdAt={createdAt}/>
+                      <BasicCard 
+                        key={ id } 
+                        index={ index } 
+                        url={ url } 
+                        tag={ tag } 
+                        createdAt={ createdAt }
+                      />
                     )
                   })
                 :
@@ -68,10 +78,20 @@ function Portifolio(){
               </div>
 
             </section>
-
-            <div>
-              <Modal/>
-            </div>
+            
+            {containsProjects ?
+              <ModalToView 
+                tag={ projectByIndex.tag } 
+                title={ projectByIndex.title } 
+                description={ projectByIndex.description } 
+                urlImg={ projectByIndex.url }
+                createdAt={ projectByIndex.createdAt } 
+              />
+              :
+              <div>
+                <Modal/>
+              </div>
+            }
 
         </section>
         

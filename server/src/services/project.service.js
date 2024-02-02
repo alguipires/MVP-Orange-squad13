@@ -42,8 +42,6 @@ const getAllProjectService = async (page, pageSize) => {
 
 const getProjectByUserIdService = async (getPayload, page, pageSize) => {
   const offset = (page - 1) * pageSize;
-  console.log('log,,, paylod... ', getPayload.uuid);
-  // const uuid = getPayload.uuid;
   try {
     const projects = await Projects.findAndCountAll({
       where: { userUuid: getPayload.uuid },
@@ -59,7 +57,7 @@ const getProjectByUserIdService = async (getPayload, page, pageSize) => {
   }
 };
 
-/* const getProjectByIdService = async (userUuid) => {
+const getProjectByIdService = async (userUuid) => {
   try {
     const projects = await Projects.findAll({ where: { userUuid } });
     if (!projects) {
@@ -81,7 +79,7 @@ const getProjectByGoogleId = async (userUuid) => {
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }
-}; */
+};
 
 const updateProjectByIdService = async (
   title,
@@ -207,8 +205,8 @@ const deleteProjectByIdService = async (projectId, getPayload) => {
 module.exports = {
   createProjectPostService,
   getProjectByUserIdService,
-  // getProjectByIdService,
-  // getProjectByGoogleId,
+  getProjectByIdService,
+  getProjectByGoogleId,
   getAllProjectService,
   updateProjectByIdService,
   deleteProjectByIdService,
