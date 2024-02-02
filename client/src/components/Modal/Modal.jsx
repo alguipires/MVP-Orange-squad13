@@ -159,7 +159,7 @@ export function FormToAddProject() {
 
   console.log(openModal, closeModal);
   closeModalFunc = () => {
-    updateOpenModal(!opened);
+    updateOpenModal(!openModal);
     updateCloseModal(!closeModal);
   };
 
