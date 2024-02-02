@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, useMediaQuery } from '@mui/material';
+import { CardActionArea, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 // import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
@@ -11,6 +11,7 @@ import './BasicCard2.css';
 import formattedDate from '../../utils/formatedData';
 
 export default function BasicCard({index, url, tag, createdAt}) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const [openModal,
     user,
     indexProject,
@@ -27,6 +28,14 @@ export default function BasicCard({index, url, tag, createdAt}) {
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
   ]); 
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   // console.log('user:', user);
   const isProject = !!url && !!tag && !!createdAt;
@@ -54,6 +63,52 @@ export default function BasicCard({index, url, tag, createdAt}) {
   
   return (
     <div className='container_info_project'>
+        {isProject &&
+          <div>
+          <button className='edit_icon' onClick={handleClick} >
+              <EditIcon />
+          </button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            style={{ 
+              marginTop: 2, 
+              marginLeft: 20,
+            }}
+          >
+            <MenuItem 
+              onClick={handleClose} 
+              id='edit_project'
+              style={{
+                paddingRight: 120,
+                transition: 'background-color 0.3s ease',
+              }}
+            >
+              Editar
+            </MenuItem>
+            <MenuItem 
+              onClick={handleClose} 
+              id='delete_project'
+              style={{ 
+                paddingRight: 120, 
+                transition: 'background-color 0.3s ease',
+              }}
+            >
+              Excluir
+            </MenuItem>
+          </Menu>
+        </div>
+        }
         <CardActionArea
           sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
           className='img_modal_project'
@@ -85,9 +140,6 @@ export default function BasicCard({index, url, tag, createdAt}) {
             </CardContent>
             :
               <div className='container_img_project'>
-                <button className='edit_icon'>
-                  <EditIcon />
-                </button>
                 <img src={url} alt='imagem do projeto'/>
               </div>
           }
