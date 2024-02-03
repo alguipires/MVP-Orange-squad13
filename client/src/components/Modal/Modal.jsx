@@ -9,8 +9,8 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 // import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import validator from 'validator';
+// import { useNavigate } from 'react-router-dom';
+// import validator from 'validator';
 import { createNewProject } from '../../api/axiosInstance';
 
 const style = {
@@ -37,7 +37,7 @@ export function FormToAddProject() {
   const [updateCurrentProject] = useStore((state) => [
     state.updateCurrentProject,
   ]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleChange = ({ target: { value } }, setState) => {
     setState(value);
@@ -53,6 +53,8 @@ export function FormToAddProject() {
       description,
       imgFile
     );
+
+    console.log('logissss... ', isValidProject); //TODO retirar log
   };
 
   //TODO fazer validador
@@ -139,13 +141,6 @@ export function FormToAddProject() {
 
   const inputRef = useRef(null);
 
-  /*const handleFileChange = (event) => {
-    // Lógica para lidar com o arquivo selecionado
-    const arquivo = event.target.files[0];
-    console.log('Arquivo selecionado:', arquivo);
-
-    // Aqui você pode adicionar lógica para processar a imagem
-  };*/
   const handleCardClick = () => {
     // Ao clicar no CardActionArea, acionar o clique no input de arquivo
     inputRef.current.click();
@@ -276,15 +271,6 @@ export default function NestedModal() {
     updateCloseModal(!closeModal);
   };
 
-  // const botaoStyle = {
-  //   display: 'grid',
-  //   placeItems: 'center',
-  // };
-
-  // const textoStyle = {
-  //   marginBottom: 2, // Ajuste conforme necessário para espaçamento entre os textos
-  // };
-
   return (
     <div>
       <Modal
@@ -302,7 +288,7 @@ export default function NestedModal() {
             <Button
               className="button_salvar"
               value="salvar"
-              onClick={handleButtonClick}
+              onClick={handleButtonClick} //TODO verificar...
             />
             <Button
               className="button_cancelar"
