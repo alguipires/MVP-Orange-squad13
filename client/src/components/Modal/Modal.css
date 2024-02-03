@@ -1,17 +1,18 @@
 .container_modal_project {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: top;
 }
 
 .container_box_modal {
     display: flex;
+    width: 100%;
     height: 100%;
     margin-top: 15px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-left: 20px;
+    padding-left: 25px;
 }
 .card_area{
   width: 389px;
@@ -23,15 +24,15 @@
 
 .button_salvar{
   color: white;
-  width: 100px;
-  height: 42px;
+  width: 110px;
+  height: 52px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 15px;
   background-color: #F52;
   padding: 8px 22px;
-
+  justify-content: space-between;
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -41,8 +42,8 @@
 }
 .button_cancelar{
   color: white;
-  width: 120px;
-  height: 42px;
+  width: 130px;
+  height: 52px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -68,14 +69,8 @@
   width: 389px;
 align-self: stretch;
 color: var(--Neutral-Colors-Neutral-110, #515255);
-font-family: Roboto;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 16px; /* 100% */
-letter-spacing: 0.15px;
+font-size: 17px;
 margin-top: 15px;
-align-items: center;
 margin-bottom: 15px;
 }
 .visualizar{
@@ -91,12 +86,16 @@ margin-bottom: 15px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 890;
-  height: 522;
+  width: 990px;
+  height: 522px;
   background-color: #ffffff;
-  padding: 25px;
+  padding: 20px;
 }
-
+.div_area_card{
+  width: 100%;
+  height: 100%;
+  margin-top: px;
+}
 
 
 @media only screen and (max-width: 768px) {
@@ -116,7 +115,7 @@ margin-bottom: 15px;
   }
   .box_Form{
     position: relative;
-    width: 300px;
+    width: 350px;
     height: 750px;
     padding: 10px;
   }

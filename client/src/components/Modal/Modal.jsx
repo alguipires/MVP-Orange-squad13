@@ -310,32 +310,34 @@ export default function NestedModal() {
   // };
 
   return (
-    <div>
-      <Modal
-        open={openModal}
-        onClose={closeModalFunc}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <>
-          <Box sx={{ ...style, width: 800 }}>
-            <header>
-              <h5 className="titulo">Adicionar Projeto</h5>
-            </header>
-            <FormToAddProject />
-            <Button
-              className="button_salvar"
-              value="salvar"
-              onClick={() => salveProject(true)}
-            />
-            <Button
-              className="button_cancelar"
-              value="cancelar"
-              onClick={closeModalFunc}
-            />
-          </Box>
-        </>
-      </Modal>
-    </div>
+    <React.Fragment>
+      <div>
+        <Modal
+          open={openModal}
+          onClose={closeModalFunc}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <>
+            <Box sx={{ ...style, width: 800 }}>
+              <header>
+                <h5 className="titulo">Adicionar Projeto</h5>
+              </header>
+              <FormToAddProject />
+              <Button
+                className="button_salvar"
+                value="salvar"
+                onClick={() => salveProject(true)}
+              />
+              <Button
+                className="button_cancelar"
+                value="cancelar"
+                onClick={closeModalFunc}
+              />
+            </Box>
+          </>
+        </Modal>
+      </div>
+    </React.Fragment>
   );
 }

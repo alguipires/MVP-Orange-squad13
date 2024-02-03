@@ -6,8 +6,10 @@ const useStore = create((set) => ({
   indexProject: 0,
   discoveryPage: false,
   openModal: false,
-  closeModal: true,
+  openModal2: false,
+  openModalConfirmacao: false,
   openVisualizerModalProject: false,
+  closeModal: true,
   indexDeleteProject: null,
   indexEditProject: null,
   currentUser: null,
@@ -18,12 +20,12 @@ const useStore = create((set) => ({
   updateIndexProject: (id) => set(() => ({ indexProject: id })),
   updateDiscoveryPage: (boolean) => set(() => ({ discoveryPage: boolean })),
   updateOpenModal: (open) => set(() => ({ openModal: open })),
+  updateOpenModal2: (open) => set(() => ({ openModal2: open })),
+  updateOpenModalConfirmacao: (open) =>
+    set(() => ({ openModalConfirmacao: open })),
   updateCloseModal: (close) => set(() => ({ closeModal: close })),
-  updateOpenVisualizerModalProject: (open) =>
-    set(() => ({ openVisualizerModalProject: open })),
-  updateIndexDeleteProject: (index) =>
-    set(() => ({ indexDeleteProject: index })),
-  updateIndexEditProject: (index) => set(() => ({ indexEditProject: index })),
+  updateCloseModal2: (close) => set(() => ({ closeModal: close })),
+  updateCloseModalConfirmacao: (close) => set(() => ({ closeModal: close })),
   updateCurrentUser: (user) => set(() => ({ currentUser: user })),
   updateCurrentProject: (project) => set(() => ({ currentProject: project })),
   updatecurrentProjectSave: (boolean) =>
