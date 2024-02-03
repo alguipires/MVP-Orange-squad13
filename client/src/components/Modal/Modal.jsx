@@ -9,9 +9,6 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 // import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-// import { useNavigate } from 'react-router-dom';
-// import validator from 'validator';
-import { createNewProject } from '../../api/axiosInstance';
 
 const style = {
   position: 'absolute',
@@ -271,6 +268,15 @@ export default function NestedModal() {
     updateCloseModal(!closeModal);
   };
 
+  // const botaoStyle = {
+  //   display: 'grid',
+  //   placeItems: 'center',
+  // };
+
+  // const textoStyle = {
+  //   marginBottom: 2, // Ajuste conforme necessário para espaçamento entre os textos
+  // };
+
   return (
     <div>
       <Modal
@@ -288,7 +294,7 @@ export default function NestedModal() {
             <Button
               className="button_salvar"
               value="salvar"
-              onClick={handleButtonClick} //TODO verificar...
+              onClick={handleButtonClick}
             />
             <Button
               className="button_cancelar"
