@@ -136,8 +136,6 @@ export default function NestedModal() {
   [ state.openModal, state.closeModal, state.updateOpenModal, state.updateCloseModal ]
   );
 
-  console.log(openModal, closeModal)
-
   const closeModalFunc = () => {
     updateOpenModal(!openModal)
     updateCloseModal(!closeModal)

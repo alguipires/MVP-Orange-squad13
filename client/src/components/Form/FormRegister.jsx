@@ -31,6 +31,15 @@ const FormRegister = () => {
   );
   const navigate = useNavigate();
 
+  const validateInputs = (validation, errorMessage, setError) => {
+    if (!validation) {
+      handleAlert(errorMessage);
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
+
   const inputValidation = () => {
     const nameValidation = validator.isLength(name, { min: 1 });
     const lastNameValidation = validator.isLength(lastName, { min: 1 });
@@ -42,32 +51,49 @@ const FormRegister = () => {
       return;
     }
 
-    if (!nameValidation) {
-      handleAlert('Nome inválido, insira um nome com mais de 1 caractere');
-      setErrorName(true);
-    } else {
-      setErrorName(false);
-    }
+    // if (!nameValidation) {
+    //   handleAlert('Nome inválido, insira um nome com mais de 1 caractere');
+    //   setErrorName(true);
+    // } else {
+    //   setErrorName(false);
+    // }
 
-    if (!lastNameValidation) {
-      handleAlert('Sobrenome inválido, insira um sobrenome com mais de 1 caractere');
-      setErrorLastName(true);
-    } else {
-      setErrorLastName(false);
-    }
+    // if (!lastNameValidation) {
+    //   handleAlert('Sobrenome inválido, insira um sobrenome com mais de 1 caractere');
+    //   setErrorLastName(true);
+    // } else {
+    //   setErrorLastName(false);
+    // }
 
-    if (!emailValidation) {
-      handleAlert('Email inválido');
-      setErrorEmail(true);
-    } else {
-      setErrorEmail(false);
-    }
-    if (!passwordValidation) {
-      handleAlert('A senha deve possuir um mínimo de 5 caracteres');
-      setErrorPassword(true);
-    } else {
-      setErrorPassword(false);
-    }
+    // if (!emailValidation) {
+    //   handleAlert('Email inválido');
+    //   setErrorEmail(true);
+    // } else {
+    //   setErrorEmail(false);
+    // }
+    // if (!passwordValidation) {
+    //   handleAlert('A senha deve possuir um mínimo de 5 caracteres');
+    //   setErrorPassword(true);
+    // } else {
+    //   setErrorPassword(false);
+    // }
+
+    validateInputs(
+      nameValidation,
+      'Nome inválido, insira um nome com mais de 1 caractere',
+      setErrorName
+    );
+    validateInputs(
+      lastNameValidation,
+      'Sobrenome inválido, insira um sobrenome com mais de 1 caractere',
+      setErrorLastName
+    );
+    validateInputs(emailValidation, 'Email inválido', setErrorEmail);
+    validateInputs(
+      passwordValidation,
+      'A senha deve possuir um mínimo de 5 caracteres',
+      setErrorPassword
+    );
   };
 
   const handleChange = ({ target: { value } }, setState) => {
@@ -95,7 +121,8 @@ const FormRegister = () => {
     }
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
+    e.preventDefault();
     inputValidation();
 
     const nameValidation = validator.isLength(name, { min: 1 });
@@ -109,7 +136,7 @@ const FormRegister = () => {
   };
 
   return (
-    <form  className='form_login'>
+    <form  className='form_login' onSubmit={(e) => handleButtonClick(e)}>
 
     <div className='container_name_and_lastname'>
       <TextField
@@ -167,6 +194,7 @@ const FormRegister = () => {
             className='button_login'
             value='cadastrar'
             onClick={ handleButtonClick }
+            type='submit'
           />
 
         </FormControl>

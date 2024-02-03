@@ -38,7 +38,6 @@ function Portifolio(){
   , []);
 
   const containsProjects = projects.length > 0;
-  console.log('projectid:', indexProject);
   const projectByIndex = projects && projects[indexProject];
 
     return(
@@ -64,7 +63,8 @@ function Portifolio(){
                   projects.map(({id, url, tag, createdAt }, index) => {
                     return (
                       <BasicCard 
-                        key={ id } 
+                        key={ id }
+                        projectId={ id } 
                         index={ index } 
                         url={ url } 
                         tag={ tag } 

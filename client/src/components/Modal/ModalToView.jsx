@@ -5,8 +5,11 @@ import useStore from '../../zustand/store';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './modalToView.css'
 import formattedDate from '../../utils/formatedData';
+import { useMediaQuery } from '@mui/material';
 
 const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
+  const isSmallScreen = useMediaQuery('(max-width: 768px)');
+  console.log('urlImg:', link);
   const [
     user,
     openVisualizerModalProject, 
@@ -32,13 +35,14 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
 
   const style = {
     position: 'absolute',
-    top: '55%',
+    top: isSmallScreen ? '58%' : '55%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 900,
-    height: 800,
+    width:  isSmallScreen ? '100vw' : 900,
+    height: isSmallScreen ? '85vh' : 800,
     bgcolor: 'background.paper',
     border: 'none',
+    borderRadius: isSmallScreen ? '25px 25px 0 0' : '0',
     boxShadow: 24,
     p: 4,
   };
@@ -57,31 +61,41 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
             <button className='close_button_modal' onClick={handleClose}>
               <CloseOutlinedIcon onClick={handleClose} />
             </button>
-            <div className='container_name_data_title_tags'>
-
-              <div className='container_name_data'>
-                
-                <div className='container_avatar_user_modal'>
-                  <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
+            {isSmallScreen && 
+                <div className='container_title'>
+                  <h1>{title}</h1>
                 </div>
+            }
+              <div className='container_name_data_title_tags_img'>
+              <div className='container_name_data_title_tags'>
 
-                <div className='user_data_modal'>
-                  <div><strong>{user.displayName}</strong></div> 
-                  {createdAt ? formattedDate(createdAt) : getFormattedMonthAndYear() }</div>
-                </div>  
+                <div className='container_name_data'>
+                  
+                  <div className='container_avatar_user_modal'>
+                    <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
+                  </div>
 
-              <div className='container_title'>
-                <h1>{title}</h1>
-              </div>
-              <div className='container_tags'>
-                <div className='tag_project_modal'>
-                  {tag}
+                  <div className='user_data_modal'>
+                    <div><strong>{user.displayName}</strong></div> 
+                    <p>{createdAt ? formattedDate(createdAt) : getFormattedMonthAndYear() }</p>
+                  </div>
+                  </div>  
+                {!isSmallScreen &&
+                  <div className='container_title'>
+                    <h1>{title}</h1>
+                  </div>
+                }
+                <div className='container_tags'>
+                  <div className='tag_project_modal'>
+                    {tag}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className='container_img_project_modal'>
-              <img src={urlImg} alt='imagem do projeto'/>
+              <div className='container_img_project_modal'>
+                <img src={urlImg} alt='imagem do projeto'/>
+              </div>
+              
             </div>
 
             <div className='container_description'>
@@ -90,7 +104,7 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
 
             <div className='container_url'>
               <p><strong>Download</strong></p>
-              <a href={link} target='_blank' rel='noreferrer'>{urlImg}</a>
+              <a href={urlImg} target='_blank' rel='noreferrer'>{urlImg}</a>
             </div>
 
           </section>

@@ -29,7 +29,8 @@ const createPostService = async (firstName, lastName, email, password) => {
 
     return { status: 'CREATED', data: { token } };
   } catch (error) {
-    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+    console.log(error)
+    return { status: 'INTERNAL_ERROR', data: { message: 'Erro interno do servidor' } };
   }
 };
 
@@ -61,7 +62,8 @@ const createUserWithGooglePostService = async ( firstName, lastName, email, pass
 
     return { status: 'CREATED', data: { token } };
   } catch (error) {
-    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+    console.log(error)
+    return { status: 'INTERNAL_ERROR', data: { message: 'Erro interno do servidor' } };
   }
 };
 
@@ -92,7 +94,8 @@ const projectsWhitGoogleService = async (token, uuid) => {
   
     return { status, data };
   } catch (error) {
-    return { status: "INTERNAL_ERROR", data: { message: error.message } }
+    console.log(error)
+    return { status: 'INTERNAL_ERROR', data: { message: 'Erro interno do servidor' } };
   }
 };
 
