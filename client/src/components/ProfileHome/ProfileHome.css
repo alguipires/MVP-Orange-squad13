@@ -2,13 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 42vh; 
   background-color: #ffff; 
 }
 
 .content {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .content img {
