@@ -8,29 +8,17 @@ import './Modal.css'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
+
 //import BotaoSalvarModal from '../BotaoSalvarModal/BotaoSalvarModal';
 
-
-/*const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};*/
 var closeModalFunc=null;
 
 export function FormToAddProject(){
   const inputRef = useRef(null);
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
-  const [ openModal, closeModal, updateOpenModal, updateCloseModal] = useStore((state) => 
-  [ state.openModal, state.closeModal, state.updateOpenModal, state.updateCloseModal ]
+  
+  const [ openModal, closeModal, updateOpenModal, updateCloseModal, updateOpenModal2] = useStore((state) => 
+  [ state.openModal, state.closeModal, state.updateOpenModal, state.updateCloseModal, state.updateOpenModal2 ]
   );
 
   console.log(openModal, closeModal)
@@ -51,6 +39,10 @@ export function FormToAddProject(){
     }
   };
 
+  const handleSaveClick = () => {
+    updateOpenModal(false)
+    updateOpenModal2(true);
+  };
   return(
     
     <section className='section_modal'>
@@ -74,7 +66,7 @@ export function FormToAddProject(){
                 image={"https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg"}
                 alt="imagem do projeto"
                 />
-              <p style={{ position: 'relative', top: 30}}>Compartilhe seu talento com milhares de pessoas</p> 
+              <p style={{ position: 'relative', top: 30, fontSize: 15}}>Compartilhe seu talento com milhares de pessoas</p> 
               <CardMedia
                 style={{ display: "block",
                   marginBottom: imagemSelecionada ? 'auto' : "50px", 
@@ -92,7 +84,7 @@ export function FormToAddProject(){
 
           <Button className= "button_salvar"
             value="salvar"
-            onClick={ closeModalFunc }
+            onClick={ handleSaveClick }
             
           />
           <Button className="button_cancelar"
@@ -134,34 +126,38 @@ export function FormToAddProject(){
             />
           </div>
       </div>
-
     </section>
   )
 }
 
-export default function NestedModal() {
-  const [ openModal, closeModal] = useStore((state) => 
-  [ state.openModal, state.closeModal, state.updateOpenModal, state.updateCloseModal ]
+export function NestedModal() {
+  const [ openModal,updateOpenModal, updateCloseModal ] = useStore((state) => 
+  [ state.openModal, state.updateOpenModal, state.updateCloseModal ]
   );
 
-  console.log(openModal, closeModal)
+  const handleClose = () => {
+    updateOpenModal(false);
+    updateCloseModal(true);
+  };
 
   return (
+    <React.Fragment>
     <div>
       <Modal
         open={ openModal }
-        onClose={ closeModalFunc }
+        onClose={ handleClose }
         
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
         <>
           <Box className = "box_Form">
-            <FormToAddProject />
-            
+            <FormToAddProject/>          
           </Box>
         </>
       </Modal>
     </div>
+    </React.Fragment>
   );
 }
+export default NestedModal;

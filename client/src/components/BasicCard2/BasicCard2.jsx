@@ -8,20 +8,6 @@ import { CardActionArea, useMediaQuery } from '@mui/material';
 import useStore from '../../zustand/store';
 import './BasicCard2.css';
 
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: 400,
-//   bgcolor: "background.paper",
-//   border: "2px solid #000",
-//   boxShadow: 24,
-//   pt: 2,
-//   px: 4,
-//   pb: 3,
-// };
-
 export default function BasicCard({url, tag, createdAt}) {
   const [openModal,
     user, 
@@ -50,15 +36,11 @@ export default function BasicCard({url, tag, createdAt}) {
     updateOpenVisualizerModalProject(!openVisualizerModalProject);
   };
 
-  // const handleUpload = (event) => {
-  //   // Lógica de upload de arquivo aqui
-  //   console.log("Arquivo enviado:", event.target.files[0]);
-  // };
 
   return (
     <div className='container_info_project'>
         <CardActionArea
-          sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
+          sx={{ width: isSmallScreen ? 312 : 500, height: 300 }}
           className='img_modal_project'
           onClick={isProject ? openModalVisualizeProject : openModalCreateProject}
         >
@@ -81,7 +63,7 @@ export default function BasicCard({url, tag, createdAt}) {
 
           {!isProject ? 
             <CardContent>
-                <Typography sx={{ fontSize: 12, textAlign: 'center' }}>
+                <Typography sx={{ fontSize: 15, textAlign: 'center' }}>
                   Adicione seu primeiro projeto
                   <br />
                   Compartilhe seu talento com milhares de pessoas

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import './ProfileHome.css'
 import {getSavedUser} from '../../utils/sessionStorageLogin'
-import BotaoSalvarModal from "../BotaoSalvarModal/BotaoSalvarModal";
+import BotaoAdicionarModal from "../BotaoAdicionarModal/BotaoAdicionarModal";
 //import { Button } from "@mui/material";
 //import Button from "../Button/Button";
-//import NestedModal from '../Modal/Modal'
 //import { FormToAddProject } from '../Modal/Modal'
 //import useStore from "../../zustand/store";
 
@@ -40,8 +39,7 @@ export default function ProfileHome () {
             <br></br>
             <p>{userCountry}</p>
             <br></br>
-            <BotaoSalvarModal/>
-            
+            <BotaoAdicionarModal/>
           </div>
         </div>
       </div>

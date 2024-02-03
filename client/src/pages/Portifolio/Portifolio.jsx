@@ -3,9 +3,10 @@ import AppBar from '../../components/AppBar/AppBar';
 import "./Portifolio.css";
 // import AvatarIcon from '../AvatarIcon/index';
 import TextField from "../../components/TextFild/TextFild";
-import BasicCard from '../../components/BasicCard2/BasicCard2';
+import BasicCard2 from '../../components/BasicCard2/BasicCard2';
 import Profile from '../../components/ProfileHome/ProfileHome';
 import Modal from '../../components/Modal/Modal'
+import Modal2 from '../../components/Modal2/Modal2'
 import { getSavedUser } from "../../utils/sessionStorageLogin";
 import { projectWhitGoogle, projectsWithUser } from "../../api/axiosInstance";
 
@@ -19,6 +20,7 @@ function Portifolio(){
     const tokenGoogle = getSavedUser('@AuthFirebase:token');
     const tokenBackend = getSavedUser('@AuthBackend:token');
     const user = getSavedUser('@AuthFirebase:user');
+    
 
     if (Object.keys(tokenGoogle).length !== 0 && Object.keys(user).length !== 0) {
       const projectsLoginGoogle = await projectWhitGoogle(tokenGoogle, user.uid)
@@ -30,10 +32,11 @@ function Portifolio(){
       setProjects(projectsLoginBackend)
     }
     }
+    
   loadingProjects()
   }
   , []);
-
+  
   const containsProjects = projects.length > 0;
 
     return(
@@ -48,10 +51,12 @@ function Portifolio(){
 
               <div className="container_text_my_projects">
                 Meus Projetos
+                <Modal2/>
               </div>
 
               <div className="container_input_search">
-                <TextField/>
+              <TextField/>
+              <Modal/>
               </div>
 
               <div className="container_basic_card">
@@ -59,20 +64,16 @@ function Portifolio(){
                   projects.map(({id, url, tag, createdAt }) => {
                     console.log('entrei aqui :', id);
                     return (
-                      <BasicCard key={id} url={url} tag={tag} createdAt={createdAt}/>
+                      <BasicCard2 key={id} url={url} tag={tag} createdAt={createdAt}/>
                     )
                   })
                 :
-                <BasicCard/>
+                <BasicCard2/>
               }
               </div>
-
             </section>
       
-            <div>
-              <Modal/>
-            </div>
-
+            
         </section>
         
     )
