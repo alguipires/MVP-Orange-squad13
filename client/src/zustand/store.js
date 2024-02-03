@@ -15,10 +15,14 @@ const useStore = create((set) => ({
   currentUser: null,
   indexDeleteProject: null,
   indexEditProject: null,
+
+  currentUser: null,
+  currentProject: null,
+
   updateHidden: (hidden) => set(() => ({ isHidden: hidden })),
   updateUser: (user) => set(() => ({ user: user })),
   updateIndexProject: (id) => set(() => ({ indexProject: id })),
-  updateDiscoveryPage: (boolean) => set(() => ({ discoveryPage: boolean })), 
+  updateDiscoveryPage: (boolean) => set(() => ({ discoveryPage: boolean })),
   updateOpenModal: (open) => set(() => ({ openModal: open })),
   updateOpenModal2:(open) => set(()=> ({openModal2: open})),
   updateOpenModalAdicionado:(open) => set (()=>({openModalAdicionado: open})),
@@ -26,10 +30,15 @@ const useStore = create((set) => ({
   updateOpenModalDeletado:(open) => set (()=>({openModalDeletado: open})),
   updateOpenModalExcluir:(open) => set (()=>({openModalExcluir: open})),
   updateCloseModal: (close) => set(() => ({ closeModal: close })),
-  updateCurrentUser: (user) => set(() => ({ currentUser: user })),
-  updateOpenVisualizerModalProject: (open) => set(() => ({ openVisualizerModalProject: open })),
-  updateIndexDeleteProject: (index) => set(() => ({ indexDeleteProject: index })),
+
+  updateOpenVisualizerModalProject: (open) =>
+    set(() => ({ openVisualizerModalProject: open })),
+  updateIndexDeleteProject: (index) =>
+    set(() => ({ indexDeleteProject: index })),
   updateIndexEditProject: (index) => set(() => ({ indexEditProject: index })),
+  updateCurrentUser: (user) => set(() => ({ currentUser: user })),
+  updateCurrentProject: (project) => set(() => ({ currentProject: project })),
+
 }));
 
 export default useStore;

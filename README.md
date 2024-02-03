@@ -43,7 +43,7 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da API Rest do proj
 ## Ferramentas
 
 - **VsCode**
-- **Dbeaver para visualizar o DB ou outro de preferencia**
+- **Dbeaver para visualizar o DB ou outro de preferência**
 - **Docker compose**
 
 ---
