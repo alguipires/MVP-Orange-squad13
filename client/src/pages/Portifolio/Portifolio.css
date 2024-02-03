@@ -57,6 +57,10 @@
     color: rgb(90, 83, 83);
   }
 
+  .container_input_search {
+    width: 100%;
+  }
+
   .container_basic_card {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));

@@ -6,7 +6,6 @@ import TextField from "../../components/TextFild/TextFild";
 import BasicCard2 from '../../components/BasicCard2/BasicCard2';
 import Profile from '../../components/ProfileHome/ProfileHome';
 import Modal from '../../components/Modal/Modal'
-import Modal2 from '../../components/Modal2/Modal2'
 import { getSavedUser } from "../../utils/sessionStorageLogin";
 import { projectWhitGoogle, projectsWithUser } from "../../api/axiosInstance";
 import ModalToView from "../../components/Modal/ModalToView";
@@ -40,7 +39,6 @@ function Portifolio(){
   , []);
   
   const containsProjects = projects.length > 0;
-  console.log('projectid:', indexProject);
   const projectByIndex = projects && projects[indexProject];
 
     return(
@@ -55,7 +53,6 @@ function Portifolio(){
 
               <div className="container_text_my_projects">
                 Meus Projetos
-                <Modal2/>
               </div>
 
               <div className="container_input_search">
@@ -67,8 +64,9 @@ function Portifolio(){
                 {containsProjects ? 
                   projects.map(({id, url, tag, createdAt }, index) => {
                     return (
-                      <BasicCard 
-                        key={ id } 
+                      <BasicCard2 
+                        key={ id }
+                        projectId={ id } 
                         index={ index } 
                         url={ url } 
                         tag={ tag } 

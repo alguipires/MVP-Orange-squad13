@@ -1,47 +1,56 @@
-import React, { useEffect, useState } from "react";
-import './ProfileHome.css'
-import {getSavedUser} from '../../utils/sessionStorageLogin'
-import BotaoAdicionarModal from "../BotaoAdicionarModal/BotaoAdicionarModal";
-//import { Button } from "@mui/material";
-//import Button from "../Button/Button";
+import React, { useEffect, useState } from 'react';
+import './ProfileHome.css';
+import BotaoSalvarModal from '../BotaoAdicionarModal/BotaoAdicionarModal';
+import { getSavedUser } from '../../utils/sessionStorageLogin';
+import * as avatars from '../../assets/icons/avatar';
 //import { FormToAddProject } from '../Modal/Modal'
 //import useStore from "../../zustand/store";
 
+export default function ProfileHome() {
+  const [user, setUser] = useState({});
+  const [userCountry, setUserCoutry] = useState('');
 
-export default function ProfileHome () {
+  useEffect(() => {
+    const userSession = getSavedUser('@AuthFirebase:user');
 
-    const [ user, setUser] = useState({});
-    const [ userCountry , setUserCoutry] = useState('');
+    if (userSession) {
+      setUser(userSession);
 
-    useEffect(() => {
-      const userSession = getSavedUser("@AuthFirebase:user")
+      fetch('https://ipapi.co/json/')
+        .then((response) => response.json())
+        .then((date) => {
+          setUserCoutry(date.country_name);
+        })
+        .catch((error) => {
+          console.error('erro ao obter pais', error);
+        });
+    }
+  }, []);
 
-      if (userSession) {
-        setUser(userSession);
+  function getRandomAvatar() {
+    const avatarsList = Object.keys(avatars);
+    const avatarsQnt = avatarsList.length;
+    const avatarIndex = Math.floor(Math.random() * avatarsQnt);
+    const avatar = avatars[avatarsList[avatarIndex]];
+    return avatar;
+  }
 
-        fetch('https://ipapi.co/json/')
-          .then(response => response.json())
-          .then(date=>{
-            setUserCoutry(date.country_name);
-          })
-          .catch(error =>{
-            console.error("erro ao obter pais",error)
-          })
-      }
-    }, []);
-
-    return (
-      <div className="container">
-        <div className="content">
-          <img className="imgProfileHome" src= {user.photoURL} alt="Descrição da imagem" />
-          <div className="text-container">
-            <h2>{user.displayName}</h2>
-            <br></br>
-            <p>{userCountry}</p>
-            <br></br>
-            <BotaoAdicionarModal/>
-          </div>
+  return (
+    <div className="container">
+      <div className="content">
+        <img
+          className="imgProfileHome"
+          src={user.photoURL || getRandomAvatar()}
+          alt="Imagem de perfil do usuário"
+        />
+        <div className="text-container">
+          <h2>{user.displayName}</h2>
+          <br></br>
+          <p>{userCountry}</p>
+          <br></br>
+          <BotaoSalvarModal/>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}

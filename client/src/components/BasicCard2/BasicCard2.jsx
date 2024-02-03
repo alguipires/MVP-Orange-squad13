@@ -10,23 +10,27 @@ import useStore from '../../zustand/store';
 import './BasicCard2.css';
 import formattedDate from '../../utils/formatedData';
 
-export default function BasicCard({index, url, tag, createdAt}) {
+export default function BasicCard({projectId, index, url, tag, createdAt}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal,
     user,
-    indexProject,
+    discoveryPage,
     updateIndexProject,
     updateOpenModal, 
     openVisualizerModalProject, 
-    updateOpenVisualizerModalProject
+    updateOpenVisualizerModalProject,
+    updateIndexDeleteProject,
+    updateIndexEditProject
   ] = useStore((state) => [
     state.openModal,
     state.user,
-    state.indexProject,
+    state.discoveryPage,
     state.updateIndexProject,
     state.updateOpenModal,
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
+    state.updateIndexDeleteProject,
+    state.updateIndexEditProject
   ]); 
 
   const open = Boolean(anchorEl);
@@ -35,6 +39,16 @@ export default function BasicCard({index, url, tag, createdAt}) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const editProject = (idEdit) => {
+    setAnchorEl(null);
+    updateIndexEditProject(idEdit);
+  };
+
+  const deleteProject = (idDelete) => {
+    setAnchorEl(null);
+    updateIndexDeleteProject(idDelete);
   };
 
   // console.log('user:', user);
@@ -47,23 +61,25 @@ export default function BasicCard({index, url, tag, createdAt}) {
   };
 
   const openModalVisualizeProject = (indexChange) => {
-    console.log('indexChange:', indexChange);
     updateIndexProject(indexChange);
     updateOpenVisualizerModalProject(!openVisualizerModalProject);
   };
 
-
-  console.log('index:', index);
-
-  console.log('indexProject:', indexProject);
-  
+  // const handleUpload = (event) => {
+  //   // Lógica de upload de arquivo aqui
+  //   console.log("Arquivo enviado:", event.target.files[0]);
+  // };
+  console.log('discovery', discoveryPage);
   return (
     <div className='container_info_project'>
         {isProject &&
           <div>
-          <button className='edit_icon' onClick={handleClick} >
-              <EditIcon />
-          </button>
+
+          {discoveryPage && 
+            <button className='edit_icon' onClick={handleClick} >
+                <EditIcon />
+            </button>
+          }  
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -83,22 +99,14 @@ export default function BasicCard({index, url, tag, createdAt}) {
             }}
           >
             <MenuItem 
-              onClick={handleClose} 
+              onClick={() => editProject(projectId)} 
               id='edit_project'
-              style={{
-                paddingRight: 120,
-                transition: 'background-color 0.3s ease',
-              }}
             >
               Editar
             </MenuItem>
             <MenuItem 
-              onClick={handleClose} 
+              onClick={() => deleteProject(projectId)} 
               id='delete_project'
-              style={{ 
-                paddingRight: 120, 
-                transition: 'background-color 0.3s ease',
-              }}
             >
               Excluir
             </MenuItem>

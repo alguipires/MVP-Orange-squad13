@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,11 +14,16 @@ import NotificationBell from './NotificationBell';
 import Logo from './Logo';
 import AvatarIcon from '../AvatarIcon';
 import './AppBar.css';
+import { useNavigate } from 'react-router-dom';
+import useStore from '../../zustand/store';
 
 const pages = ['Meus Projetos', 'Descobrir'];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [ updateDiscoveryPage ] = useStore((state) => [ state.updateDiscoveryPage ]); 
+
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -26,6 +31,16 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+  
+  const handleMyProjectsButton = () => {
+    updateDiscoveryPage(true);
+    navigate('/portifolio');
+  };
+
+  const discoveryButton = () => {
+    updateDiscoveryPage(false)
+    navigate('/discovery');
   };
 
   return (
@@ -35,15 +50,21 @@ function ResponsiveAppBar() {
           {/* //buttons desktop */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Logo />
-            {pages.map((page) => (
+
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                onClick={ handleMyProjectsButton }
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                Meus Projetos
               </Button>
-            ))}
+
+              <Button
+                onClick={ discoveryButton }
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Descobrir
+              </Button>
+
           </Box>
 
           {/* //buttons mobile */}
