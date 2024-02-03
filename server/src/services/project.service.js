@@ -188,7 +188,7 @@ const deleteProjectByIdService = async (projectId, getPayload) => {
       await Projects.destroy({ where: { id: projectId } });
 
       return {
-        status: 'SUCCESSFUL',
+        status: 'DELETED',
         data: { message: 'Projeto excluído com sucesso' },
       };
     } else {

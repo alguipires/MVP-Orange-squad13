@@ -97,7 +97,7 @@ const projectWhitGoogle = async (token, uuid) => {
 };
 
 const allProjects = async () => {
-  return await axios.get(`${endpoint}/projects`)
+  return await axios.get(`${endpoint}/project`)
     .then((response) => {
       return response.data;
     })
@@ -109,6 +109,26 @@ const allProjects = async () => {
     });
 };
 
+const deleteProject = async (token, projectId) => {
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+
+  return await axios.delete(`${endpoint}/project/${projectId}`, config)
+  .then((response) => {
+    return response.data;
+  })
+  .catch((error) => {
+    return error.response.data;
+  })
+  .finally(() => {
+    // always executed
+  });
+
+}
+
 
 export { checkUser,
         createNewUser, 
@@ -116,4 +136,5 @@ export { checkUser,
         projectsWithUser, 
         projectWhitGoogle,
         allProjects,
+        deleteProject
       };

@@ -15,7 +15,7 @@ const isSmallScreen = useMediaQuery('(max-width:768px)');
           label="Buscar Tags"
           variant="outlined"
           size="medium"
-          style={{ width: isSmallScreen ? '312px' : '513px', marginLeft: isSmallScreen ? '0px' : '0px'}}
+          style={{ width: isSmallScreen ? '90vw' : '513px', marginLeft: isSmallScreen ? '0px' : '0px'}}
         />
     </div>
   );

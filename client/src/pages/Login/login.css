@@ -1,20 +1,14 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .container_img_form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 99vh;
+  height: 100vh;
   width: 100%;
 }
 
 .container_img {
   width: 40%;
-  height: 100%;
+  height: 100vh;
 }
 
 .container_img img {

@@ -17,7 +17,7 @@
   position: absolute;
   cursor: pointer;
   border: none;
-  background-color: rgba(255, 86, 34, 0.527);
+  background-color: #FFCC99;
   right: 10px;
   top: 10px;
   width: 30px;
@@ -26,17 +26,25 @@
   z-index: 1;
 }
 
+
 .edit_icon:hover {
   background-color: #F52;
 }
 
+#edit_project {
+  padding-right: 120px;
+}
+
 #edit_project:hover {
-  background-color: rgba(255, 86, 34, 0.637);
-  position: relative;
+  background-color: #FFEECC;
+}
+
+#delete_project {
+  padding-right: 120px;
 }
 
 #delete_project:hover {
-  background-color: rgba(255, 86, 34, 0.637);
+  background-color: #FFEECC;
 }
 
 .container_avatar_date_tag {
@@ -95,6 +103,12 @@
 
 @media screen and (max-width: 768px){
   .container_avatar_date_tag {
-    width: 305px;
+    width: 89vw;
+  }
+
+
+  .container_img_project {
+    width: 89vw;
+    height: 100%;
   }
 }
