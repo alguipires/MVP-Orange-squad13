@@ -67,7 +67,6 @@ const createUserWithGooglePostService = async ( firstName, lastName, email, pass
 
 const projectWhitIdService = async (userUuid) => {
   try {
-    console.log('entrei aqui', userUuid);
     const {status, data} = await getProjectByIdService(userUuid);
     return { status, data};
   } catch (error) {
@@ -81,7 +80,9 @@ const projectsWhitGoogleService = async (token, uuid) => {
   if (!uuid) return { status: 'UNAUTHORIZED', data: { message: 'Id is required' } };
 
   try {
+    console.log('uuid', uuid);
     const user = await Users.findOne({ where: { uuid } })
+    console.log('user', user);
     if (!user) {
       return { status: 'UNAUTHORIZED', data: { message: 'Invalid id' } };
     }

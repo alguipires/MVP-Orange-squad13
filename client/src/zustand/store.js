@@ -3,6 +3,7 @@ import { create } from 'zustand';
 const useStore = create((set) => ({
   isHidden: true,
   user: {},
+  indexProject: 0,
   openModal: false,
   openModal2:false,
   openModalConfirmacao: false,
@@ -11,6 +12,7 @@ const useStore = create((set) => ({
   currentUser: null,
   updateHidden: (hidden) => set(() => ({ isHidden: hidden })),
   updateUser: (user) => set(() => ({ user: user })),
+  updateIndexProject: (id) => set(() => ({ indexProject: id })),
   updateOpenModal: (open) => set(() => ({ openModal: open })),
   updateOpenModal2:(open) => set(()=> ({openModal2: open})),
   updateOpenModalConfirmacao:(open) => set(()=> ({openModalConfirmacao: open})),
