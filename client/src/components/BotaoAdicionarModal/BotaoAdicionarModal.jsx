@@ -31,7 +31,7 @@ function BotaoSalvarModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} className='buttonModal'>Adicionar Projeto</Button>
+      <Button onClick={handleOpen} className='buttonModal' >Adicionar Projeto</Button>
       
     </div>
   );
