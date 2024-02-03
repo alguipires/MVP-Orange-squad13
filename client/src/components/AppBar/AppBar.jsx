@@ -15,11 +15,14 @@ import Logo from './Logo';
 import AvatarIcon from '../AvatarIcon';
 import './AppBar.css';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../../zustand/store';
 
 const pages = ['Meus Projetos', 'Descobrir'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [ updateDiscoveryPage ] = useStore((state) => [ state.updateDiscoveryPage ]); 
+
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -29,8 +32,14 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  
+  const handleMyProjectsButton = () => {
+    updateDiscoveryPage(true);
+    navigate('/portifolio');
+  };
 
   const discoveryButton = () => {
+    updateDiscoveryPage(false)
     navigate('/discovery');
   };
 
@@ -43,7 +52,7 @@ function ResponsiveAppBar() {
             <Logo />
 
               <Button
-                onClick={handleCloseNavMenu}
+                onClick={ handleMyProjectsButton }
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Meus Projetos

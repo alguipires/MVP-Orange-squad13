@@ -5,9 +5,8 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
   const { signed } = useContext(AuthGoogleContext);
-  console.log(signed);
-  // eslint-disable-next-line no-constant-condition
-  return true ? <Outlet /> : <Navigate to="/" />;
+
+  return signed ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default PrivateRoutes;

@@ -14,6 +14,7 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal,
     user,
+    discoveryPage,
     updateIndexProject,
     updateOpenModal, 
     openVisualizerModalProject, 
@@ -23,6 +24,7 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
   ] = useStore((state) => [
     state.openModal,
     state.user,
+    state.discoveryPage,
     state.updateIndexProject,
     state.updateOpenModal,
     state.openVisualizerModalProject,
@@ -67,14 +69,17 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
   //   // Lógica de upload de arquivo aqui
   //   console.log("Arquivo enviado:", event.target.files[0]);
   // };
-  
+  console.log('discovery', discoveryPage);
   return (
     <div className='container_info_project'>
         {isProject &&
           <div>
-          <button className='edit_icon' onClick={handleClick} >
-              <EditIcon />
-          </button>
+
+          {discoveryPage && 
+            <button className='edit_icon' onClick={handleClick} >
+                <EditIcon />
+            </button>
+          }  
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}

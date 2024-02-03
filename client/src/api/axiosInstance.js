@@ -97,7 +97,7 @@ const projectWhitGoogle = async (token, uuid) => {
 };
 
 const allProjects = async () => {
-  return await axios.get(`${endpoint}/projects`)
+  return await axios.get(`${endpoint}/project`)
     .then((response) => {
       return response.data;
     })

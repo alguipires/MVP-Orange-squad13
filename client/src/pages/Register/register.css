@@ -21,8 +21,7 @@
   position: absolute;
   width: 320px;
   padding: 6px 16px;
-  top: 150px;
-
+  top: 77px;
 }
 
 @media screen and (max-width: 768px) {

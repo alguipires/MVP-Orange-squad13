@@ -41,8 +41,8 @@ const FormRegister = () => {
   };
 
   const inputValidation = () => {
-    const nameValidation = validator.isLength(name, { min: 1 });
-    const lastNameValidation = validator.isLength(lastName, { min: 1 });
+    const nameValidation = validator.isLength(name, { min: 2 });
+    const lastNameValidation = validator.isLength(lastName, { min: 2 });
     const emailValidation = validator.isEmail(email);
     const passwordValidation = validator.isLength(password, { min: 5 });
     
@@ -51,44 +51,20 @@ const FormRegister = () => {
       return;
     }
 
-    // if (!nameValidation) {
-    //   handleAlert('Nome inválido, insira um nome com mais de 1 caractere');
-    //   setErrorName(true);
-    // } else {
-    //   setErrorName(false);
-    // }
-
-    // if (!lastNameValidation) {
-    //   handleAlert('Sobrenome inválido, insira um sobrenome com mais de 1 caractere');
-    //   setErrorLastName(true);
-    // } else {
-    //   setErrorLastName(false);
-    // }
-
-    // if (!emailValidation) {
-    //   handleAlert('Email inválido');
-    //   setErrorEmail(true);
-    // } else {
-    //   setErrorEmail(false);
-    // }
-    // if (!passwordValidation) {
-    //   handleAlert('A senha deve possuir um mínimo de 5 caracteres');
-    //   setErrorPassword(true);
-    // } else {
-    //   setErrorPassword(false);
-    // }
-
     validateInputs(
       nameValidation,
-      'Nome inválido, insira um nome com mais de 1 caractere',
+      'Nome inválido, insira um nome com mais de 2 caracteres',
       setErrorName
     );
+
     validateInputs(
       lastNameValidation,
-      'Sobrenome inválido, insira um sobrenome com mais de 1 caractere',
+      'Sobrenome inválido, insira um sobrenome com mais de 2 caracteres',
       setErrorLastName
     );
+
     validateInputs(emailValidation, 'Email inválido', setErrorEmail);
+
     validateInputs(
       passwordValidation,
       'A senha deve possuir um mínimo de 5 caracteres',
@@ -112,7 +88,6 @@ const FormRegister = () => {
     
     if (isValidUser.token !== undefined && isValidUser.message === undefined) {
       updateHidden(false);
-      // salvar o token em algum local
       navigate('/');
     }
 
