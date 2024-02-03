@@ -9,6 +9,9 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 // import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+// import { useNavigate } from 'react-router-dom';
+// import validator from 'validator';
+import { createNewProject } from '../../api/axiosInstance';
 
 const style = {
   position: 'absolute',
@@ -294,7 +297,7 @@ export default function NestedModal() {
             <Button
               className="button_salvar"
               value="salvar"
-              onClick={handleButtonClick}
+              // onClick={handleButtonClick}
             />
             <Button
               className="button_cancelar"
