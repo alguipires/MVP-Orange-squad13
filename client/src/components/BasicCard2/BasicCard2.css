@@ -1,5 +1,5 @@
 .container_info_project {
-  position: relative;
+  width: 100%;
 }
 .container_img_project {
   width: 100%;
@@ -9,8 +9,13 @@
 .container_img_project img {
   width: 102%;
   height: 100%;
-  object-fit: cover;
+  background-size: cover;
   border-radius: 5px;
+}
+
+.container_edit_icon {
+  position: relative;
+  width: 100%;
 }
 
 .edit_icon {
@@ -102,13 +107,31 @@
 }
 
 @media screen and (max-width: 768px){
+  .container_info_project {
+    width: 100%;
+  }
   .container_avatar_date_tag {
-    width: 89vw;
+    width: 90vw;
   }
 
 
-  .container_img_project {
-    width: 89vw;
+  .container_img_project img{
+    width: 90vw;
     height: 100%;
   }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1600px) {
+  .container_info_project {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1400px){
+  .container_img_project {
+    width: 108%;
+    height: 100%;
+  }
+  
+  
 }

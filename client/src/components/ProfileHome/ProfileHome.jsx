@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ProfileHome.css';
-import Button from '../Button/Button';
+import BotaoSalvarModal from '../BotaoAdicionarModal/BotaoAdicionarModal';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
-import NestedModal from '../Modal/Modal';
 import * as avatars from '../../assets/icons/avatar';
 //import { FormToAddProject } from '../Modal/Modal'
 //import useStore from "../../zustand/store";
@@ -49,11 +48,7 @@ export default function ProfileHome() {
           <br></br>
           <p>{userCountry}</p>
           <br></br>
-          <Button
-            className="buttonProfileHome"
-            onClick={NestedModal}
-            value="Adicionar projeto"
-          />
+          <BotaoSalvarModal/>
         </div>
       </div>
     </div>

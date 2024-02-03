@@ -1,0 +1,94 @@
+.caixaSucesso{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 351px;
+  height: 242px;
+  border: 2px solid #000;
+  box-shadow: 24;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.caixaExcluir{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #000;
+  box-shadow: 24;
+  background-color: #ffffff;
+}
+
+.modalSucesso{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  
+}
+.modalTitulo{
+  width: 100%;
+  text-align: center;
+}
+.modalImagen{
+margin: 20px;
+}
+.botaoVoltar{
+  align-items: center;
+  justify-content: center;
+  size: 100%;
+  background-color: #F52;
+}
+
+.modalExcluir{
+  padding: 30px;
+  height: 200px;
+}
+
+.modalTextExcluir{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.botaoExcluir{
+  color: white;
+  width: 110px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: #F52;
+  padding: 8px 22px;
+  justify-content: space-between;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.botaoExcluir:hover {
+  background-color: #F52;
+  opacity: 0.8;
+}
+.botaoCancelar{
+  width: 130px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #3f3f3f;
+  margin-left: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: rgb(112, 112, 112);
+  background: #0000001F;
+
+
+}
+.botaoCancelar:hover {
+  background-color: rgb(202, 202, 202);
+  opacity: 0.8;
+}

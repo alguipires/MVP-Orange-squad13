@@ -55,8 +55,8 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
   // console.log('user:', user);
   const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
-
-  const noProjectImage = '/assets/imgs/fundo-sem-img.jpg';
+  const noProjectImage =
+    'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
 
   const openModalCreateProject = () => {
     updateOpenModal(!openModal);
@@ -73,9 +73,9 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
   // };
   console.log('discovery', discoveryPage);
   return (
-    <div className="container_info_project">
+    <section className="container_info_project">
       {isProject && (
-        <div>
+        <div className="container_edit_icon">
           {discoveryPage && (
             <button className="edit_icon" onClick={handleClick}>
               <EditIcon />
@@ -119,6 +119,43 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
             ? () => openModalVisualizeProject(index)
             : openModalCreateProject
         }
+       /* <CardActionArea
+          sx={{ width: isSmallScreen ? 312 : 500, height: 300 }}
+          className='img_modal_project'
+          onClick={isProject ? () => openModalVisualizeProject(index) : openModalCreateProject}
+        >
+          {!isProject && 
+            <CardMedia
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: isSmallScreen ? '10%' : '46px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 'auto',
+                marginLeft: '45%'
+              }}
+              component="img"
+              image={isProject ? url : noProjectImage}
+              alt="imagem do projeto"
+            />
+          }
+
+          {!isProject ? 
+            <CardContent>
+                <Typography sx={{ fontSize: 15, textAlign: 'center' }}>
+                  Adicione seu primeiro projeto
+                  <br />
+                  Compartilhe seu talento com milhares de pessoas
+                </Typography>
+            </CardContent>
+            :
+              <div className='container_img_project'>
+                <img src={url} alt='imagem do projeto'/>
+              </div>
+          }
+        </CardActionArea>
+      {isProject &&  */
       >
         {!isProject && (
           <CardMedia
@@ -135,6 +172,7 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
             alt="imagem do projeto"
           />
         )}
+
 
         {!isProject ? (
           <CardContent>
@@ -174,6 +212,6 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
