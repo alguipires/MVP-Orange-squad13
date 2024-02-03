@@ -42,8 +42,9 @@ export function FormToAddProject() {
   const [link, setLink] = useState('');
   const [description, setDescription] = useState('');
   const [imgFile, setImgFile] = useState(null);
-  const [updateCurrentProject] = useStore((state) => [
+  const [updateCurrentProject, updatecurrentProjectSave] = useStore((state) => [
     state.updateCurrentProject,
+    state.updatecurrentProjectSave,
   ]);
   // const navigate = useNavigate();
 
@@ -68,7 +69,13 @@ export function FormToAddProject() {
   //TODO fazer validador
 
   //TODO verificar importação do componente para funcionar o buttononclick
-  const handleButtonClick = () => {
+  console.log('updatecurrentProjectSave', updatecurrentProjectSave); //TODO retirar log
+
+  if (updatecurrentProjectSave) {
+    // handleButtonClick();
+    // }
+
+    // const handleButtonClick = () => {
     /* inputValidation();
 
     const titleValidation = validator.isLength(title, { min: 1 });
@@ -88,7 +95,7 @@ export function FormToAddProject() {
     } */
 
     handleSubmitRegister(); //TODO retirar apos fazer validação
-  };
+  }
 
   const preViewProject = () => {
     const preProject = {
@@ -351,14 +358,23 @@ export function FormToAddProject() {
 
 
 export default function NestedModal() {
-  const [openModal, closeModal, updateOpenModal, updateCloseModal] = useStore(
-    (state) => [
-      state.openModal,
-      state.closeModal,
-      state.updateOpenModal,
-      state.updateCloseModal,
-    ]
-  );
+  const [
+    openModal,
+    closeModal,
+    updateOpenModal,
+    updateCloseModal,
+    updatecurrentProjectSave,
+  ] = useStore((state) => [
+    state.openModal,
+    state.closeModal,
+    state.updateOpenModal,
+    state.updateCloseModal,
+    state.updatecurrentProjectSave,
+  ]);
+
+  const salveProject = (e) => {
+    updatecurrentProjectSave(e);
+  };
 
   console.log(openModal, closeModal);
 
@@ -404,7 +420,7 @@ export default function NestedModal() {
             <Button
               className="button_salvar"
               value="salvar"
-              // onClick={handleButtonClick}
+              onClick={() => salveProject(true)}
             />
             <Button
               className="button_cancelar"
