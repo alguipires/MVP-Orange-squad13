@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
@@ -9,7 +9,19 @@ import './Modal2.css'
 
 
 
-// Functions to create ModalBoxes
+/*const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};*/
 
 export function ModalAdicionado() {
   const [updateOpenModal, updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
@@ -108,8 +120,8 @@ export function ModalDeletado() {
   );
 }
 export function ModalExcluir() {
-  const [updateOpenModal, updateOpenModal2, updateCloseModal2, openModalDeletado,updateOpenModalDeletado ] = useStore((state) => 
-  [state.updateOpenModal, state.updateOpenModal2, state.updateCloseModal2, state.openModalDeletado, state.updateOpenModalDeletado ]
+  const [updateOpenModal, updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
+  [state.updateOpenModal, state.updateOpenModal2, state.updateCloseModal2 ]
   );
 
 
@@ -117,12 +129,6 @@ export function ModalExcluir() {
     updateOpenModal2(false);
     updateCloseModal2(true);
     updateOpenModal(false);
-    updateOpenModalDeletado(false);
-  };
-
-  const handleOpen = () => {
-    updateOpenModalDeletado(true);
-    updateCloseModal2(false);
   };
 
 
@@ -138,7 +144,7 @@ export function ModalExcluir() {
           <p>Se você prosseguir irá excluir o projeto do <br/> seu portfólio</p>
         </div>
         <div className='modalBotaoExcluir'>
-          <Button className='botaoExcluir' onClick={handleOpen} variant="contained">Exlcuir</Button>
+          <Button className='botaoExcluir' onClick={handleClose} variant="contained">Exlcuir</Button>
           <Button className='botaoCancelar' onClick={handleClose} >Cancelar</Button>
       
       </div>
@@ -148,9 +154,9 @@ export function ModalExcluir() {
   );
 }
 
-// Functions to Open Modal
 
-export function OpenModalExcluir() {
+
+export default function NestedModal() {
   const [ openModal2,updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
   [ state.openModal2, state.updateOpenModal2, state.updateCloseModal2 ]
   );
@@ -175,104 +181,9 @@ export function OpenModalExcluir() {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-          <ModalExcluir/>  
+          <ModalExcluir/>
+          
       </Modal>
     </div>
   );
 }
-
-export function OpenModalDeletado() {
-  const [ openModal2,updateOpenModal2, updateCloseModal2, openModalDeletado, updateOpenModalDeletado ] = useStore((state) => 
-  [ state.openModal2, state.updateOpenModal2, state.updateCloseModal2, state.openModalDeletado, updateOpenModalDeletado ]
-  );
-
-  const handleOpen = () => {
-    updateOpenModalDeletado(true);
-    updateCloseModal2(false);
-  };
-
-  const handleClose = () => {
-    updateOpenModalDeletado(false);
-    updateCloseModal2(true);
-  };
-
-
-  return (
-    <div>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
-        open={openModalDeletado}
-        onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-          <ModalDeletado/>  
-      </Modal>
-    </div>
-  );
-}
-
-export function OpenModalEditado() {
-  const [ openModal2,updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
-  [ state.openModal2, state.updateOpenModal2, state.updateCloseModal2 ]
-  );
-
-  const handleOpen = () => {
-    updateOpenModal2(true);
-    updateCloseModal2(false);
-  };
-
-  const handleClose = () => {
-    updateOpenModal2(false);
-    updateCloseModal2(true);
-  };
-
-
-  return (
-    <div>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
-        open={openModal2}
-        onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-          <ModalEditado/>  
-      </Modal>
-    </div>
-  );
-}
-
-export function OpenModalAdicionado() {
-  const [ openModal2,updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
-  [ state.openModal2, state.updateOpenModal2, state.updateCloseModal2 ]
-  );
-
-  const handleOpen = () => {
-    updateOpenModal2(true);
-    updateCloseModal2(false);
-  };
-
-  const handleClose = () => {
-    updateOpenModal2(false);
-    updateCloseModal2(true);
-  };
-
-
-  return (
-    <div>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
-        open={openModal2}
-        onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-          <ModalAdicionado/>  
-      </Modal>
-    </div>
-  );
-}
-
-
-export default OpenModalEditado;
