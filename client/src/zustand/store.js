@@ -12,6 +12,7 @@ const useStore = create((set) => ({
   indexEditProject: null,
   currentUser: null,
   currentProject: null,
+  currentProjectSave: false,
   updateHidden: (hidden) => set(() => ({ isHidden: hidden })),
   updateUser: (user) => set(() => ({ user: user })),
   updateIndexProject: (id) => set(() => ({ indexProject: id })),
@@ -25,6 +26,8 @@ const useStore = create((set) => ({
   updateIndexEditProject: (index) => set(() => ({ indexEditProject: index })),
   updateCurrentUser: (user) => set(() => ({ currentUser: user })),
   updateCurrentProject: (project) => set(() => ({ currentProject: project })),
+  updatecurrentProjectSave: (boolean) =>
+    set(() => ({ currentProjectSave: boolean })),
 }));
 
 export default useStore;
