@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 import AppBar from '../../components/AppBar/AppBar';
 import './Portifolio.css';
 // import AvatarIcon from '../AvatarIcon/index';
+
+
+import BasicCard2 from '../../components/BasicCard2/BasicCard2';
+=======
 import TextField from '../../components/TextFild/TextFild';
-import BasicCard from '../../components/BasicCard2/BasicCard2';
+//import BasicCard from '../../components/BasicCard2/BasicCard2';
+
 import Profile from '../../components/ProfileHome/ProfileHome';
 import Modal from '../../components/Modal/Modal';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
@@ -77,6 +82,7 @@ function Portifolio() {
           )}
         </div>
       </section>
+
 
       {containsProjects ? (
         <ModalToView

@@ -6,14 +6,8 @@ const useStore = create((set) => ({
   indexProject: 0,
   discoveryPage: false,
   openModal: false,
-  openModal2: false,
-  openModalConfirmacao: false,
-  openVisualizerModalProject: false,
-  openModalAdicionado: false,
-  openModalEditado: false,
-  openModalDeletado: false,
-  openModalExcluir:false,
   closeModal: true,
+  openVisualizerModalProject: false,
   indexDeleteProject: null,
   indexEditProject: null,
   currentUser: null,
@@ -24,21 +18,12 @@ const useStore = create((set) => ({
   updateIndexProject: (id) => set(() => ({ indexProject: id })),
   updateDiscoveryPage: (boolean) => set(() => ({ discoveryPage: boolean })),
   updateOpenModal: (open) => set(() => ({ openModal: open })),
-<<<<<<< HEAD
-  updateOpenModal2: (open) => set(() => ({ openModal2: open })),
-  updateOpenModalConfirmacao: (open) =>
-    set(() => ({ openModalConfirmacao: open })),
-=======
-  updateOpenModal2:(open) => set(()=> ({openModal2: open})),
-  updateOpenModalConfirmacao:(open) => set(()=> ({openModalConfirmacao: open})),
-  updateOpenModalAdicionado:(open) => set (()=>({openModalAdicionado: open})),
-  updateOpenModalEditado:(open) => set (()=>({openModalEditado: open})),
-  updateOpenModalDeletado:(open) => set (()=>({openModalDeletado: open})),
-  updateOpenModalExcluir:(open) => set (()=>({openModalExcluir: open})),
->>>>>>> 9b39eee (separação dos modais em componentes)
   updateCloseModal: (close) => set(() => ({ closeModal: close })),
-  updateCloseModal2: (close) => set(() => ({ closeModal: close })),
-  updateCloseModalConfirmacao: (close) => set(() => ({ closeModal: close })),
+  updateOpenVisualizerModalProject: (open) =>
+    set(() => ({ openVisualizerModalProject: open })),
+  updateIndexDeleteProject: (index) =>
+    set(() => ({ indexDeleteProject: index })),
+  updateIndexEditProject: (index) => set(() => ({ indexEditProject: index })),
   updateCurrentUser: (user) => set(() => ({ currentUser: user })),
   updateCurrentProject: (project) => set(() => ({ currentProject: project })),
   updatecurrentProjectSave: (boolean) =>

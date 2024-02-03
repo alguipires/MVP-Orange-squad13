@@ -119,6 +119,43 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
             ? () => openModalVisualizeProject(index)
             : openModalCreateProject
         }
+       /* <CardActionArea
+          sx={{ width: isSmallScreen ? 312 : 500, height: 300 }}
+          className='img_modal_project'
+          onClick={isProject ? () => openModalVisualizeProject(index) : openModalCreateProject}
+        >
+          {!isProject && 
+            <CardMedia
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: isSmallScreen ? '10%' : '46px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 'auto',
+                marginLeft: '45%'
+              }}
+              component="img"
+              image={isProject ? url : noProjectImage}
+              alt="imagem do projeto"
+            />
+          }
+
+          {!isProject ? 
+            <CardContent>
+                <Typography sx={{ fontSize: 15, textAlign: 'center' }}>
+                  Adicione seu primeiro projeto
+                  <br />
+                  Compartilhe seu talento com milhares de pessoas
+                </Typography>
+            </CardContent>
+            :
+              <div className='container_img_project'>
+                <img src={url} alt='imagem do projeto'/>
+              </div>
+          }
+        </CardActionArea>
+      {isProject &&  */
       >
         {!isProject && (
           <CardMedia
@@ -135,6 +172,7 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
             alt="imagem do projeto"
           />
         )}
+
 
         {!isProject ? (
           <CardContent>
