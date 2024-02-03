@@ -10,17 +10,18 @@ import useStore from '../../zustand/store';
 import './BasicCard2.css';
 import formattedDate from '../../utils/formatedData';
 
-export default function BasicCard({projectId, index, url, tag, createdAt}) {
+export default function BasicCard({ projectId, index, url, tag, createdAt }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openModal,
+  const [
+    openModal,
     user,
     discoveryPage,
     updateIndexProject,
-    updateOpenModal, 
-    openVisualizerModalProject, 
+    updateOpenModal,
+    openVisualizerModalProject,
     updateOpenVisualizerModalProject,
     updateIndexDeleteProject,
-    updateIndexEditProject
+    updateIndexEditProject,
   ] = useStore((state) => [
     state.openModal,
     state.user,
@@ -30,8 +31,8 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
     state.updateIndexDeleteProject,
-    state.updateIndexEditProject
-  ]); 
+    state.updateIndexEditProject,
+  ]);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -54,7 +55,8 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
   // console.log('user:', user);
   const isProject = !!url && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
-  const noProjectImage = 'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
+
+  const noProjectImage = '/assets/imgs/fundo-sem-img.jpg';
 
   const openModalCreateProject = () => {
     updateOpenModal(!openModal);
@@ -71,15 +73,14 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
   // };
   console.log('discovery', discoveryPage);
   return (
-    <div className='container_info_project'>
-        {isProject &&
-          <div>
-
-          {discoveryPage && 
-            <button className='edit_icon' onClick={handleClick} >
-                <EditIcon />
+    <div className="container_info_project">
+      {isProject && (
+        <div>
+          {discoveryPage && (
+            <button className="edit_icon" onClick={handleClick}>
+              <EditIcon />
             </button>
-          }  
+          )}
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -93,85 +94,86 @@ export default function BasicCard({projectId, index, url, tag, createdAt}) {
               vertical: 'top',
               horizontal: 'right',
             }}
-            style={{ 
-              marginTop: 2, 
+            style={{
+              marginTop: 2,
               marginLeft: 20,
             }}
           >
-            <MenuItem 
-              onClick={() => editProject(projectId)} 
-              id='edit_project'
-            >
+            <MenuItem onClick={() => editProject(projectId)} id="edit_project">
               Editar
             </MenuItem>
-            <MenuItem 
-              onClick={() => deleteProject(projectId)} 
-              id='delete_project'
+            <MenuItem
+              onClick={() => deleteProject(projectId)}
+              id="delete_project"
             >
               Excluir
             </MenuItem>
           </Menu>
         </div>
+      )}
+      <CardActionArea
+        sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
+        className="img_modal_project"
+        onClick={
+          isProject
+            ? () => openModalVisualizeProject(index)
+            : openModalCreateProject
         }
-        <CardActionArea
-          sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
-          className='img_modal_project'
-          onClick={isProject ? () => openModalVisualizeProject(index) : openModalCreateProject}
-        >
-          {!isProject && 
-            <CardMedia
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: isSmallScreen ? '10%' : '20%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 'auto',
-              }}
-              component="img"
-              image={isProject ? url : noProjectImage}
-              alt="imagem do projeto"
-            />
-          }
+      >
+        {!isProject && (
+          <CardMedia
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: isSmallScreen ? '10%' : '20%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 'auto',
+            }}
+            component="img"
+            image={isProject ? url : noProjectImage}
+            alt="imagem do projeto"
+          />
+        )}
 
-          {!isProject ? 
-            <CardContent>
-                <Typography sx={{ fontSize: 12, textAlign: 'center' }}>
-                  Adicione seu primeiro projeto
-                  <br />
-                  Compartilhe seu talento com milhares de pessoas
-                </Typography>
-            </CardContent>
-            :
-              <div className='container_img_project'>
-                <img src={url} alt='imagem do projeto'/>
-              </div>
-          }
-        </CardActionArea>
-      {isProject &&  
-
-      <div className='container_avatar_date_tag'>
-          <div className='container_avatar_date'>
-            <div className='container_avatar_user'>
-              <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
-            </div>
-
-            <div className='container_date_project'>
-              <div className='user_data'>
-                {user.displayName} 
-                <div className='bullet_point'>
-              </div>{formattedDate(createdAt)}</div>
-            </div>  
-
+        {!isProject ? (
+          <CardContent>
+            <Typography sx={{ fontSize: 12, textAlign: 'center' }}>
+              Adicione seu primeiro projeto
+              <br />
+              Compartilhe seu talento com milhares de pessoas
+            </Typography>
+          </CardContent>
+        ) : (
+          <div className="container_img_project">
+            <img src={url} alt="imagem do projeto" />
           </div>
-            <div className='container_tag_project'>
-              <div className='tag_project'>
-                {tag}
+        )}
+      </CardActionArea>
+      {isProject && (
+        <div className="container_avatar_date_tag">
+          <div className="container_avatar_date">
+            <div className="container_avatar_user">
+              <img
+                src={user.photoURL}
+                alt="imagem do projeto"
+                className="img_project"
+              />
+            </div>
+
+            <div className="container_date_project">
+              <div className="user_data">
+                {user.displayName}
+                <div className="bullet_point"></div>
+                {formattedDate(createdAt)}
               </div>
             </div>
+          </div>
+          <div className="container_tag_project">
+            <div className="tag_project">{tag}</div>
+          </div>
         </div>
-      }
-
+      )}
     </div>
   );
 }

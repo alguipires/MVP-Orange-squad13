@@ -16,13 +16,13 @@ router.get('/userId', tokenValidation, projectController.getProjectsbyUserId);
 router.post(
   '/',
   tokenValidation,
-  upload.single('url'),
+  upload.single('imgFile'),
   projectController.createProjects
 );
 router.patch(
   '/:id',
   tokenValidation,
-  upload.single('url'),
+  upload.single('imgFile'),
   projectController.updateProjectById
 );
 router.delete('/:id', tokenValidation, projectController.deleteProjectById);
