@@ -5,14 +5,10 @@ import useStore from '../../zustand/store';
 
 function BotaoSalvarModal() {
   const [
-    openModal,
     updateOpenModal,
   ] = useStore((state) => [
-    state.openModal,
     state.updateOpenModal,
   ]);
-
-  console.log('openModal', openModal);
 
   const handleOpen = () => {
     updateOpenModal(true);

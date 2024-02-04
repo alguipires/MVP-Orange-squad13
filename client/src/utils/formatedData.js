@@ -1,4 +1,4 @@
-export default function formattedDate(createdAt) {
+function formattedDate(createdAt) {
   // Convertendo a string para um objeto Date
   const originalDate = new Date(createdAt);
   
@@ -10,5 +10,15 @@ export default function formattedDate(createdAt) {
   const formattedDate = `${month < 10 ? '0' : ''}${month}/${year < 10 ? '0' : ''}${year}`;
   
   return formattedDate;
-
 }
+
+function getFormattedMonthAndYear() {
+  const currentDate = new Date();
+
+  const year = currentDate.getFullYear().toString().slice(-2);
+  const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+
+  return `${month}/${year}`;
+}
+
+export { formattedDate, getFormattedMonthAndYear}

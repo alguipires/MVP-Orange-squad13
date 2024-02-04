@@ -4,31 +4,23 @@ import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './modalToView.css'
-import { formattedDate } from '../../utils/formatedData';
+import { formattedDate, getFormattedMonthAndYear } from '../../utils/formatedData';
 import { useMediaQuery } from '@mui/material';
 
-const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
+const ModalPreview = ({link, urlImg, tag, description, createdAt, title}) => {
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
+  console.log('urlImg:', link);
   const [
     user,
-    openVisualizerModalProject, 
-    updateOpenVisualizerModalProject
+    openPreviewModal,
+    updateOpenPreviewModal
   ] = useStore((state) => [
     state.user,
-    state.openVisualizerModalProject,
-    state.updateOpenVisualizerModalProject,
+    state.openPreviewModal,
+    state.updateOpenPreviewModal,
   ]); 
 
-  const handleClose = () => updateOpenVisualizerModalProject(!openVisualizerModalProject);
-
-  function getFormattedMonthAndYear() {
-    const currentDate = new Date();
-  
-    const year = currentDate.getFullYear().toString().slice(-2);
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-  
-    return `${month}/${year}`;
-  }
+  const handleClose = () => updateOpenPreviewModal(!openPreviewModal);
 
   const style = {
     position: 'absolute',
@@ -48,7 +40,7 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
   return (
     <div>
       <Modal
-        open={openVisualizerModalProject}
+        open={openPreviewModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -111,4 +103,4 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
   );
 }
 
-export default ModalToView;
+export default ModalPreview;

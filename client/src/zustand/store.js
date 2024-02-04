@@ -8,7 +8,10 @@ const useStore = create((set) => ({
   openModal: false,
   closeModal: true,
   openVisualizerModalProject: true,
-  indexDeleteProject: null,
+  openPreviewModal: false,
+  openDeleteProjectModal: false,
+  openDeleteSuccessModal: true,
+  idDeleteProject: null,
   indexEditProject: null,
   currentUser: null,
   currentProject: null,
@@ -21,13 +24,19 @@ const useStore = create((set) => ({
   updateCloseModal: (close) => set(() => ({ closeModal: close })),
   updateOpenVisualizerModalProject: (open) =>
     set(() => ({ openVisualizerModalProject: open })),
-  updateIndexDeleteProject: (index) =>
-    set(() => ({ indexDeleteProject: index })),
+  updateOpenPreviewModal: (open) => set(() => ({ openPreviewModal: open })),
+  updateOpenDeleteProjectModal: (open) =>
+    set(() => ({ openDeleteProjectModal: open })),
+  updateOpenDeleteSuccessModal: (open) =>
+    set(() => ({ openDeleteSuccessModal: open })),
+  updateIdDeleteProject: (index) =>
+    set(() => ({ idDeleteProject: index })),
   updateIndexEditProject: (index) => set(() => ({ indexEditProject: index })),
   updateCurrentUser: (user) => set(() => ({ currentUser: user })),
   updateCurrentProject: (project) => set(() => ({ currentProject: project })),
   updatecurrentProjectSave: (boolean) =>
     set(() => ({ currentProjectSave: boolean })),
 }));
+
 
 export default useStore;

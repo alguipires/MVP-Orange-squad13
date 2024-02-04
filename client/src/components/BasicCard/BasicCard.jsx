@@ -8,8 +8,9 @@ import ProjectPlaceholder from '../../assets/icons/project_placeholder.svg';
 // import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
 import './BasicCard.css';
-import formattedDate from '../../utils/formatedData';
-import { getRandomAvatar } from '../ProfileHome/ProfileHome';
+import { formattedDate } from '../../utils/formatedData';
+import ModalExcluir from '../Modal/ModalExcluir';
+// import { getRandomAvatar } from '../ProfileHome/ProfileHome';
 
 export default function BasicCard({
   projectId,
@@ -28,21 +29,25 @@ export default function BasicCard({
     openModal,
     user,
     discoveryPage,
+    openDeleteProjectModal,
     updateIndexProject,
     updateOpenModal,
     openVisualizerModalProject,
+    updateOpenDeleteProjectModal,
     updateOpenVisualizerModalProject,
-    updateIndexDeleteProject,
+    updateIdDeleteProject,
     updateIndexEditProject,
   ] = useStore((state) => [
     state.openModal,
     state.user,
     state.discoveryPage,
+    state.openDeleteProjectModal,
     state.updateIndexProject,
     state.updateOpenModal,
     state.openVisualizerModalProject,
+    state.updateOpenDeleteProjectModal,
     state.updateOpenVisualizerModalProject,
-    state.updateIndexDeleteProject,
+    state.updateIdDeleteProject,
     state.updateIndexEditProject,
   ]);
   const noProjectImage =
@@ -63,7 +68,10 @@ export default function BasicCard({
 
   const deleteProject = (idDelete) => {
     setAnchorEl(null);
-    updateIndexDeleteProject(idDelete);
+    updateOpenDeleteProjectModal(true);
+    setTimeout(() => {
+      updateIdDeleteProject(idDelete);
+    }, 1000);
   };
 
   const isProject = !!link && !!tag && !!createdAt;
@@ -77,9 +85,6 @@ export default function BasicCard({
     updateIndexProject(indexChange);
     updateOpenVisualizerModalProject(!openVisualizerModalProject);
   };
-
-  console.log(' asdasdad', userDBAvatar);
-
 
   return (
     <div className="container_info_project">
@@ -194,6 +199,7 @@ export default function BasicCard({
           </div>
         </div>
       )}
+      { openDeleteProjectModal && <ModalExcluir /> }
     </div>
   );
 }

@@ -6,13 +6,15 @@ import useStore from '../../zustand/store';
 import { useMediaQuery } from '@mui/material';
 import handleAlert from '../../utils/handleAlert';
 import { TextField } from '@mui/material';
-import './Modal.css';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import validator from 'validator';
 import { createNewProject } from '../../api/axiosInstance';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
+import ModalPreview from './ModalPreview';
+import { getFormattedMonthAndYear } from '../../utils/formatedData';
+import './Modal.css';
 
 export default function FormToAddProject() {
   const [title, setTitle] = useState('');
@@ -21,14 +23,17 @@ export default function FormToAddProject() {
   const [description, setDescription] = useState('');
   const [token, setToken] = useState('');
   const [imgFile, setImgFile] = useState(null);
+  const [isPreview, setIsPreview] = useState(false);
   const [
     openModal,
     updateOpenModal, 
     updateCurrentProject,
+    updateOpenPreviewModal,
   ] = useStore((state) => [
     state.openModal,
     state.updateOpenModal,
     state.updateCurrentProject,
+    state.updateOpenPreviewModal,
   ]);
   const inputRef = useRef(null);
   const isSmallScreen = useMediaQuery('(max-width:768px)');
@@ -42,8 +47,9 @@ export default function FormToAddProject() {
 
   useEffect(() => {
     const getToken = async () => {
-      const userTokenBackEnd = await getSavedUser('@AuthBackend:token');
-      const userTokenGoogle = await getSavedUser('@AuthGoogle:token');
+      const userTokenBackEnd = getSavedUser('@AuthBackend:token');
+      const userTokenGoogle = getSavedUser('@AuthFirebase:token');
+
       if (userTokenBackEnd) {
         setToken(userTokenBackEnd);
       }
@@ -104,16 +110,22 @@ export default function FormToAddProject() {
   };
 
   const handleSubmitRegister = async () => {
-    const isValidProject = await createNewProject(
+    const saveTagsString = tags.replace(/ /g, ',');
+
+    const projectToSave = {
       title,
-      tags,
-      link,
+      tag: saveTagsString,
+      url: link,
       description,
       imgFile,
-      token
-    );
+    };
 
-    console.log('logissss... ', isValidProject); //TODO retirar log
+    const isValidProject = await createNewProject(projectToSave, token);
+
+    if (isValidProject?.message) {
+      handleAlert(isValidProject.message);
+      return;
+    }
   };
 
 
@@ -127,6 +139,10 @@ export default function FormToAddProject() {
     };
 
     updateCurrentProject(preProject);
+
+    updateOpenPreviewModal(true);
+
+    setIsPreview(!isPreview);
   };
 
   const handleCardClick = () => {
@@ -142,7 +158,7 @@ export default function FormToAddProject() {
   };
 
 
-  const closeModalFunc = () => {
+  const closeModal = () => {
     setTitle('');
     setTags('');
     setLink('');
@@ -172,9 +188,10 @@ export default function FormToAddProject() {
   
 
   return (
+    <>
     <Modal
-      open={openModal}
-      onClose={closeModalFunc}
+      open={ openModal }
+      onClose={ closeModal }
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
     >
@@ -226,13 +243,13 @@ export default function FormToAddProject() {
                   }
                 </CardActionArea>
               </Card>
-                <a
+                <button
                   href="visualização "
                   className="visualizar"
                   onClick={ previewProject }
                 >
                   Visualizar Publicação
-                </a>
+                </button>
 
               <div className="buttons_wrapper">
                 <Button
@@ -249,7 +266,7 @@ export default function FormToAddProject() {
                   value="cancelar"
                   variant="contained"
                   className="button_cancelar"
-                  onClick={ closeModalFunc }
+                  onClick={ closeModal }
                 >
                   Cancelar
                 </Button>
@@ -306,7 +323,17 @@ export default function FormToAddProject() {
             </div>
           </div>
         </Box>
-      </section>
+      </section>      
     </Modal>
+    {isPreview && 
+      <ModalPreview 
+        tag={tags}
+        title={title}
+        link={link}
+        description={description}
+        urlImg={imgFile}
+        createdAt={getFormattedMonthAndYear()}
+    />}
+    </>
   );
 }

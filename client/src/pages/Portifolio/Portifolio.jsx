@@ -44,7 +44,7 @@ function Portifolio() {
   }, []);
 
   const containsProjects = projects.length > 0;
-  const projectByIndex = projects && projects[indexProject];
+  const projectByIndex = containsProjects && projects[indexProject];
 
   return (
     <section className="portifolio_container">
@@ -83,12 +83,12 @@ function Portifolio() {
 
       {containsProjects ? (
         <ModalToView
-          tag={projectByIndex.tag}
-          title={projectByIndex.title}
-          link={projectByIndex.url}
-          description={projectByIndex.description}
-          urlImg={projectByIndex.imgFile}
-          createdAt={projectByIndex.createdAt}
+          tag={projectByIndex?.tag}
+          title={projectByIndex?.title}
+          link={projectByIndex?.url}
+          description={projectByIndex?.description}
+          urlImg={projectByIndex?.imgFile}
+          createdAt={projectByIndex?.createdAt}
         />
       ) : (
         <div>

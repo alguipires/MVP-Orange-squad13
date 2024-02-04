@@ -4,9 +4,12 @@ import { allProjects } from '../../api/axiosInstance';
 import BasicCard from '../../components/BasicCard/BasicCard';
 import AppBar from '../../components/AppBar/AppBar';
 import './discovery.css';
+import ModalToView from '../../components/Modal/ModalToView';
+import useStore from '../../zustand/store';
 
 const Discovery = () => {
   const [projects, setProjects] = useState([]);
+  const [indexProject] = useStore((state) => [state.indexProject]);
 
   useEffect(() => {
     const loadingProjects = async () => {
@@ -17,8 +20,8 @@ const Discovery = () => {
   }, []);
 
   const containsProjects = projects?.rows?.length > 0;
+  const projectByIndex = containsProjects && projects?.rows[indexProject];
 
-  console.log(projects);
   return (
     <section className="dicovery_container">
       <AppBar />
@@ -55,6 +58,18 @@ const Discovery = () => {
               }
             )}
         </div>
+
+        {containsProjects && (
+        <ModalToView
+          tag={projectByIndex.tag}
+          title={projectByIndex.title}
+          link={projectByIndex.url}
+          description={projectByIndex.description}
+          urlImg={projectByIndex.imgFile}
+          createdAt={projectByIndex.createdAt}
+        />
+      )}
+      
       </section>
     </section>
   );

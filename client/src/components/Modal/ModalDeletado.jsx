@@ -2,25 +2,42 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
-import { Button } from '@mui/material';
+import { Button, useMediaQuery } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import './Modal2.css'
+import './modal2.css'
 
 export function ModalDeletado() {
-    const [updateOpenModal, updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
-    [state.updateOpenModal, state.updateOpenModal2, state.updateCloseModal2 ]
+    const isSmallScreen = useMediaQuery('(max-width:768px)');
+    const [updateOpenDeleteSuccessModal] = useStore((state) => 
+    [state.updateOpenDeleteSuccessModal ]
     );
   
   
     const handleClose = () => {
-      updateOpenModal2(false);
-      updateCloseModal2(true);
-      updateOpenModal(false);
+      updateOpenDeleteSuccessModal(false);
+    };
+
+    const style = {
+      position: 'absolute',
+      top: isSmallScreen ? '55%' : '50%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      left: '50%',
+      width: isSmallScreen ? '90vw' : 380,
+      height: isSmallScreen ? '85vh' : 230,
+      transform: 'translate(-50%, -50%)',
+      bgcolor: '#FCFDFF',
+      boxShadow: 2,
+      zIndex: 2,
+      pt: 2,
+      px: 4,
+      pb: 3,
     };
   
-  
     return (
-      <Box className='caixaSucesso'>
+      <Box sx={{ ...style }}>
       <section className='modalSucesso'>
         
           <div className='modalTitulo'>
@@ -39,26 +56,18 @@ export function ModalDeletado() {
     );
   }
   export function OpenModalDeletado() {
-    const [ openModal2,updateOpenModal2, updateCloseModal2, openModalDeletado, updateOpenModalDeletado ] = useStore((state) => 
-    [ state.openModal2, state.updateOpenModal2, state.updateCloseModal2, state.openModalDeletado, updateOpenModalDeletado ]
+    const [ openDeleteSuccessModal, updateOpenDeleteSuccessModal  ] = useStore((state) => 
+    [ state.openDeleteSuccessModal, state.updateOpenDeleteSuccessModal  ]
     );
-  
-    const handleOpen = () => {
-      updateOpenModalDeletado(true);
-      updateCloseModal2(false);
-    };
-  
+    
     const handleClose = () => {
-      updateOpenModalDeletado(false);
-      updateCloseModal2(true);
+      updateOpenDeleteSuccessModal(false);
     };
-  
-  
+    
     return (
       <div>
-        <Button onClick={handleOpen}>Open modal</Button>
         <Modal
-          open={openModalDeletado}
+          open={openDeleteSuccessModal}
           onClose={handleClose}
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"

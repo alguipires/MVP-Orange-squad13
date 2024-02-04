@@ -1,0 +1,27 @@
+.container_title_delete {
+  margin-bottom: 15px;
+}
+.container_buttons_delete_cancel {
+  margin-top: 15px;
+}
+
+.button_delete{
+  background-color: #FF5522 !important;
+}
+
+.button_delete:hover {
+  background-color: rgb(206, 66, 24) !important;
+  transform: translate(0px, -1px);
+}
+
+.button_cancel {
+  color: rgba(0, 0, 0, 0.5) !important;
+  box-shadow: none !important;
+  background-color: rgba(0, 0, 0, 0.12) !important;
+  margin-left: 15px;
+}
+
+.button_cancel:hover {
+  background-color: rgba(0, 0, 0, 0.24) !important;
+  transform: translate(0px, -1px);
+}

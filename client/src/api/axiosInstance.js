@@ -69,15 +69,20 @@ const loginWithGoogle = async (token, user) => {
 
 //TODO fazer rotas de projetos
 
-const createNewProject = async (title, tags, link, description, imgFile) => {
+const createNewProject = async ({title, tag, url, description, imgFile}, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   return await axios
     .post(`${endpoint}/project`, {
       title,
-      tags,
-      link,
+      tag,
+      url,
       description,
       imgFile,
-    })
+    }, config)
     .then((response) => {
       return response.data;
     })
@@ -142,7 +147,7 @@ const allProjects = async () => {
       // always executed
     });
 };
-const deleteProject = async (token, projectId) => {
+const deleteProject = async (projectId, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -152,10 +157,10 @@ const deleteProject = async (token, projectId) => {
   return await axios
     .delete(`${endpoint}/project/${projectId}`, config)
     .then((response) => {
-      return response.data;
+      return response?.status;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.status;
     })
     .finally(() => {
       // always executed

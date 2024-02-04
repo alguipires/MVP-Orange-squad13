@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
 import { Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import './Modal2.css'
+import '../Modal2/Modal2.css'
 
 export function ModalEditado() {
     const [updateOpenModal, updateOpenModal2, updateCloseModal2 ] = useStore((state) => 

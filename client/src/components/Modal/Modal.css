@@ -73,6 +73,8 @@ margin-bottom: 15px;
   display: flex;
   cursor: pointer;
   margin-bottom: 15px;
+  background-color: transparent;
+  border: none;
 }
 .box_Form{
   position: absolute;
