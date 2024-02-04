@@ -27,6 +27,18 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       },
+      {
+        uuid: 'svcYJgsqCGZnRw6VPVrUljyLsWx1',
+        first_name: 'Paulo',
+        last_name: 'Belens',
+        email: 'paulovictor55296@gmail.com',
+        password: '$2a$10$JwexSTwKKM.H1KeblNgsLugJ7IP58k9ddplQujltuAqBgw5ICE6eK',
+        // password: 'admin_123',
+        role: 'admin',
+        avatar: 'https://lh3.googleusercontent.com/a/ACg8ocIJ_gIFY-Oet1YylxV3aEZn-CeWaMEY_1fqGSCRae_Npt49=s96-c',
+        created_at: new Date(),
+        updated_at: new Date(),
+      }
     ], {});
   },
 

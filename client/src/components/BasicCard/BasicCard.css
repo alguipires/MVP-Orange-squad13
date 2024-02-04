@@ -1,13 +1,11 @@
-.container_info_project {
-  width: 100%;
-}
+
 .container_img_project {
   width: 100%;
   height: 100%;
 }
 
 .container_img_project img {
-  width: 102%;
+  width: 100%;
   height: 100%;
   background-size: cover;
   border-radius: 5px;
@@ -56,7 +54,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 389px;
 }
 
 .container_avatar_date {
@@ -98,40 +95,11 @@
 
 .container_avatar_user {
   width: 25px;
+  height: 25px;
   border-radius: 100%;
 }
 
 .container_avatar_user img {
   width: 100%;
   border-radius: 100%;
-}
-
-@media screen and (max-width: 768px){
-  .container_info_project {
-    width: 100%;
-  }
-  .container_avatar_date_tag {
-    width: 90vw;
-  }
-
-
-  .container_img_project img{
-    width: 90vw;
-    height: 100%;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1600px) {
-  .container_info_project {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 1400px){
-  .container_img_project {
-    width: 108%;
-    height: 100%;
-  }
-  
-  
 }

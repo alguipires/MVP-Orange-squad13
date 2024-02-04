@@ -1,5 +1,5 @@
 const { url } = require('inspector');
-const { Projects } = require('../db/models');
+const { Projects, Users } = require('../db/models');
 const fs = require('fs'); //import filesystem
 
 const createProjectPostService = async (
@@ -31,7 +31,11 @@ const createProjectPostService = async (
 const getAllProjectService = async (page, pageSize) => {
   try {
     const offset = (page - 1) * pageSize;
+
     const projects = await Projects.findAndCountAll({
+      include: [
+        { model: Users, as: 'users', attributes: { exclude: ['password'] } },
+      ],
       limit: pageSize,
       offset: offset,
     });

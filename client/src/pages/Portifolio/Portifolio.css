@@ -8,7 +8,7 @@
   overflow-y: auto;
 }
 
-.profile {
+.container_profile {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,15 +34,8 @@
   margin-top: 20px;
 }
 
-.container_appBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: auto;
-}
-
 .container_text_my_projects{
+  font-weight: normal;
   padding-bottom: 10px;
   font-size: 30px;
   color: rgb(90, 83, 83);

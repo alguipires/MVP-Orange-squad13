@@ -31,8 +31,6 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
     return `${month}/${year}`;
   }
 
-  // console.log('openVisualizerModalProject:', openVisualizerModalProject);
-
   const style = {
     position: 'absolute',
     top: isSmallScreen ? '58%' : '55%',
@@ -104,7 +102,7 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
 
             <div className='container_url'>
               <p><strong>Download</strong></p>
-              <a href={urlImg} target='_blank' rel='noreferrer'>{urlImg}</a>
+              <a href={link} target='_blank' rel='noreferrer'>{link}</a>
             </div>
 
           </section>

@@ -17,6 +17,13 @@
   border-radius: 5px;
 }
 
+.login_buttons_wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 16px;
+}
+
 .button_login {
   color: white;
   width: 493px;
@@ -39,16 +46,11 @@
 }
 
 .button_register {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px; 
-  letter-spacing: 0.15px;
-  border: none;
-  color: #818388;
+  align-self: flex-start;
   background-color: transparent;
-  margin-top: 10px;
-  text-align: left;
+  border: none;
+  font-size: 1rem;
+  color: #818388;
   cursor: pointer;
 }
 

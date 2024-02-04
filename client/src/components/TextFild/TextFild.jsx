@@ -7,7 +7,6 @@ export default function TextFieldDemo() {
   const isSmallScreen = useMediaQuery('(max-width:768px)');
 
   return (
-    <div className="buscarTags">
       <TextField
         id="buscarTags"
         hiddenLabel
@@ -15,10 +14,9 @@ export default function TextFieldDemo() {
         variant="outlined"
         size="medium"
         style={{
-          width: isSmallScreen ? '312px' : '613px',
+          width: isSmallScreen ? '100%' : '613px',
           marginLeft: isSmallScreen ? '0px' : '0px',
         }}
       />
-    </div>
   );
 }
