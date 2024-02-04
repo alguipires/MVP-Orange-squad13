@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const endpoint = 'http://localhost:3001';
+const endpoint = window.env.REACT_APP_API_URL || 'env not-found';
 
 const checkUser = async (email, password) => {
   return await axios
