@@ -25,7 +25,8 @@ const style = {
   px: 4,
   pb: 3,
 };
-var closeModalFunc = null;
+let closeModalFunc = null;
+console.log('closeModalFunc', closeModalFunc);
 
 export function FormToAddProject() {
   // alvaro>>>
