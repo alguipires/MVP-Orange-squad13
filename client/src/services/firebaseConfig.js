@@ -1,13 +1,16 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC88p1Smr1TY3hti-5PxcPX_MWHBxH7s14",
-  authDomain: "login-fcamara.firebaseapp.com",
-  projectId: "login-fcamara",
-  storageBucket: "login-fcamara.appspot.com",
-  messagingSenderId: "337859391197",
-  appId: "1:337859391197:web:7fab81d30a01dae8d57534",
-  measurementId: "G-LCB8WMQJZH"
+  apiKey: window.env.REACT_APP_FIREBASE_API_KEY || 'env not-found',
+  authDomain: window.env.REACT_APP_FIREBASE_AUTH_DOMAIN || 'env not-found',
+  projectId: window.env.REACT_APP_FIREBASE_PROEJCT_ID || 'env not-found',
+  storageBucket:
+    window.env.REACT_APP_FIREBASE_STORAGE_BUCKET || 'env not-found',
+  messagingSenderId:
+    window.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || 'env not-found',
+  appId: window.env.REACT_APP_FIREBASE_APP_ID || 'env not-found',
+  measurementId:
+    window.env.REACT_APP_FIREBASE_MEASUREMENT_ID || 'env not-found',
 };
 
 export const app = initializeApp(firebaseConfig);
