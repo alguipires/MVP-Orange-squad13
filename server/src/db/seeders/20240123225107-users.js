@@ -11,7 +11,7 @@ module.exports = {
         password: '$2a$10$JwexSTwKKM.H1KeblNgsLugJ7IP58k9ddplQujltuAqBgw5ICE6eK',
         // password: 'admin_123',
         role: 'admin',
-        avatar: 'path/to/avatar.jpg',
+        avatar: 'https://static.vecteezy.com/ti/vetor-gratis/p3/2002263-personagem-de-avatar-de-homem-negro-com-barba-gratis-vetor.jpg',
         created_at: new Date(),
         updated_at: new Date(),
       },
@@ -23,10 +23,22 @@ module.exports = {
         password: '$2a$10$Y2jVCM1GstrGAY6P2mgbFOsqZA9O39EQN5sjN8g2mObQdnm.l0tXW',
         // password: 'user_123',
         role: 'user',
-        avatar: 'path/to/avatar.jpg',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbEC3u0dRIAIrngR_mo_0VYhCwVUqBgdHztg&usqp=CAU',
         created_at: new Date(),
         updated_at: new Date(),
       },
+      {
+        uuid: 'svcYJgsqCGZnRw6VPVrUljyLsWx1',
+        first_name: 'Paulo',
+        last_name: 'Belens',
+        email: 'paulovictor55296@gmail.com',
+        password: '$2a$10$JwexSTwKKM.H1KeblNgsLugJ7IP58k9ddplQujltuAqBgw5ICE6eK',
+        // password: 'admin_123',
+        role: 'admin',
+        avatar: 'https://lh3.googleusercontent.com/a/ACg8ocIJ_gIFY-Oet1YylxV3aEZn-CeWaMEY_1fqGSCRae_Npt49=s96-c',
+        created_at: new Date(),
+        updated_at: new Date(),
+      }
     ], {});
   },
 

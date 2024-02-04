@@ -1,7 +1,15 @@
 .container_modal_project {
   display: flex;
   justify-content: space-around;
-  align-items: top;
+}
+
+.container_info_modal_add_project {
+  display: flex;
+  justify-content: baseline;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  margin-top: 25px;
 }
 
 .container_box_modal {
@@ -9,54 +17,39 @@
     width: 100%;
     height: 100%;
     margin-top: 15px;
-    justify-content: center;
-    align-items: center;
+    justify-content: baseline;
+    align-items: flex-start;
     flex-direction: column;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 .card_area{
   width: 389px;
-   height: 258px;
-   display: flex; 
-   flex-direction: column; 
-   background-color: #E6E9F2
+  height: 258px;
+  display: flex; 
+  flex-direction: column; 
+  background-color: #E6E9F2
+}
+
+.buttons_wrapper {
+  display: flex;
+  gap: 16px;
 }
 
 .button_salvar{
-  color: white;
-  width: 110px;
-  height: 52px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 15px;
-  background-color: #F52;
-  padding: 8px 22px;
-  justify-content: space-between;
-  text-transform: uppercase;
-  cursor: pointer;
+  background-color: #FF5522 !important;
 }
+
 .button_salvar:hover {
-  background-color: #F52;
-  opacity: 0.8;
+  background-color: rgb(206, 66, 24) !important;
+  transform: translate(0px, -1px);
 }
+
 .button_cancelar{
-  color: white;
-  width: 130px;
-  height: 52px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 15px;
-  color: #818388;
-  margin-left: 10px;
-  text-transform: uppercase;
-  cursor: pointer;
+  color: rgba(0, 0, 0, 0.5) !important;
+  box-shadow: none !important;
+  background-color: rgba(0, 0, 0, 0.12) !important;
 }
-.button_cancelar:hover {
-  background-color: white;
-  opacity: 0.8;
-}
+
 .titulo{
   color: var(--Neutral-Colors-Neutral-110, #515255);
   font-family: Roboto;
@@ -80,6 +73,8 @@ margin-bottom: 15px;
   display: flex;
   cursor: pointer;
   margin-bottom: 15px;
+  background-color: transparent;
+  border: none;
 }
 .box_Form{
   position: absolute;
@@ -99,19 +94,31 @@ margin-bottom: 15px;
 
 
 @media only screen and (max-width: 768px) {
+  .container_info_modal_add_project {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: baseline;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    margin-top: 25px;
+  }
+
+
   .section_modal{
     padding: 10px;
   }
   .container_modal_project {
-    flex-direction: column-reverse;
-    width: 100%;
-    height: 100%;
+    flex-wrap: wrap;
   }
   .container_box_modal {
     display: flex;
+    justify-content: baseline;
+    align-items: flex-start;
     height: 100%;
-    padding-left: 0;
     width: 100%;
+    padding: 0;
+    margin-top: 0;
   }
   .box_Form{
     position: relative;

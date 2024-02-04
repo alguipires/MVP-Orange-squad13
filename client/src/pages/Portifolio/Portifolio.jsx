@@ -3,7 +3,7 @@ import AppBar from '../../components/AppBar/AppBar';
 import './Portifolio.css';
 // import AvatarIcon from '../AvatarIcon/index';
 
-import BasicCard from '../../components/BasicCard2/BasicCard2';
+import BasicCard from '../../components/BasicCard/BasicCard';
 import TextField from '../../components/TextFild/TextFild';
 //import BasicCard from '../../components/BasicCard2/BasicCard2';
 
@@ -44,18 +44,17 @@ function Portifolio() {
   }, []);
 
   const containsProjects = projects.length > 0;
-  const projectByIndex = projects && projects[indexProject];
+  const projectByIndex = containsProjects && projects[indexProject];
 
   return (
     <section className="portifolio_container">
-      <div className="container_appBar">
-        <AppBar />
-      </div>
-      <div className="profile">
+      
+      <AppBar />
+      <div className="container_profile">
         <Profile />
       </div>
       <section className="container_my_project">
-        <div className="container_text_my_projects">Meus Projetos</div>
+        <h2 className="container_text_my_projects">Meus Projetos</h2>
 
         <div className="container_input_search">
           <TextField />
@@ -63,13 +62,14 @@ function Portifolio() {
 
         <div className="container_basic_card">
           {containsProjects ? (
-            projects.map(({ id, url, tag, createdAt }, index) => {
+            projects.map(({ id, url, imgFile, tag, createdAt }, index) => {
               return (
                 <BasicCard
                   key={id}
                   projectId={id}
                   index={index}
-                  url={url}
+                  link={url}
+                  urlImg={imgFile}
                   tag={tag}
                   createdAt={createdAt}
                 />
@@ -83,11 +83,12 @@ function Portifolio() {
 
       {containsProjects ? (
         <ModalToView
-          tag={projectByIndex.tag}
-          title={projectByIndex.title}
-          description={projectByIndex.description}
-          urlImg={projectByIndex.url}
-          createdAt={projectByIndex.createdAt}
+          tag={projectByIndex?.tag}
+          title={projectByIndex?.title}
+          link={projectByIndex?.url}
+          description={projectByIndex?.description}
+          urlImg={projectByIndex?.imgFile}
+          createdAt={projectByIndex?.createdAt}
         />
       ) : (
         <div>

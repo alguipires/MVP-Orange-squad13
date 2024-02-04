@@ -3,6 +3,7 @@
 .buscarTags {
   width: 450px;
   margin-top: 15px;
+  margin-bottom: 30px;
 }
 
 .buscarTags .MuiTextField-root {

@@ -51,7 +51,7 @@ const ProjectsSchema = (sequelize, DataTypes) => {
   Projects.associate = (models) => {
     Projects.belongsTo(models.Users, {
       foreignKey: 'userId',
-      as: 'Users',
+      as: 'users',
     });
   };
 

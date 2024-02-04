@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -7,19 +7,24 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {getSavedUser} from '../../utils/sessionStorageLogin'
 import useStore from "../../zustand/store";
-
-const settings = ['Perfil', 'Sair'];
+import { AuthGoogleContext } from "../../contexts/authGoogle";
 
 // porops nameUser e uriImageUser
 function AvatarIcon(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [ user, updateUser ] = useStore((state) => [state.user, state.updateUser]);
+  const { signOutGoogle } = useContext(AuthGoogleContext);
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const logOut = () => {
+    signOutGoogle();
   };
 
     useEffect(() => {
@@ -53,11 +58,10 @@ function AvatarIcon(props) {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
+      
+          <MenuItem onClick={logOut}>
+            <Typography textAlign="center">Sair</Typography>
           </MenuItem>
-        ))}
       </Menu>
     </>
   );

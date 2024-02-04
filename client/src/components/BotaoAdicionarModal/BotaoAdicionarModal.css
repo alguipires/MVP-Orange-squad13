@@ -1,14 +1,11 @@
 .buttonModal {
-    margin-top: 15px;
-    padding: 10px 20px; 
-    font-size: 16px; 
-    background-color: #00000061; 
-    color: #F52;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  color: rgba(0, 0, 0, 0.5) !important;
+  box-shadow: none !important;
+  background-color: rgba(0, 0, 0, 0.12) !important;
+  padding-inline: 16px !important;
+}
   
-  .buttonModal:hover {
-    background-color: #F52;
-  }
+.buttonModal:hover {
+  background-color: #FF5522 !important;
+  color: white !important;
+}

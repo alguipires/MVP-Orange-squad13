@@ -1,38 +1,57 @@
 import React, { useState } from 'react';
 // import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import ProjectPlaceholder from '../../assets/icons/project_placeholder.svg';
 // import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
-import './BasicCard2.css';
-import formattedDate from '../../utils/formatedData';
+import './BasicCard.css';
+import { formattedDate } from '../../utils/formatedData';
+import ModalExcluir from '../Modal/ModalExcluir';
+// import { getRandomAvatar } from '../ProfileHome/ProfileHome';
 
-export default function BasicCard({ projectId, index, url, tag, createdAt }) {
+export default function BasicCard({
+  projectId,
+  index,
+  link,
+  urlImg,
+  tag,
+  createdAt,
+  userDBAvatar,
+  userDBFristName,
+  userDBLastName,
+  userDBCreatedAt,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [
     openModal,
     user,
     discoveryPage,
+    openDeleteProjectModal,
     updateIndexProject,
     updateOpenModal,
     openVisualizerModalProject,
+    updateOpenDeleteProjectModal,
     updateOpenVisualizerModalProject,
-    updateIndexDeleteProject,
+    updateIdDeleteProject,
     updateIndexEditProject,
   ] = useStore((state) => [
     state.openModal,
     state.user,
     state.discoveryPage,
+    state.openDeleteProjectModal,
     state.updateIndexProject,
     state.updateOpenModal,
     state.openVisualizerModalProject,
+    state.updateOpenDeleteProjectModal,
     state.updateOpenVisualizerModalProject,
-    state.updateIndexDeleteProject,
+    state.updateIdDeleteProject,
     state.updateIndexEditProject,
   ]);
+  const noProjectImage =
+    'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -49,14 +68,14 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
 
   const deleteProject = (idDelete) => {
     setAnchorEl(null);
-    updateIndexDeleteProject(idDelete);
+    updateOpenDeleteProjectModal(true);
+    setTimeout(() => {
+      updateIdDeleteProject(idDelete);
+    }, 1000);
   };
 
-  // console.log('user:', user);
-  const isProject = !!url && !!tag && !!createdAt;
+  const isProject = !!link && !!tag && !!createdAt;
   const isSmallScreen = useMediaQuery('(max-width:768px)');
-  const noProjectImage =
-    'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
 
   const openModalCreateProject = () => {
     updateOpenModal(!openModal);
@@ -67,13 +86,8 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
     updateOpenVisualizerModalProject(!openVisualizerModalProject);
   };
 
-  // const handleUpload = (event) => {
-  //   // Lógica de upload de arquivo aqui
-  //   console.log("Arquivo enviado:", event.target.files[0]);
-  // };
-  console.log('discovery', discoveryPage);
   return (
-    <section className="container_info_project">
+    <div className="container_info_project">
       {isProject && (
         <div className="container_edit_icon">
           {discoveryPage && (
@@ -112,79 +126,48 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
         </div>
       )}
       <CardActionArea
-        sx={{ width: isSmallScreen ? 312 : 389, height: 258 }}
+        sx={{
+          width: '100%',
+          height: 258,
+          backgroundColor: '#E6E9F2',
+        }}
         className="img_modal_project"
         onClick={
           isProject
             ? () => openModalVisualizeProject(index)
             : openModalCreateProject
         }
-       /* <CardActionArea
-          sx={{ width: isSmallScreen ? 312 : 500, height: 300 }}
-          className='img_modal_project'
-          onClick={isProject ? () => openModalVisualizeProject(index) : openModalCreateProject}
-        >
-          {!isProject && 
-            <CardMedia
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: isSmallScreen ? '10%' : '46px',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 'auto',
-                marginLeft: '45%'
-              }}
-              component="img"
-              image={isProject ? url : noProjectImage}
-              alt="imagem do projeto"
-            />
-          }
-
-          {!isProject ? 
-            <CardContent>
-                <Typography sx={{ fontSize: 15, textAlign: 'center' }}>
-                  Adicione seu primeiro projeto
-                  <br />
-                  Compartilhe seu talento com milhares de pessoas
-                </Typography>
-            </CardContent>
-            :
-              <div className='container_img_project'>
-                <img src={url} alt='imagem do projeto'/>
-              </div>
-          }
-        </CardActionArea>
-      {isProject &&  */
       >
-        {!isProject && (
-          <CardMedia
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: isSmallScreen ? '10%' : '20%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 'auto',
-            }}
-            component="img"
-            image={isProject ? url : noProjectImage}
-            alt="imagem do projeto"
-          />
-        )}
-
-
         {!isProject ? (
-          <CardContent>
-            <Typography sx={{ fontSize: 12, textAlign: 'center' }}>
-              Adicione seu primeiro projeto
-              <br />
-              Compartilhe seu talento com milhares de pessoas
+          <CardContent
+            sx={{
+              flexDirection: 'column',
+            }}
+            className="container_avatar_date_tag"
+          >
+            <img src={ProjectPlaceholder} />
+            <Typography
+              sx={{
+                fontSize: isSmallScreen ? 12 : 14,
+                textAlign: 'center',
+                marginTop: 1,
+                marginBottom: 1,
+              }}
+            >
+              Adicione seu primeiro projeto.
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: isSmallScreen ? 12 : 14,
+                textAlign: 'center',
+              }}
+            >
+              Compartilhe seu talento com milhares de pessoas.
             </Typography>
           </CardContent>
         ) : (
           <div className="container_img_project">
-            <img src={url} alt="imagem do projeto" />
+            <img src={urlImg || noProjectImage} alt="imagem do projeto" />
           </div>
         )}
       </CardActionArea>
@@ -193,17 +176,21 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
           <div className="container_avatar_date">
             <div className="container_avatar_user">
               <img
-                src={user.photoURL}
-                alt="imagem do projeto"
+                src={!discoveryPage ? userDBAvatar : user.photoURL}
+                alt="imagem do avatar"
                 className="img_project"
               />
             </div>
 
             <div className="container_date_project">
               <div className="user_data">
-                {user.displayName}
+                {!discoveryPage
+                  ? `${userDBFristName} ${userDBLastName}`
+                  : user.displayName}
                 <div className="bullet_point"></div>
-                {formattedDate(createdAt)}
+                {!discoveryPage
+                  ? formattedDate(userDBCreatedAt)
+                  : formattedDate(createdAt)}
               </div>
             </div>
           </div>
@@ -212,6 +199,7 @@ export default function BasicCard({ projectId, index, url, tag, createdAt }) {
           </div>
         </div>
       )}
-    </section>
+      { openDeleteProjectModal && <ModalExcluir /> }
+    </div>
   );
 }
