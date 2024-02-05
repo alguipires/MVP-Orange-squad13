@@ -34,12 +34,12 @@ function ResponsiveAppBar() {
   };
   
   const handleMyProjectsButton = () => {
-    updateDiscoveryPage(true);
+    updateDiscoveryPage(false);
     navigate('/portifolio');
   };
 
   const discoveryButton = () => {
-    updateDiscoveryPage(false)
+    updateDiscoveryPage(true)
     navigate('/discovery');
   };
 

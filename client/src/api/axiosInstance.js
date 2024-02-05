@@ -9,10 +9,30 @@ const checkUser = async (email, password) => {
       password,
     })
     .then((response) => {
-      return response.data;
+      return response?.data;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.data;
+    })
+    .finally(() => {
+      // always executed
+    });
+};
+
+const getUserByUuid = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return await axios
+    .get(`${endpoint}/user/info`, config)
+    .then((response) => {
+      return response?.data;
+    })
+    .catch((error) => {
+      return error?.response?.data;
     })
     .finally(() => {
       // always executed
@@ -28,10 +48,10 @@ const createNewUser = async (firstName, lastName, email, password) => {
       password,
     })
     .then((response) => {
-      return response.data;
+      return response?.data;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.data;
     })
     .finally(() => {
       // always executed
@@ -44,23 +64,23 @@ const loginWithGoogle = async (token, user) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const nameAndLastName = user.displayName.split(' ');
+  const nameAndLastName = user?.displayName.split(' ');
 
   const newUserWithGoogle = {
     firstName: nameAndLastName[0],
     lastName: nameAndLastName[1],
-    email: user.email,
-    password: user.uid,
-    avatar: user.photoURL,
+    email: user?.email,
+    password: user?.uid,
+    avatar: user?.photoURL,
   };
 
   return await axios
     .post(`${endpoint}/user/google`, newUserWithGoogle, config)
     .then((response) => {
-      return response.data;
+      return response?.data;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.data;
     })
     .finally(() => {
       // always executed
@@ -84,10 +104,10 @@ const createNewProject = async ({title, tag, url, description, imgFile}, token) 
       imgFile,
     }, config)
     .then((response) => {
-      return response.data;
+      return response?.data;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.data;
     })
     .finally(() => {
       // always executed
@@ -104,10 +124,10 @@ const projectsWithUser = async (token) => {
   return await axios
     .get(`${endpoint}/user`, config)
     .then((response) => {
-      return response.data;
+      return response?.data;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.data;
     })
     .finally(() => {
       // always executed
@@ -124,10 +144,10 @@ const projectWhitGoogle = async (token, uuid) => {
   return await axios
     .get(`${endpoint}/user/google/${uuid}`, config)
     .then((response) => {
-      return response.data;
+      return response?.data;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.data;
     })
     .finally(() => {
       // always executed
@@ -138,10 +158,10 @@ const allProjects = async () => {
   return await axios
     .get(`${endpoint}/project`)
     .then((response) => {
-      return response.data;
+      return response?.data;
     })
     .catch((error) => {
-      return error.response.data;
+      return error?.response?.status;
     })
     .finally(() => {
       // always executed
@@ -167,6 +187,26 @@ const deleteProject = async (projectId, token) => {
     });
 };
 
+const deleteProjectByGoogle = async (projectId, uuid, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return await axios
+    .delete(`${endpoint}/project/google/${projectId}?uuid=${uuid}`, config)
+    .then((response) => {
+      return response?.status;
+    })
+    .catch((error) => {
+      return error?.response?.status;
+    })
+    .finally(() => {
+      // always executed
+    });
+};
+
 export {
   checkUser,
   createNewUser,
@@ -176,4 +216,6 @@ export {
   allProjects,
   deleteProject,
   createNewProject,
+  deleteProjectByGoogle,
+  getUserByUuid,
 };

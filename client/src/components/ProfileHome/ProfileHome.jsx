@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './ProfileHome.css';
 import BotaoSalvarModal from '../BotaoAdicionarModal/BotaoAdicionarModal';
-import { getSavedUser } from '../../utils/sessionStorageLogin';
 import * as avatars from '../../assets/icons/avatar';
 import NestedModal from '../Modal/ModalAddProject';
-//import { FormToAddProject } from '../Modal/Modal'
-//import useStore from "../../zustand/store";
+import useStore from '../../zustand/store';
 
 export function getRandomAvatar() {
   const avatarsList = Object.keys(avatars);
@@ -16,15 +14,10 @@ export function getRandomAvatar() {
 }
 
 export default function ProfileHome() {
-  const [user, setUser] = useState({});
+  const [ currentUser ] = useStore((state) => [state.currentUser]);
   const [userCountry, setUserCoutry] = useState('');
-  const [randomAvatar, setRandomAvatar] = useState('');
 
   useEffect(() => {
-    const userSession = getSavedUser('@AuthFirebase:user');
-
-    if (userSession) {
-      setUser(userSession);
 
       fetch('https://ipapi.co/json/')
         .then((response) => response.json())
@@ -34,23 +27,19 @@ export default function ProfileHome() {
         .catch((error) => {
           console.error('erro ao obter pais', error);
         });
-    }
 
-    setRandomAvatar(getRandomAvatar());
   }, []);
-
   
-
   return (
     <div className="container">
       <div className="content">
         <img
           className="imgProfileHome"
-          src={user.photoURL || randomAvatar}
+          src={ currentUser.avatar ? currentUser.avatar : currentUser.photoURL }
           alt="Imagem de perfil do usuário"
         />
         <div className="text-container">
-          <h2>{user.displayName}</h2>
+          <h2>{currentUser.firstName ? `${currentUser.firstName} ${currentUser.lastName}` : currentUser.displayName}</h2>
           <br></br>
           <p>{userCountry}</p>
           <br></br>

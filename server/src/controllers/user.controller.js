@@ -8,6 +8,12 @@ const createUser = async (req, res) => {
     return res.status(mapStatusHTTP(status)).json(data);
 }
 
+const getUserByUuid = async (req, res) => {
+    const userUuid = req.getPayload.uuid;
+    const { status, data } = await userService.getUserByUuidService(userUuid);
+    return res.status(mapStatusHTTP(status)).json(data);
+};
+
 const createUserWithGoogle = async (req, res) => {
     const token = req.headers.authorization;
     const { firstName, lastName, email, password, avatar } = req.body;
@@ -32,5 +38,6 @@ module.exports = {
     createUser,
     createUserWithGoogle,
     getProjectsByUserId,
-    getProjectsByUserIdGoogle
+    getProjectsByUserIdGoogle,
+    getUserByUuid,
 }

@@ -1,18 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {getSavedUser} from '../../utils/sessionStorageLogin'
 import useStore from "../../zustand/store";
 import { AuthGoogleContext } from "../../contexts/authGoogle";
 
 // porops nameUser e uriImageUser
 function AvatarIcon(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [ user, updateUser ] = useStore((state) => [state.user, state.updateUser]);
+  const [ currentUser ] = useStore((state) => [state.currentUser]);
   const { signOutGoogle } = useContext(AuthGoogleContext);
 
   const handleOpenUserMenu = (event) => {
@@ -27,19 +26,11 @@ function AvatarIcon(props) {
     signOutGoogle();
   };
 
-    useEffect(() => {
-      const userSession = getSavedUser("@AuthFirebase:user")
-
-      if (userSession) {
-        updateUser(userSession)
-      }
-    }, [])
-
   return (
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={props.nameUser} src= {user.photoURL}/>
+          <Avatar alt={props.nameUser} src= {currentUser.avatar ? currentUser.avatar : currentUser.photoURL }/>
         </IconButton>
       </Tooltip>
       <Menu

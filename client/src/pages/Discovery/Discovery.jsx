@@ -9,7 +9,10 @@ import useStore from '../../zustand/store';
 
 const Discovery = () => {
   const [projects, setProjects] = useState([]);
-  const [indexProject] = useStore((state) => [state.indexProject]);
+  const [indexProject, inputSearch] = useStore((state) => [
+    state.indexProject,
+    state.inputSearch,
+  ]);
 
 
   useEffect(() => {
@@ -20,12 +23,8 @@ const Discovery = () => {
     loadingProjects();
   }, []);
 
-  console.log("Todos os projetos", projects);
-  
-  
   const containsProjects = projects?.rows?.length > 0;
   const projectByIndex = containsProjects && projects?.rows[indexProject];
-  console.log('Índice', projectByIndex);
 
   return (
     <section className="dicovery_container">
@@ -43,7 +42,9 @@ const Discovery = () => {
 
         <div className="container_basic_card">
           {containsProjects &&
-            projects?.rows?.map(
+            projects?.rows?.filter((project) => project.tag.toLowerCase()
+            .includes(inputSearch.toLowerCase()))
+            .map(
               ({ id, url, imgFile, tag, createdAt, users }, index) => {
                 return (
                   <BasicCard

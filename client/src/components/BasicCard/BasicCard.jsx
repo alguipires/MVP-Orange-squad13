@@ -27,7 +27,7 @@ export default function BasicCard({
   const [anchorEl, setAnchorEl] = useState(null);
   const [
     openModal,
-    user,
+    currentUser,
     discoveryPage,
     updateIndexProject,
     updateOpenModal,
@@ -39,7 +39,7 @@ export default function BasicCard({
     updateIndexEditProject,
   ] = useStore((state) => [
     state.openModal,
-    state.user,
+    state.currentUser,
     state.discoveryPage,
     state.updateIndexProject,
     state.updateOpenModal,
@@ -71,12 +71,13 @@ export default function BasicCard({
   const deleteProject = (idDelete) => {
     setAnchorEl(null);
     updateOpenDeleteProjectModal(true);
-    setTimeout(() => {
-      updateIdDeleteProject(idDelete);
-    }, 1000);
+    updateIdDeleteProject(idDelete);
   };
 
   const isProject = !!link && !!tag && !!createdAt;
+  const userAvatar = currentUser?.avatar ? currentUser.avatar : currentUser?.photoURL;
+  const userName = currentUser?.firstName ? `${currentUser.firstName} ${currentUser.lastName}` : currentUser?.displayName;
+  const tagArray = tag?.split(' ');
   const isSmallScreen = useMediaQuery('(max-width:768px)');
 
   const openModalCreateProject = () => {
@@ -92,7 +93,7 @@ export default function BasicCard({
     <div className="container_info_project">
       {isProject && (
         <div className="container_edit_icon">
-          {discoveryPage && (
+          {!discoveryPage && (
             <button className="edit_icon" onClick={handleClick}>
               <EditIcon />
             </button>
@@ -178,7 +179,7 @@ export default function BasicCard({
           <div className="container_avatar_date">
             <div className="container_avatar_user">
               <img
-                src={!discoveryPage ? userDBAvatar : user.photoURL}
+                src={discoveryPage ? userDBAvatar : userAvatar}
                 alt="imagem do avatar"
                 className="img_project"
               />
@@ -186,18 +187,25 @@ export default function BasicCard({
 
             <div className="container_date_project">
               <div className="user_data">
-                {!discoveryPage
+                {discoveryPage
                   ? `${userDBFristName} ${userDBLastName}`
-                  : user.displayName}
+                  : userName}
                 <div className="bullet_point"></div>
-                {!discoveryPage
+                {discoveryPage
                   ? formattedDate(userDBCreatedAt)
                   : formattedDate(createdAt)}
               </div>
             </div>
           </div>
           <div className="container_tag_project">
-            <div className="tag_project">{tag}</div>
+              <div className="tag_project">
+                {tagArray[0]}
+              </div>
+              <div className="tag_project">
+                {tagArray[1]}
+              </div>
+            
+
           </div>
         </div>
       )}

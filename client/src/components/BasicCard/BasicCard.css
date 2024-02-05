@@ -73,14 +73,26 @@
   margin-left: 5px;
 }
 
-.tag_project {
-  width: 100%;
+.container_tag_project {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
+  width: 50%;
+  margin-top: 10px;
+  overflow-x: hidden;
+  /* overflow-y: auto;   */
+  max-height: 35px; 
+}
+
+.tag_project {
+  display: flex;
+  width: auto;
+  justify-content: center;
+  align-items: flex-end;
   text-align: center;
   margin-left: 5px;
-  padding: 4px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
   background-color: #0000000e;
   border-radius: 15px;
 }

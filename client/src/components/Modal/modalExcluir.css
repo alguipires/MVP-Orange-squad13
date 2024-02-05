@@ -1,3 +1,6 @@
+.container_text_delete {
+  width: 100%;
+}
 .container_title_delete {
   margin-bottom: 15px;
 }
@@ -18,7 +21,6 @@
   color: rgba(0, 0, 0, 0.5) !important;
   box-shadow: none !important;
   background-color: rgba(0, 0, 0, 0.12) !important;
-  margin-left: 15px;
 }
 
 .button_cancel:hover {

@@ -217,7 +217,7 @@ export default function FormToAddProject() {
       <section className="container_modal_project">
         <Box sx={{ ...style, border: 'none' }}>
           <header>
-            <h5 className="titulo">Adicionar Projeto</h5>
+            <h5 className="titulo">Editar Projeto</h5>
           </header>
 
           <div className="container_info_modal_add_project">

@@ -1,74 +1,64 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Modal, useMediaQuery } from "@mui/material";
 import useStore from "../../zustand/store";
-// import { deleteProject } from "../../api/axiosInstance";
+import { deleteProject, deleteProjectByGoogle } from "../../api/axiosInstance";
 import handleAlert from "../../utils/handleAlert";
 import { getSavedUser } from "../../utils/sessionStorageLogin";
-import ModalDeletado from "./ModalDeletado";
 import "./modalExcluir.css";
 
 export default function ModalExcluir() {
-  const [token, setToken] = useState("");
-  const [isDeletedProject, setIsDeletedProject] = useState(false);
+  const [status, setStatus] = useState(null);
   const [
-    // idDeleteProject, 
+    idDeleteProject, 
     openDeleteProjectModal,
-    openDeleteSuccessModal,
     updateOpenDeleteProjectModal,
+    updateOpenDeleteSuccessModal,
+    currentProjects,
+    updateCurrentProjects,
   ] = useStore((state) => [
-      // state.idDeleteProject, 
+      state.idDeleteProject, 
       state.openDeleteProjectModal,
-      state.openDeleteSuccessModal,
       state.updateOpenDeleteProjectModal,
+      state.updateOpenDeleteSuccessModal,
+      state.currentProjects,
+      state.updateCurrentProjects,
     ]);
   const isSmallScreen = useMediaQuery("(max-width:768px)");
 
   useEffect(() => {
-    const getToken = async () => {
-      const userTokenGoogle = getSavedUser('@AuthFirebase:token');
-      const userTokenBackEnd = getSavedUser('@AuthBackend:token');
-
-      if (userTokenBackEnd) {
-        setToken(userTokenBackEnd);
-      }
-      if (userTokenGoogle) {
-        setToken(userTokenGoogle);
-      }
-    };
-    getToken();
-  }, [isDeletedProject]);
+    if (status === 204) {
+      console.log('entrei aqui');
+      updateOpenDeleteProjectModal(false);
+      updateOpenDeleteSuccessModal(true);
+      const newProjects = currentProjects.filter((project) => project.id !== idDeleteProject);
+      updateCurrentProjects(newProjects);
+    } else if (status === 401) {
+      console.log('entrei no erro');
+      updateOpenDeleteProjectModal(false);
+      handleAlert("Erro ao excluir projeto");
+    }
+  }, [status]);
 
   const handleClose = () => {
     updateOpenDeleteProjectModal(false);
   };
 
   const deleteProjectConfirm = async () => {
-    console.log(token);
-    // const isDeleted = await deleteProject(idDeleteProject);
-    const isDeleted = 204;
+    const userTokenGoogle = getSavedUser('@AuthFirebase:token');
+    const userTokenBackEnd = getSavedUser('@AuthBackend:token');
+    const userUuid = getSavedUser('@AuthFirebase:user');
 
-    if (isDeleted === 204) {
-      console.log('entrei aqui');
-      updateOpenDeleteProjectModal(false);
+    if (Object.keys(userTokenBackEnd).length !== 0) {
+      const isDeleted = await deleteProject(idDeleteProject, userTokenBackEnd);
+      setStatus(isDeleted);
     }
-    
-    if (isDeleted === 401) {
-      // handleAlert("Erro ao excluir projeto");
-      console.log('entrei aqui');
-      updateOpenDeleteProjectModal(false);
-      // return;
+
+    if (Object.keys(userTokenGoogle).length !== 0) {
+      const isDeleted = await deleteProjectByGoogle(idDeleteProject, userUuid.uid, userTokenGoogle);
+      console.log(isDeleted);
+      setStatus(isDeleted);
     }
-    
-    setTimeout(() => {
-      setIsDeletedProject(true);
-    }, 1000);
-    
   };
-  console.log(handleAlert);
-  setTimeout(() => {
-    // setIsDeletedProject(true);
-    console.log('isDeletedProject', isDeletedProject);
-  }, 3000);
 
   const style = {
     position: 'absolute',
@@ -78,8 +68,8 @@ export default function ModalExcluir() {
     justifyContent: 'center',
     alignItems: 'flex-start',
     left: '50%',
-    width: isSmallScreen ? '90vw' : 380,
-    height: isSmallScreen ? '85vh' : 230,
+    width: isSmallScreen ? '90vw' : 425,
+    height: isSmallScreen ? '25vh' : 230,
     transform: 'translate(-50%, -50%)',
     bgcolor: '#FCFDFF',
     boxShadow: 2,
@@ -88,7 +78,6 @@ export default function ModalExcluir() {
     px: 4,
     pb: 3,
   };
-  console.log('openDeleteSuccessModal', openDeleteSuccessModal);
   return (
     <Modal
         open={openDeleteProjectModal}
@@ -102,9 +91,9 @@ export default function ModalExcluir() {
               <div className="container_title_delete">
                 <h2>Deseja Excluir?</h2>
               </div>
-              <div className="modalTextExcluir">
+              <div className="container_text_delete">
                 <p>
-                  Se você prosseguir irá excluir o projeto do <br /> seu portfólio
+                  Se você prosseguir irá excluir o projeto do seu portfólio
                 </p>
               </div>
               <div className="container_buttons_delete_cancel">
@@ -112,15 +101,19 @@ export default function ModalExcluir() {
                   className="button_delete"
                   onClick={ deleteProjectConfirm }
                   variant="contained"
+                  style={{ marginRight: '15px', padding: '6px 15px'}}
                 >
                   Exlcuir
                 </Button>
-                <Button className="button_cancel" onClick={handleClose}>
+                <Button 
+                  className="button_cancel" 
+                  onClick={handleClose}
+                  style={{ padding: '6px 25px'}}
+                  >
                   Cancelar
                 </Button>
               </div>
             </section>
-            {isDeletedProject && <ModalDeletado />}
           </Box>
       </Modal>      
   );

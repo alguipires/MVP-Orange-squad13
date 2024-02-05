@@ -29,13 +29,16 @@ const AuthGoogleProvider = ({ children }) => {
     const token = getSavedUser('@AuthFirebase:token');
     const user = getSavedUser('@AuthFirebase:user');
     const tokenBackend = getSavedUser('@AuthBackend:token');
+    const userBackend = getSavedUser('@AuthBackend:user');
 
     if (Object.keys(token).length > 0 && Object.keys(user).length > 0) {
       updateCurrentUser(user);
+      return;
     }
 
-    if (Object.keys(tokenBackend).length > 0) {
-      updateCurrentUser(tokenBackend);
+    if (Object.keys(tokenBackend).length > 0 && Object.keys(userBackend).length > 0) {
+      updateCurrentUser(userBackend);
+      return;
     }
   }, [tokenBackend, token]);
 

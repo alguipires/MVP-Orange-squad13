@@ -5,19 +5,20 @@ const useStore = create((set) => ({
   user: {},
   currentProjects: [],
   indexProject: 0,
-  discoveryPage: true,
+  discoveryPage: false,
   openModal: false,
   closeModal: true,
   openVisualizerModalProject: false,
   openPreviewModal: false,
   openEditProjectModal: false,
   openDeleteProjectModal: false,
-  openDeleteSuccessModal: true,
+  openDeleteSuccessModal: false,
   idDeleteProject: null,
   indexEditProject: null,
   currentUser: null,
   currentProject: null,
   currentProjectSave: false,
+  inputSearch: '',
   updateHidden: (hidden) => set(() => ({ isHidden: hidden })),
   updateUser: (user) => set(() => ({ user: user })),
   updateCurrentProjects: (projects) => set(() => ({ currentProjects: projects })),
@@ -35,7 +36,7 @@ const useStore = create((set) => ({
   updateCurrentUser: (user) => set(() => ({ currentUser: user })),
   updateCurrentProject: (project) => set(() => ({ currentProject: project })),
   updatecurrentProjectSave: (boolean) => set(() => ({ currentProjectSave: boolean })),
+  updateInputSearch: (input) => set(() => ({ inputSearch: input })),
 }));
-
 
 export default useStore;

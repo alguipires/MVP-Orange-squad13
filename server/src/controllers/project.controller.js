@@ -89,6 +89,15 @@ const deleteProjectById = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const deleteProjectByGoogleId = async (req, res) => {
+  const token = req.headers.authorization;
+  const projectId = req.params.id;
+  const uuid = req.query.uuid
+  
+  const { status, data } = await projectService.deleteProjectByGoogleIdService(uuid, projectId, token);
+  return res.status(mapStatusHTTP(status)).json(data);
+}
+
 module.exports = {
   createProjects,
   getProjectsbyUserId,
@@ -96,4 +105,5 @@ module.exports = {
   getAllProjects,
   updateProjectById,
   deleteProjectById,
+  deleteProjectByGoogleId,
 };

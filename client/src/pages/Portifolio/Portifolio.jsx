@@ -12,6 +12,7 @@ import { projectWhitGoogle, projectsWithUser } from '../../api/axiosInstance';
 import ModalToView from '../../components/Modal/ModalToView';
 import ModalExcluir from '../../components/Modal/ModalExcluir';
 import ModalEditProject from '../../components/Modal/ModalEditProject';
+import ModalDeletado from '../../components/Modal/ModalDeletado';
 import useStore from '../../zustand/store';
 
 function Portifolio() {
@@ -21,12 +22,16 @@ function Portifolio() {
     updateCurrentProjects,
     openDeleteProjectModal,
     openEditProjectModal,
+    openDeleteSuccessModal,
+    inputSearch,
   ] = useStore((state) => [
     state.indexProject,
     state.currentProjects,
     state.updateCurrentProjects,
     state.openDeleteProjectModal,
     state.openEditProjectModal,
+    state.openDeleteSuccessModal,
+    state.inputSearch,
   ]);
 
   useEffect(() => {
@@ -44,11 +49,13 @@ function Portifolio() {
           user.uid
         );
         updateCurrentProjects(projectsLoginGoogle);
+        return;
       }
-
+      
       if (Object.keys(tokenBackend).length !== 0) {
         const projectsLoginBackend = await projectsWithUser(tokenBackend);
         updateCurrentProjects(projectsLoginBackend);
+        return;
       }
     };
     loadingProjects();
@@ -56,8 +63,6 @@ function Portifolio() {
 
   const containsProjects = currentProjects?.length > 0;
   const projectByIndex = containsProjects && currentProjects[indexProject];
-  console.log('projectByIndex', projectByIndex);
-  console.log('currentProjects', currentProjects);
 
   return (
     <section className="portifolio_container">
@@ -72,10 +77,11 @@ function Portifolio() {
         <div className="container_input_search">
           <TextField />
         </div>
-
         <div className="container_basic_card">
           {containsProjects ? (
-            currentProjects?.map(({ id, url, imgFile, tag, createdAt }, index) => {
+            currentProjects?.filter((project) => project.tag.toLowerCase()
+            .includes(inputSearch.toLowerCase()))
+            .map(({ id, url, imgFile, tag, createdAt }, index) => {
               return (
                 <BasicCard
                   key={id}
@@ -110,6 +116,8 @@ function Portifolio() {
       )}
       { openDeleteProjectModal && <ModalExcluir /> }
       { openEditProjectModal && <ModalEditProject />}
+      {openDeleteSuccessModal && <ModalDeletado />}
+
     </section>
   );
 }

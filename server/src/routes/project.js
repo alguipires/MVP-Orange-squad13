@@ -25,6 +25,7 @@ router.patch(
   upload.single('imgFile'),
   projectController.updateProjectById
 );
+router.delete('/google/:id', projectController.deleteProjectByGoogleId);
 router.delete('/:id', tokenValidation, projectController.deleteProjectById);
 
 module.exports = router;

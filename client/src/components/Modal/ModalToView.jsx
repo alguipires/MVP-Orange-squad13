@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './modalToView.css'
-import { formattedDate } from '../../utils/formatedData';
+import { formattedDate, getFormattedMonthAndYear } from '../../utils/formatedData';
 import { useMediaQuery } from '@mui/material';
 
 const ModalToView = ({
@@ -20,24 +20,24 @@ const ModalToView = ({
 }) => {
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
   const [
+    currentUser,
     openVisualizerModalProject, 
-    updateOpenVisualizerModalProject
+    updateOpenVisualizerModalProject,
+    discoveryPage,
   ] = useStore((state) => [
+    state.currentUser,
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
+    state.discoveryPage,
   ]); 
 
   const handleClose = () => updateOpenVisualizerModalProject(!openVisualizerModalProject);
-  console.log(openVisualizerModalProject);
 
-  function getFormattedMonthAndYear() {
-    const currentDate = new Date();
-  
-    const year = currentDate.getFullYear().toString().slice(-2);
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-  
-    return `${month}/${year}`;
-  }
+  const renderUserNameDB = currentUser && discoveryPage;
+  const renderUserName = currentUser && !discoveryPage;
+  const currentUserName = currentUser?.displayName ? currentUser.displayName : `${currentUser?.firstName} ${currentUser?.lastName}`;
+  const userImage = currentUser?.photoURL ? currentUser.photoURL : currentUser?.avatar;
+  const tagArray = tag.split(' ');
 
   const style = {
     position: 'absolute',
@@ -77,7 +77,7 @@ const ModalToView = ({
                 <div className="container_name_data">
                   <div className="container_avatar_user_modal">
                     <img
-                      src={userDBAvatar}
+                      src={userDBAvatar ? userDBAvatar : userImage}
                       alt="imagem do projeto"
                       className="img_project"
                     />
@@ -85,7 +85,14 @@ const ModalToView = ({
 
                   <div className="user_data_modal">
                     <div>
-                      <strong>{`${userDBFristName} ${userDBLastName}`}</strong>
+                      <strong>
+                        {renderUserNameDB && 
+                          `${userDBFristName} ${userDBLastName}`
+                        }
+                        {renderUserName && 
+                          currentUserName
+                        }
+                        </strong>
                     </div>
                     <p>
                       {userDBCreatedAt
@@ -100,7 +107,9 @@ const ModalToView = ({
                   </div>
                 )}
                 <div className="container_tags">
-                  <div className="tag_project_modal">{tag}</div>
+                  {tagArray.map((tag, index) => (
+                    <div key={index} className="tag_project_modal">{tag}</div>
+                  ))}
                 </div>
               </div>
 
