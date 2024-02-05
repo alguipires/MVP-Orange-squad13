@@ -5,28 +5,30 @@ const createProjects = async (req, res) => {
   const userId = req.getPayload.id;
   const userUuid = req.getPayload.uuid;
 
-  console.log('LOGG REQ file>>>> ', req.file);
+  // console.log('LOGG REQ file>>>> ', req.file);
 
-  // pegando o fieldname "imgFile" e extraindo o file e path
+  // pegando o arquivo/location "imgFile" e extraindo do file, key esta o nome original do arquivo se precisar
   // const imgFile = req.file.path; //antigo
-  const { filename: key } = req.file;
-  const imgFile = key;
-  console.log('log imgfile...... ', imgFile); //TODO retirar
+  const { key: imgName, location: imgFile = '' } = req.file;
+  // const imgFile = key;
+  // console.log('log imgfile...... ', imgFile); //TODO retirar
+  // console.log('log imgName...... ', imgName); //TODO retirar
 
   const { title, tag, description, url } = req.body;
 
-  console.log('req body....> ', title, tag, description, url);
+  // console.log('req body....> ', title, tag, description, url, imgFile, imgName);
 
-  /*  const { status, data } = await projectService.createProjectPostService(
+  const { status, data } = await projectService.createProjectPostService(
     title,
     tag,
     url,
     imgFile,
+    imgName,
     description,
     userId,
     userUuid
   );
-  return res.status(mapStatusHTTP(status)).json(data); */
+  return res.status(mapStatusHTTP(status)).json(data);
 };
 
 const getAllProjects = async (req, res) => {
@@ -61,26 +63,50 @@ const getProjectsbyId = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+//TODO refactor update
 const updateProjectById = async (req, res) => {
+  console.log('entrei....');
   const getPayload = req.getPayload;
   const projectId = req.params.id;
-  let imgFile = null; // Inicialize a variável url como null
+  let imgFile = ''; // Inicialize a variável como null
+  let imgName = ''; // Inicialize a variável como null
 
-  // Verifique se há um arquivo enviado na requisição
-  if (req.file !== undefined) {
-    imgFile = req.file.path; // Se houver um arquivo, atualize a variável url
-  }
+  // console.log('log update>>> req', req);
 
   const { title, tag, description, url } = req.body;
+
+  // // Verifique se há um arquivo enviado na requisição
+  if (req.file) {
+    console.log('update imagem........');
+    // pegando o arquivo/location "imgFile" e extraindo do file, key esta o nome original do arquivo se precisar
+    imgFile = req.file.location;
+    imgName = req.file.key;
+    // const { key: imgName, location: imgFile = '' } = req.file;
+  }
+
+  // console.log('log update>>> req', req);
+  console.log('log update>>> req.file', req.file);
+  console.log(
+    'log update>>> obj',
+    title,
+    tag,
+    description,
+    url,
+    'imgfile:',
+    imgFile,
+    'imgname:',
+    imgName
+  );
 
   const { status, data } = await projectService.updateProjectByIdService(
     title,
     tag,
     url,
-    imgFile,
     description,
     projectId,
-    getPayload
+    getPayload,
+    imgFile,
+    imgName
   );
   return res.status(mapStatusHTTP(status)).json(data);
 };

@@ -22,6 +22,13 @@ router.post(
   projectController.createProjects
 );
 
+router.patch(
+  '/:id',
+  tokenValidation,
+  multer(multerConfig).single('imgFile'),
+  projectController.updateProjectById
+);
+
 router.delete('/google/:id', projectController.deleteProjectByGoogleId);
 router.delete('/:id', tokenValidation, projectController.deleteProjectById);
 

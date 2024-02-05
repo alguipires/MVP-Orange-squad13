@@ -1,13 +1,15 @@
 const { url } = require('inspector');
 const { Projects, Users } = require('../db/models');
 const fs = require('fs'); //import filesystem
-const { log } = require('console');
+const aws = require('@aws-sdk/client-s3');
+const s3 = new aws.S3();
 
 const createProjectPostService = async (
   title,
   tag,
   url,
   imgFile,
+  imgName,
   description,
   userId,
   userUuid
@@ -18,6 +20,7 @@ const createProjectPostService = async (
       tag,
       url,
       imgFile,
+      imgName,
       description,
       userId,
       userUuid,
@@ -41,18 +44,18 @@ const getAllProjectService = async (page, pageSize) => {
       offset: offset,
     });
 
-    console.log('array de projetos... ', projects); //TODO retirar
+    // console.log('array de projetos... ', projects); //TODO retirar
 
     // Converter o caminho do arquivo em base64
-    projects.rows.forEach((project) => {
-      console.log('convertendo...>  imgpath:', project.imgFile);
-      const imgFilePath = project.imgFile; // Supondo que imgFile contenha o caminho do arquivo
-      // const base64Img = fs.readFileSync(imgFilePath).toString('base64');
-      // const base64Img = await fs.readFile(imgFilePath, {encoding: 'base64'});
-      const base64Img = fs.readFileSync(imgFilePath, { encoding: 'base64' });
-      console.log('img base64: ', base64Img);
-      project.imgFile = base64Img;
-    });
+    // projects.rows.forEach((project) => {
+    //   console.log('convertendo...>  imgpath:', project.imgFile);
+    //   const imgFilePath = project.imgFile; // Supondo que imgFile contenha o caminho do arquivo
+    //   // const base64Img = fs.readFileSync(imgFilePath).toString('base64');
+    //   // const base64Img = await fs.readFile(imgFilePath, {encoding: 'base64'});
+    //   const base64Img = fs.readFileSync(imgFilePath, { encoding: 'base64' });
+    //   console.log('img base64: ', base64Img);
+    //   project.imgFile = base64Img;
+    // });
 
     return { status: 'SUCCESSFUL', data: projects };
   } catch (error) {
@@ -62,8 +65,6 @@ const getAllProjectService = async (page, pageSize) => {
 
 const getProjectByUserIdService = async (getPayload, page, pageSize) => {
   const offset = (page - 1) * pageSize;
-  // console.log('log,,, paylod... ', getPayload.uuid);
-  // const uuid = getPayload.uuid;
   try {
     const projects = await Projects.findAndCountAll({
       where: { userUuid: getPayload.uuid },
@@ -107,14 +108,14 @@ const updateProjectByIdService = async (
   title,
   tag,
   url,
-  imgFile,
   description,
   projectId,
-  getPayload
+  getPayload,
+  imgFile,
+  imgName
 ) => {
   try {
     const project = await Projects.findOne({ where: { id: projectId } });
-    // console.log('projetos service....', project);
 
     // Valida se existe o projeto
     if (!project) {
@@ -129,24 +130,13 @@ const updateProjectByIdService = async (
       project.userUuid === getPayload.userUuid ||
       getPayload.role === 'admin'
     ) {
-      // console.log('updatisss....');
-
       const projectToUpdate = {}; // Objeto para armazenar os campos a serem atualizados
 
       // Verifique quais campos foram fornecidos na solicitação e adicione-os ao objeto de atualização
       if (title) projectToUpdate.title = title;
       if (tag) projectToUpdate.tag = tag;
-
-      if (imgFile) {
-        try {
-          fs.unlinkSync(imgFile); // Tenta excluir o arquivo
-          projectToUpdate.imgFile = imgFile;
-        } catch (error) {
-          console.error('Erro ao excluir arquivo:', error.message);
-          // Se ocorrer um erro ao excluir o arquivo, apenas continue sem atualizar o imgFile
-        }
-      }
-
+      if (imgFile) projectToUpdate.imgFile = imgFile;
+      if (imgName) projectToUpdate.imgName = imgName;
       if (description) projectToUpdate.description = description;
       if (url) projectToUpdate.url = url;
 
@@ -188,7 +178,6 @@ const updateProjectByIdService = async (
 const deleteProjectByIdService = async (projectId, getPayload) => {
   try {
     const project = await Projects.findOne({ where: { id: projectId } });
-    // console.log('projetos service....', project);
 
     // Valida se existe o projeto
     if (!project) {
@@ -203,11 +192,6 @@ const deleteProjectByIdService = async (projectId, getPayload) => {
       project.userUuid === getPayload.userUuid ||
       getPayload.role === 'admin'
     ) {
-      // console.log('deletissss....');
-
-      // Remove arquivo local assíncrono
-      fs.unlinkSync(project.imgFile);
-
       // Remove do banco de dados
       await Projects.destroy({ where: { id: projectId } });
 
@@ -234,21 +218,28 @@ const deleteProjectByGoogleIdService = async (uuid, projectId, token) => {
 
     if (!projectId) {
       return {
-        status: 'BAD_REQUEST', data: { message: 'projectId não fornecido' } };
+        status: 'BAD_REQUEST',
+        data: { message: 'projectId não fornecido' },
+      };
     }
 
     if (!token) {
-      return { status: 'UNAUTHORIZED', data: { message: 'Token não fornecido' } };
+      return {
+        status: 'UNAUTHORIZED',
+        data: { message: 'Token não fornecido' },
+      };
     }
 
     const project = await Projects.findOne({ where: { id: projectId } });
 
     if (!project) {
-      return { status: 'NOT_FOUND_2', data: { message: 'Projeto não encontrado' } };
+      return {
+        status: 'NOT_FOUND_2',
+        data: { message: 'Projeto não encontrado' },
+      };
     }
 
     if (project.userUuid === uuid) {
-  
       // Remove arquivo local assíncrono
       // fs.unlinkSync(project.imgFile);
 
@@ -264,7 +255,7 @@ const deleteProjectByGoogleIdService = async (uuid, projectId, token) => {
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
   }
-}
+};
 
 module.exports = {
   createProjectPostService,
