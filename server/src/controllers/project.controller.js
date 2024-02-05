@@ -5,13 +5,19 @@ const createProjects = async (req, res) => {
   const userId = req.getPayload.id;
   const userUuid = req.getPayload.uuid;
 
-  console.log('LOGG REQ>>>> ', req);
+  console.log('LOGG REQ file>>>> ', req.file);
+
   // pegando o fieldname "imgFile" e extraindo o file e path
-  const imgFile = req.file.path;
+  // const imgFile = req.file.path; //antigo
+  const { filename: key } = req.file;
+  const imgFile = key;
+  console.log('log imgfile...... ', imgFile); //TODO retirar
 
   const { title, tag, description, url } = req.body;
 
-  const { status, data } = await projectService.createProjectPostService(
+  console.log('req body....> ', title, tag, description, url);
+
+  /*  const { status, data } = await projectService.createProjectPostService(
     title,
     tag,
     url,
@@ -20,7 +26,7 @@ const createProjects = async (req, res) => {
     userId,
     userUuid
   );
-  return res.status(mapStatusHTTP(status)).json(data);
+  return res.status(mapStatusHTTP(status)).json(data); */
 };
 
 const getAllProjects = async (req, res) => {
