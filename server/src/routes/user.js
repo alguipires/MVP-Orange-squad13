@@ -1,18 +1,19 @@
 const express = require('express');
-const { createUserController } = require('../controllers');
+const { userController } = require('../controllers');
 const userValidation = require('../middlewares/createUserValidation');
 const userGoogleValidation = require('../middlewares/createUserGoogleValidation');
 const tokenValidation = require('../middlewares/tokenValidation');
 
 const router = express.Router();
 
-router.post('/', userValidation, createUserController.createUser);
+router.get('/info', tokenValidation, userController.getUserByUuid);
+router.post('/', userValidation, userController.createUser);
 router.post(
   '/google',
   [...userValidation, ...userGoogleValidation],
-  createUserController.createUserWithGoogle
+  userController.createUserWithGoogle
 );
-router.get('/', tokenValidation, createUserController.getProjectsByUserId);
-router.get('/google/:uuid', createUserController.getProjectsByUserIdGoogle);
+router.get('/', tokenValidation, userController.getProjectsByUserId);
+router.get('/google/:uuid', userController.getProjectsByUserIdGoogle);
 
 module.exports = router;

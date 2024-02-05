@@ -1,22 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '../../components/AppBar/AppBar';
 import './Portifolio.css';
 // import AvatarIcon from '../AvatarIcon/index';
 
 import BasicCard from '../../components/BasicCard/BasicCard';
 import TextField from '../../components/TextFild/TextFild';
-//import BasicCard from '../../components/BasicCard2/BasicCard2';
-
 import Profile from '../../components/ProfileHome/ProfileHome';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../components/Modal/ModalAddProject';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
 import { projectWhitGoogle, projectsWithUser } from '../../api/axiosInstance';
 import ModalToView from '../../components/Modal/ModalToView';
+import ModalExcluir from '../../components/Modal/ModalExcluir';
+import ModalEditProject from '../../components/Modal/ModalEditProject';
+import ModalDeletado from '../../components/Modal/ModalDeletado';
 import useStore from '../../zustand/store';
 
 function Portifolio() {
-  const [projects, setProjects] = useState([]);
-  const [indexProject] = useStore((state) => [state.indexProject]);
+  const [
+    indexProject, 
+    currentProjects,
+    updateCurrentProjects,
+    openDeleteProjectModal,
+    openEditProjectModal,
+    openDeleteSuccessModal,
+    inputSearch,
+  ] = useStore((state) => [
+    state.indexProject,
+    state.currentProjects,
+    state.updateCurrentProjects,
+    state.openDeleteProjectModal,
+    state.openEditProjectModal,
+    state.openDeleteSuccessModal,
+    state.inputSearch,
+  ]);
 
   useEffect(() => {
     const loadingProjects = async () => {
@@ -32,19 +48,21 @@ function Portifolio() {
           tokenGoogle,
           user.uid
         );
-        setProjects(projectsLoginGoogle);
+        updateCurrentProjects(projectsLoginGoogle);
+        return;
       }
-
+      
       if (Object.keys(tokenBackend).length !== 0) {
         const projectsLoginBackend = await projectsWithUser(tokenBackend);
-        setProjects(projectsLoginBackend);
+        updateCurrentProjects(projectsLoginBackend);
+        return;
       }
     };
     loadingProjects();
   }, []);
 
-  const containsProjects = projects.length > 0;
-  const projectByIndex = containsProjects && projects[indexProject];
+  const containsProjects = currentProjects?.length > 0;
+  const projectByIndex = containsProjects && currentProjects[indexProject];
 
   return (
     <section className="portifolio_container">
@@ -59,10 +77,11 @@ function Portifolio() {
         <div className="container_input_search">
           <TextField />
         </div>
-
         <div className="container_basic_card">
           {containsProjects ? (
-            projects.map(({ id, url, imgFile, tag, createdAt }, index) => {
+            currentProjects?.filter((project) => project.tag.toLowerCase()
+            .includes(inputSearch.toLowerCase()))
+            .map(({ id, url, imgFile, tag, createdAt }, index) => {
               return (
                 <BasicCard
                   key={id}
@@ -95,6 +114,10 @@ function Portifolio() {
           <Modal />
         </div>
       )}
+      { openDeleteProjectModal && <ModalExcluir /> }
+      { openEditProjectModal && <ModalEditProject />}
+      {openDeleteSuccessModal && <ModalDeletado />}
+
     </section>
   );
 }

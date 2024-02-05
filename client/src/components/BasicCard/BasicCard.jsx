@@ -9,7 +9,7 @@ import ProjectPlaceholder from '../../assets/icons/project_placeholder.svg';
 import useStore from '../../zustand/store';
 import './BasicCard.css';
 import { formattedDate } from '../../utils/formatedData';
-import ModalExcluir from '../Modal/ModalExcluir';
+
 // import { getRandomAvatar } from '../ProfileHome/ProfileHome';
 
 export default function BasicCard({
@@ -27,11 +27,11 @@ export default function BasicCard({
   const [anchorEl, setAnchorEl] = useState(null);
   const [
     openModal,
-    user,
+    currentUser,
     discoveryPage,
-    openDeleteProjectModal,
     updateIndexProject,
     updateOpenModal,
+    updateOpenEditProjectModal,
     openVisualizerModalProject,
     updateOpenDeleteProjectModal,
     updateOpenVisualizerModalProject,
@@ -39,11 +39,11 @@ export default function BasicCard({
     updateIndexEditProject,
   ] = useStore((state) => [
     state.openModal,
-    state.user,
+    state.currentUser,
     state.discoveryPage,
-    state.openDeleteProjectModal,
     state.updateIndexProject,
     state.updateOpenModal,
+    state.updateOpenEditProjectModal,
     state.openVisualizerModalProject,
     state.updateOpenDeleteProjectModal,
     state.updateOpenVisualizerModalProject,
@@ -61,20 +61,23 @@ export default function BasicCard({
     setAnchorEl(null);
   };
 
-  const editProject = (idEdit) => {
+  const editProject = (indexChange, idEdit) => {
     setAnchorEl(null);
+    updateIndexProject(indexChange);
     updateIndexEditProject(idEdit);
+    updateOpenEditProjectModal(true);
   };
 
   const deleteProject = (idDelete) => {
     setAnchorEl(null);
     updateOpenDeleteProjectModal(true);
-    setTimeout(() => {
-      updateIdDeleteProject(idDelete);
-    }, 1000);
+    updateIdDeleteProject(idDelete);
   };
 
   const isProject = !!link && !!tag && !!createdAt;
+  const userAvatar = currentUser?.avatar ? currentUser.avatar : currentUser?.photoURL;
+  const userName = currentUser?.firstName ? `${currentUser.firstName} ${currentUser.lastName}` : currentUser?.displayName;
+  const tagArray = tag?.split(' ');
   const isSmallScreen = useMediaQuery('(max-width:768px)');
 
   const openModalCreateProject = () => {
@@ -90,7 +93,7 @@ export default function BasicCard({
     <div className="container_info_project">
       {isProject && (
         <div className="container_edit_icon">
-          {discoveryPage && (
+          {!discoveryPage && (
             <button className="edit_icon" onClick={handleClick}>
               <EditIcon />
             </button>
@@ -113,7 +116,7 @@ export default function BasicCard({
               marginLeft: 20,
             }}
           >
-            <MenuItem onClick={() => editProject(projectId)} id="edit_project">
+            <MenuItem onClick={() => editProject(index, projectId)} id="edit_project">
               Editar
             </MenuItem>
             <MenuItem
@@ -176,7 +179,7 @@ export default function BasicCard({
           <div className="container_avatar_date">
             <div className="container_avatar_user">
               <img
-                src={!discoveryPage ? userDBAvatar : user.photoURL}
+                src={discoveryPage ? userDBAvatar : userAvatar}
                 alt="imagem do avatar"
                 className="img_project"
               />
@@ -184,22 +187,29 @@ export default function BasicCard({
 
             <div className="container_date_project">
               <div className="user_data">
-                {!discoveryPage
+                {discoveryPage
                   ? `${userDBFristName} ${userDBLastName}`
-                  : user.displayName}
+                  : userName}
                 <div className="bullet_point"></div>
-                {!discoveryPage
+                {discoveryPage
                   ? formattedDate(userDBCreatedAt)
                   : formattedDate(createdAt)}
               </div>
             </div>
           </div>
           <div className="container_tag_project">
-            <div className="tag_project">{tag}</div>
+              <div className="tag_project">
+                {tagArray[0]}
+              </div>
+              <div className="tag_project">
+                {tagArray[1]}
+              </div>
+            
+
           </div>
         </div>
       )}
-      { openDeleteProjectModal && <ModalExcluir /> }
+      
     </div>
   );
 }

@@ -9,7 +9,11 @@ import useStore from '../../zustand/store';
 
 const Discovery = () => {
   const [projects, setProjects] = useState([]);
-  const [indexProject] = useStore((state) => [state.indexProject]);
+  const [indexProject, inputSearch] = useStore((state) => [
+    state.indexProject,
+    state.inputSearch,
+  ]);
+
 
   useEffect(() => {
     const loadingProjects = async () => {
@@ -38,7 +42,9 @@ const Discovery = () => {
 
         <div className="container_basic_card">
           {containsProjects &&
-            projects?.rows?.map(
+            projects?.rows?.filter((project) => project.tag.toLowerCase()
+            .includes(inputSearch.toLowerCase()))
+            .map(
               ({ id, url, imgFile, tag, createdAt, users }, index) => {
                 return (
                   <BasicCard
@@ -67,6 +73,10 @@ const Discovery = () => {
           description={projectByIndex.description}
           urlImg={projectByIndex.imgFile}
           createdAt={projectByIndex.createdAt}
+          userDBAvatar={projectByIndex.users.avatar}
+          userDBFristName={projectByIndex.users.firstName}
+          userDBLastName={projectByIndex.users.lastName}
+          userDBCreatedAt={projectByIndex.users.createdAt}
         />
       )}
       

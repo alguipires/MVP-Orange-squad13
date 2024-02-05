@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import validator from 'validator';
-import { checkUser } from '../../api/axiosInstance';
+import { checkUser, getUserByUuid } from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import {
   FormControl,
@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 import { saveUser } from '../../utils/sessionStorageLogin';
 import { AuthGoogleContext } from '../../contexts/authGoogle';
 import handleAlert from '../../utils/handleAlert';
+import useStore from '../../zustand/store';
 
 const FormLogin = () => {
   const [email, setEmail] = useState('');
@@ -25,6 +26,7 @@ const FormLogin = () => {
   const [errorPassword, setErrorPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { setTokenBackend } = useContext(AuthGoogleContext);
+  const [updateUser] = useStore((state) => [state.updateUser]);
   const navigate = useNavigate();
 
   const inputValidation = () => {
@@ -74,8 +76,12 @@ const FormLogin = () => {
     const isValidUser = await checkUser(email, password);
 
     if (isValidUser.token !== undefined && isValidUser.message === undefined) {
+      const userBackend = await getUserByUuid(isValidUser.token);
+      saveUser('@AuthBackend:user', userBackend);
       saveUser('@AuthBackend:token', isValidUser.token);
+      await updateUser(userBackend);
       setTokenBackend(isValidUser.token);
+      return;
     }
 
     if (isValidUser.message !== undefined) {

@@ -3,6 +3,8 @@ const { hashSync } = require('bcryptjs');
 const uuid = require('uuid');
 const { Users } = require('../db/models');
 const { getProjectByIdService, getProjectByGoogleId } = require('./project.service');
+const getRandomImageUrl = require('../utils/randonImg');
+const imgRandonDb = require('../assets/img/imgRandonDb');
 
 const createPostService = async (firstName, lastName, email, password) => {
   try {
@@ -11,6 +13,7 @@ const createPostService = async (firstName, lastName, email, password) => {
       return { status: 'CONFLICT', data: { message: 'Email already exists' } };
     }
 
+    const avatar = getRandomImageUrl(imgRandonDb);
     const uuidv4 = uuid.v4();
     const uuidvStandard = uuidv4.replace(/-/g, '');
     const passwordHash = hashSync(password, 10);
@@ -19,6 +22,7 @@ const createPostService = async (firstName, lastName, email, password) => {
       uuid: uuidvStandard,
       firstName,
       lastName,
+      avatar,
       email,
       password: passwordHash,
     });
@@ -67,6 +71,21 @@ const createUserWithGooglePostService = async ( firstName, lastName, email, pass
   }
 };
 
+const getUserByUuidService = async (userUuid) => {
+  try {
+    const user = await Users.findOne({
+      where: { uuid: userUuid },
+      attributes: { exclude: ['password'] }
+    });
+    if (!user) {
+      return { status: 'NOT_FOUND', data: [] };
+    }
+    return { status: 'SUCCESSFUL', data: user };
+  } catch (error) {
+    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+  }
+};
+
 const projectWhitIdService = async (userUuid) => {
   try {
     const {status, data} = await getProjectByIdService(userUuid);
@@ -104,4 +123,5 @@ module.exports = {
   createUserWithGooglePostService,
   projectsWhitGoogleService,
   projectWhitIdService,
+  getUserByUuidService,
 };

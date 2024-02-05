@@ -1,6 +1,7 @@
 const { url } = require('inspector');
 const { Projects, Users } = require('../db/models');
 const fs = require('fs'); //import filesystem
+const { log } = require('console');
 
 const createProjectPostService = async (
   title,
@@ -212,6 +213,46 @@ const deleteProjectByIdService = async (projectId, getPayload) => {
   }
 };
 
+const deleteProjectByGoogleIdService = async (uuid, projectId, token) => {
+  try {
+    if (!uuid) {
+      return { status: 'BAD_REQUEST', data: { message: 'UUID não fornecido' } };
+    }
+
+    if (!projectId) {
+      return {
+        status: 'BAD_REQUEST', data: { message: 'projectId não fornecido' } };
+    }
+
+    if (!token) {
+      return { status: 'UNAUTHORIZED', data: { message: 'Token não fornecido' } };
+    }
+
+    const project = await Projects.findOne({ where: { id: projectId } });
+
+    if (!project) {
+      return { status: 'NOT_FOUND_2', data: { message: 'Projeto não encontrado' } };
+    }
+
+    if (project.userUuid === uuid) {
+  
+      // Remove arquivo local assíncrono
+      // fs.unlinkSync(project.imgFile);
+
+      await Projects.destroy({ where: { id: projectId } });
+
+      return { status: 'DELETED', data: [] };
+    } else {
+      return {
+        status: 'UNAUTHORIZED',
+        data: { message: 'Usuário não autorizado a excluir este projeto' },
+      };
+    }
+  } catch (error) {
+    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+  }
+}
+
 module.exports = {
   createProjectPostService,
   getProjectByUserIdService,
@@ -220,4 +261,5 @@ module.exports = {
   getAllProjectService,
   updateProjectByIdService,
   deleteProjectByIdService,
+  deleteProjectByGoogleIdService,
 };

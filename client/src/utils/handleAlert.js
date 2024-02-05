@@ -1,9 +1,9 @@
 import Swal from 'sweetalert2';
 
-const handleAlert = (message, position) => {
+const handleAlert = (message, icon, position) => {
   const Toast = Swal.mixin({
     toast: true,
-    position: position || 'top-end',
+    position: 'top-end' || position,
     showConfirmButton: false,
     timer: 5000,
     timerProgressBar: true,
@@ -14,7 +14,7 @@ const handleAlert = (message, position) => {
   });
 
   Toast.fire({
-    icon: 'error',
+    icon: 'error' || icon,
     title: message,
   });
 };

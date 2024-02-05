@@ -4,31 +4,40 @@ import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './modalToView.css'
-import { formattedDate } from '../../utils/formatedData';
+import { formattedDate, getFormattedMonthAndYear } from '../../utils/formatedData';
 import { useMediaQuery } from '@mui/material';
 
-const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
+const ModalToView = ({
+  link, 
+  urlImg, 
+  tag, 
+  description,
+  title,
+  userDBAvatar,
+  userDBFristName,
+  userDBLastName,
+  userDBCreatedAt,
+}) => {
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
   const [
-    user,
+    currentUser,
     openVisualizerModalProject, 
-    updateOpenVisualizerModalProject
+    updateOpenVisualizerModalProject,
+    discoveryPage,
   ] = useStore((state) => [
-    state.user,
+    state.currentUser,
     state.openVisualizerModalProject,
     state.updateOpenVisualizerModalProject,
+    state.discoveryPage,
   ]); 
 
   const handleClose = () => updateOpenVisualizerModalProject(!openVisualizerModalProject);
 
-  function getFormattedMonthAndYear() {
-    const currentDate = new Date();
-  
-    const year = currentDate.getFullYear().toString().slice(-2);
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-  
-    return `${month}/${year}`;
-  }
+  const renderUserNameDB = currentUser && discoveryPage;
+  const renderUserName = currentUser && !discoveryPage;
+  const currentUserName = currentUser?.displayName ? currentUser.displayName : `${currentUser?.firstName} ${currentUser?.lastName}`;
+  const userImage = currentUser?.photoURL ? currentUser.photoURL : currentUser?.avatar;
+  const tagArray = tag.split(' ');
 
   const style = {
     position: 'absolute',
@@ -54,56 +63,73 @@ const ModalToView = ({link, urlImg, tag, description, createdAt, title}) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <section className='container_to_view_project'>
-            <button className='close_button_modal' onClick={handleClose}>
+          <section className="container_to_view_project">
+            <button className="close_button_modal" onClick={handleClose}>
               <CloseOutlinedIcon onClick={handleClose} />
             </button>
-            {isSmallScreen && 
-                <div className='container_title'>
-                  <h1>{title}</h1>
+            {isSmallScreen && (
+              <div className="container_title">
+                <h1>{title}</h1>
+              </div>
+            )}
+            <div className="container_name_data_title_tags_img">
+              <div className="container_name_data_title_tags">
+                <div className="container_name_data">
+                  <div className="container_avatar_user_modal">
+                    <img
+                      src={userDBAvatar ? userDBAvatar : userImage}
+                      alt="imagem do projeto"
+                      className="img_project"
+                    />
+                  </div>
+
+                  <div className="user_data_modal">
+                    <div>
+                      <strong>
+                        {renderUserNameDB && 
+                          `${userDBFristName} ${userDBLastName}`
+                        }
+                        {renderUserName && 
+                          currentUserName
+                        }
+                        </strong>
+                    </div>
+                    <p>
+                      {userDBCreatedAt
+                        ? formattedDate(userDBCreatedAt)
+                        : getFormattedMonthAndYear()}
+                    </p>
+                  </div>
                 </div>
-            }
-              <div className='container_name_data_title_tags_img'>
-              <div className='container_name_data_title_tags'>
-
-                <div className='container_name_data'>
-                  
-                  <div className='container_avatar_user_modal'>
-                    <img src={user.photoURL} alt='imagem do projeto' className='img_project' />
-                  </div>
-
-                  <div className='user_data_modal'>
-                    <div><strong>{user.displayName}</strong></div> 
-                    <p>{createdAt ? formattedDate(createdAt) : getFormattedMonthAndYear() }</p>
-                  </div>
-                  </div>  
-                {!isSmallScreen &&
-                  <div className='container_title'>
+                {!isSmallScreen && (
+                  <div className="container_title">
                     <h1>{title}</h1>
                   </div>
-                }
-                <div className='container_tags'>
-                  <div className='tag_project_modal'>
-                    {tag}
-                  </div>
+                )}
+                <div className="container_tags">
+                  {tagArray.map((tag, index) => (
+                    <div key={index} className="tag_project_modal">{tag}</div>
+                  ))}
                 </div>
               </div>
 
-              <div className='container_img_project_modal'>
-                <img src={urlImg} alt='imagem do projeto'/>
+              <div className="container_img_project_modal">
+                <img src={urlImg} alt="imagem do projeto" />
               </div>
-              
             </div>
 
-            <div className='container_description'>
+            <div className="container_description">
               <p>{description}</p>
             </div>
 
-            <div className='container_url'>
-              <p><strong>Download</strong></p>
-              <a href={link} target='_blank' rel='noreferrer'>{link}</a>
+            <div className="container_url">
+              <p>
+                <strong>Download</strong>
+              </p>
+              <a href={link} target="_blank" rel="noreferrer">
+                {link}
+              </a>
             </div>
-
           </section>
         </Box>
       </Modal>

@@ -34,12 +34,12 @@ function ResponsiveAppBar() {
   };
   
   const handleMyProjectsButton = () => {
-    updateDiscoveryPage(true);
+    updateDiscoveryPage(false);
     navigate('/portifolio');
   };
 
   const discoveryButton = () => {
-    updateDiscoveryPage(false)
+    updateDiscoveryPage(true)
     navigate('/discovery');
   };
 
@@ -51,20 +51,19 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Logo />
 
-              <Button
-                onClick={ handleMyProjectsButton }
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Meus Projetos
-              </Button>
+            <Button
+              onClick={handleMyProjectsButton}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Meus Projetos
+            </Button>
 
-              <Button
-                onClick={ discoveryButton }
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Descobrir
-              </Button>
-
+            <Button
+              onClick={discoveryButton}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Descobrir
+            </Button>
           </Box>
 
           {/* //buttons mobile */}
@@ -97,6 +96,19 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              <Button
+                onClick={handleMyProjectsButton}
+                sx={{ my: 2, mx: 1, color: 'black', display: 'block' }}
+              >
+                Meus Projetos
+              </Button>
+
+              <Button
+                onClick={discoveryButton}
+                sx={{ my: 2, mx: 1, color: 'black', display: 'block' }}
+              >
+                Descobrir
+              </Button>
             </Menu>
             <Logo />
           </Box>

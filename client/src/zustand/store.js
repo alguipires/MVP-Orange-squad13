@@ -3,40 +3,40 @@ import { create } from 'zustand';
 const useStore = create((set) => ({
   isHidden: true,
   user: {},
+  currentProjects: [],
   indexProject: 0,
-  discoveryPage: true,
+  discoveryPage: false,
   openModal: false,
   closeModal: true,
-  openVisualizerModalProject: true,
+  openVisualizerModalProject: false,
   openPreviewModal: false,
+  openEditProjectModal: false,
   openDeleteProjectModal: false,
-  openDeleteSuccessModal: true,
+  openDeleteSuccessModal: false,
   idDeleteProject: null,
   indexEditProject: null,
   currentUser: null,
   currentProject: null,
   currentProjectSave: false,
+  inputSearch: '',
   updateHidden: (hidden) => set(() => ({ isHidden: hidden })),
   updateUser: (user) => set(() => ({ user: user })),
+  updateCurrentProjects: (projects) => set(() => ({ currentProjects: projects })),
   updateIndexProject: (id) => set(() => ({ indexProject: id })),
   updateDiscoveryPage: (boolean) => set(() => ({ discoveryPage: boolean })),
   updateOpenModal: (open) => set(() => ({ openModal: open })),
   updateCloseModal: (close) => set(() => ({ closeModal: close })),
-  updateOpenVisualizerModalProject: (open) =>
-    set(() => ({ openVisualizerModalProject: open })),
+  updateOpenVisualizerModalProject: (open) => set(() => ({ openVisualizerModalProject: open })),
   updateOpenPreviewModal: (open) => set(() => ({ openPreviewModal: open })),
-  updateOpenDeleteProjectModal: (open) =>
-    set(() => ({ openDeleteProjectModal: open })),
-  updateOpenDeleteSuccessModal: (open) =>
-    set(() => ({ openDeleteSuccessModal: open })),
-  updateIdDeleteProject: (index) =>
-    set(() => ({ idDeleteProject: index })),
+  updateOpenEditProjectModal: (open) => set(() => ({ openEditProjectModal: open })),
+  updateOpenDeleteProjectModal: (open) => set(() => ({ openDeleteProjectModal: open })),
+  updateOpenDeleteSuccessModal: (open) => set(() => ({ openDeleteSuccessModal: open })),
+  updateIdDeleteProject: (index) => set(() => ({ idDeleteProject: index })),
   updateIndexEditProject: (index) => set(() => ({ indexEditProject: index })),
   updateCurrentUser: (user) => set(() => ({ currentUser: user })),
   updateCurrentProject: (project) => set(() => ({ currentProject: project })),
-  updatecurrentProjectSave: (boolean) =>
-    set(() => ({ currentProjectSave: boolean })),
+  updatecurrentProjectSave: (boolean) => set(() => ({ currentProjectSave: boolean })),
+  updateInputSearch: (input) => set(() => ({ inputSearch: input })),
 }));
-
 
 export default useStore;

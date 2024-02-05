@@ -14,7 +14,7 @@ import { createNewProject } from '../../api/axiosInstance';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
 import ModalPreview from './ModalPreview';
 import { getFormattedMonthAndYear } from '../../utils/formatedData';
-import './Modal.css';
+import './modalAddProject.css';
 
 export default function FormToAddProject() {
   const [title, setTitle] = useState('');
@@ -176,7 +176,7 @@ export default function FormToAddProject() {
     alignItems: 'flex-start',
     left: '50%',
     width: isSmallScreen ? '90vw' : 890,
-    height: isSmallScreen ? '85vh' : 522,
+    height: isSmallScreen ? 'auto' : 522,
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
     border: '2px solid #000',
@@ -210,7 +210,7 @@ export default function FormToAddProject() {
                 <CardActionArea
                   sx={{
                     maxWidth: 389,
-                    height: 258,
+                    height: isSmallScreen ? 200 : 258,
                     display: 'flex',
                     flexDirection: 'column',
                     backgroundColor: '#E6E9F2',
