@@ -5,7 +5,8 @@ const createProjects = async (req, res) => {
   const userId = req.getPayload.id;
   const userUuid = req.getPayload.uuid;
 
-  //pegando o fieldname "url" e extraindo o file e path
+  console.log('LOGG REQ>>>> ', req);
+  // pegando o fieldname "imgFile" e extraindo o file e path
   const imgFile = req.file.path;
 
   const { title, tag, description, url } = req.body;

@@ -26,7 +26,7 @@ export default function FormToAddProject() {
   const [isPreview, setIsPreview] = useState(false);
   const [
     openModal,
-    updateOpenModal, 
+    updateOpenModal,
     updateCurrentProject,
     updateOpenPreviewModal,
   ] = useStore((state) => [
@@ -38,7 +38,7 @@ export default function FormToAddProject() {
   const inputRef = useRef(null);
   const isSmallScreen = useMediaQuery('(max-width:768px)');
   const noProjectImage =
-  'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
+    'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
   const isImage = imgFile ? imgFile : noProjectImage;
 
   const handleChange = ({ target: { value } }, setState) => {
@@ -65,34 +65,40 @@ export default function FormToAddProject() {
     const tagsValidation = validator.isLength(tags, { min: 1 });
     const linkValidation = validator.isLength(link, { min: 1 });
     const descriptionValidation = validator.isLength(description, { min: 1 });
-    const imgFileValidation = imgFile && validator.isLength(imgFile, { min: 1 });
+    const imgFileValidation =
+      imgFile && validator.isLength(imgFile, { min: 1 });
 
-
-    if (!titleValidation && !tagsValidation && !linkValidation && !descriptionValidation && !imgFileValidation) {
+    if (
+      !titleValidation &&
+      !tagsValidation &&
+      !linkValidation &&
+      !descriptionValidation &&
+      !imgFileValidation
+    ) {
       handleAlert('Preencha os campos');
       return;
     }
 
     if (!titleValidation) {
       handleAlert('Titulo inválido, insira um titulo com mais de 1 caractere');
-    } 
+    }
     if (!tagsValidation) {
-      handleAlert(
-        'Tag inválida, insira uma sobrenoma com mais de 1 caractere'
-      );
+      handleAlert('Tag inválida, insira uma sobrenoma com mais de 1 caractere');
     }
 
     if (!linkValidation) {
       handleAlert('Link inválido, insira um link com mais de 1 caractere');
     }
     if (!descriptionValidation) {
-      handleAlert('Descrição inválida, insira uma descrição com mais de 1 caractere');
-    } 
+      handleAlert(
+        'Descrição inválida, insira uma descrição com mais de 1 caractere'
+      );
+    }
 
     if (!imgFileValidation) {
       handleAlert('Imagem inválida, insira uma imagem');
     }
-  }; 
+  };
 
   const handleButtonClick = (e) => {
     e.preventDefault();
@@ -102,10 +108,17 @@ export default function FormToAddProject() {
     const tagsValidation = validator.isLength(tags, { min: 1 });
     const linkValidation = validator.isLength(link, { min: 1 });
     const descriptionValidation = validator.isLength(description, { min: 1 });
-    const imgFileValidation = imgFile && validator.isLength(imgFile, { min: 1 });
+    const imgFileValidation =
+      imgFile && validator.isLength(imgFile, { min: 1 });
 
-    if  ( titleValidation && tagsValidation && linkValidation && descriptionValidation && imgFileValidation ) {
-          handleSubmitRegister();
+    if (
+      titleValidation &&
+      tagsValidation &&
+      linkValidation &&
+      descriptionValidation &&
+      imgFileValidation
+    ) {
+      handleSubmitRegister();
     }
   };
 
@@ -127,7 +140,6 @@ export default function FormToAddProject() {
       return;
     }
   };
-
 
   const previewProject = () => {
     const preProject = {
@@ -157,7 +169,6 @@ export default function FormToAddProject() {
     }
   };
 
-
   const closeModal = () => {
     setTitle('');
     setTags('');
@@ -185,155 +196,159 @@ export default function FormToAddProject() {
     px: 4,
     pb: 3,
   };
-  
 
   return (
     <>
-    <Modal
-      open={ openModal }
-      onClose={ closeModal }
-      aria-labelledby="parent-modal-title"
-      aria-describedby="parent-modal-description"
-    >
-      <section className="container_modal_project">
-        <Box sx={{ ...style, border: 'none' }}>
-          <header>
-            <h5 className="titulo">Adicionar Projeto</h5>
-          </header>
+      <Modal
+        open={openModal}
+        onClose={closeModal}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <section className="container_modal_project">
+          <Box sx={{ ...style, border: 'none' }}>
+            <header>
+              <h5 className="titulo">Adicionar Projeto</h5>
+            </header>
 
-          <div className="container_info_modal_add_project">
-            <div className="container_subtitle_add_image_buttons">
-              <p className="subtitulo">
-                Selecione o conteúdo que você deseja fazer upload
-              </p>
-              <Card>
-                <CardActionArea
-                  sx={{
-                    maxWidth: 389,
-                    height: isSmallScreen ? 200 : 258,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    backgroundColor: '#E6E9F2',
-                  }}
-                  onClick={handleCardClick}
-                >
-                  <input
-                    type="file"
-                    accept="image/*"
-                    ref={inputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                  />
-                  <CardMedia
-                    style={{
-                      display: 'block',
-                      aspectRatio: '4/3',
-                      width: imgFile ? '100%' :'10%',
-                      backgroundSize: 'cover',
-                      height: 'auto',
+            <div className="container_info_modal_add_project">
+              <div className="container_subtitle_add_image_buttons">
+                <p className="subtitulo">
+                  Selecione o conteúdo que você deseja fazer upload
+                </p>
+                <Card>
+                  <CardActionArea
+                    sx={{
+                      maxWidth: 389,
+                      height: isSmallScreen ? 200 : 258,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      backgroundColor: '#E6E9F2',
                     }}
-                    component="img"
-                    image={isImage}
-                    alt="imagem do projeto"
-                  />
-                  {!imgFile && 
-                    <p style={{ position: 'relative', top: 30 }}>
-                      Compartilhe seu talento com milhares de pessoas
-                    </p>
-                  }
-                </CardActionArea>
-              </Card>
+                    onClick={handleCardClick}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={inputRef}
+                      style={{ display: 'none' }}
+                      onChange={handleFileChange}
+                    />
+                    <CardMedia
+                      style={{
+                        display: 'block',
+                        aspectRatio: '4/3',
+                        width: imgFile ? '100%' : '10%',
+                        backgroundSize: 'cover',
+                        height: 'auto',
+                      }}
+                      component="img"
+                      image={isImage}
+                      alt="imagem do projeto"
+                    />
+                    {!imgFile && (
+                      <p style={{ position: 'relative', top: 30 }}>
+                        Compartilhe seu talento com milhares de pessoas
+                      </p>
+                    )}
+                  </CardActionArea>
+                </Card>
                 <button
                   href="visualização "
                   className="visualizar"
-                  onClick={ previewProject }
+                  onClick={previewProject}
                 >
                   Visualizar Publicação
                 </button>
 
-              <div className="buttons_wrapper">
-                <Button
-                  variant="contained"
-                  color="warning"
-                  value="salvar"
-                  type="submit"
-                  className="button_salvar"
-                  onClick={ handleButtonClick }
-                >
-                  Salvar
-                </Button>
-                <Button
-                  value="cancelar"
-                  variant="contained"
-                  className="button_cancelar"
-                  onClick={ closeModal }
-                >
-                  Cancelar
-                </Button>
+                <div className="buttons_wrapper">
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    value="salvar"
+                    type="submit"
+                    className="button_salvar"
+                    onClick={handleButtonClick}
+                  >
+                    Salvar
+                  </Button>
+                  <Button
+                    value="cancelar"
+                    variant="contained"
+                    className="button_cancelar"
+                    onClick={closeModal}
+                  >
+                    Cancelar
+                  </Button>
+                </div>
+              </div>
+
+              <div className="container_box_modal">
+                <TextField
+                  id="outlined-multiline-flexible"
+                  className="inputs_box_modal"
+                  label="Título"
+                  variant="outlined"
+                  onChange={(e) => handleChange(e, setTitle)}
+                  style={{
+                    width: '100%',
+                    marginBottom: '7px',
+                    marginLeft: isSmallScreen ? '0px' : '5px',
+                  }}
+                />
+                <TextField
+                  id="outlined-multiline-flexible"
+                  className="inputs_box_modal"
+                  label="Tags"
+                  variant="outlined"
+                  onChange={(e) => handleChange(e, setTags)}
+                  style={{
+                    width: '100%',
+                    marginBottom: '7px',
+                    marginLeft: isSmallScreen ? '0px' : '5px',
+                  }}
+                />
+                <TextField
+                  id="outlined-textarea"
+                  className="inputs_box_modal"
+                  label="Links"
+                  placeholder="Placeholder"
+                  variant="outlined"
+                  onChange={(e) => handleChange(e, setLink)}
+                  style={{
+                    width: '100%',
+                    marginBottom: '7px',
+                    marginLeft: isSmallScreen ? '0px' : '5px',
+                  }}
+                />
+                <TextField
+                  id="outlined-multiline-static"
+                  className="inputs_box_modal input_description"
+                  label="Descrição"
+                  multiline
+                  rows={3}
+                  onChange={(e) => handleChange(e, setDescription)}
+                  style={{
+                    width: '100%',
+                    height: '35px',
+                    marginLeft: isSmallScreen ? '0px' : '5px',
+                  }}
+                />
               </div>
             </div>
-
-            <div className="container_box_modal">
-              <TextField
-                id="outlined-multiline-flexible"
-                className="inputs_box_modal"
-                label="Título"
-                variant="outlined"
-                onChange={(e) => handleChange(e, setTitle)}
-                style={{
-                  width: '100%',
-                  marginBottom: '7px',
-                  marginLeft: isSmallScreen ? '0px' : '5px',
-                }}
-              />
-              <TextField
-                id="outlined-multiline-flexible"
-                className="inputs_box_modal"
-                label="Tags"
-                variant="outlined"
-                onChange={(e) => handleChange(e, setTags)}
-                style={{
-                  width: '100%',
-                  marginBottom: '7px',
-                  marginLeft: isSmallScreen ? '0px' : '5px',
-                }}
-              />
-              <TextField
-                id="outlined-textarea"
-                className="inputs_box_modal"
-                label="Links"
-                placeholder="Placeholder"
-                variant="outlined"
-                onChange={(e) => handleChange(e, setLink)}
-                style={{
-                  width: '100%',
-                  marginBottom: '7px',
-                  marginLeft: isSmallScreen ? '0px' : '5px',
-                }}
-              />
-              <TextField
-                id="outlined-multiline-static"
-                className="inputs_box_modal input_description"
-                label="Descrição"
-                multiline
-                rows={3}
-                onChange={(e) => handleChange(e, setDescription)}
-                style={{ width: '100%', height: '35px', marginLeft: isSmallScreen ? '0px' : '5px', }}
-              />
-            </div>
-          </div>
-        </Box>
-      </section>      
-    </Modal>
-    {isPreview && 
-      <ModalPreview 
-        tag={tags}
-        title={title}
-        link={link}
-        description={description}
-        urlImg={imgFile}
-        createdAt={getFormattedMonthAndYear()}
-    />}
+          </Box>
+        </section>
+      </Modal>
+      {isPreview && (
+        <ModalPreview
+          tag={tags}
+          title={title}
+          link={link}
+          description={description}
+          urlImg={imgFile}
+          createdAt={getFormattedMonthAndYear()}
+        />
+      )}
     </>
   );
 }

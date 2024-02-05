@@ -41,6 +41,8 @@ const getAllProjectService = async (page, pageSize) => {
       offset: offset,
     });
 
+    console.log('array de projetos... ', projects); //TODO retirar
+
     return { status: 'SUCCESSFUL', data: projects };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };

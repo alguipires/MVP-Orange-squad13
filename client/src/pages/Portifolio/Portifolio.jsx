@@ -17,7 +17,7 @@ import useStore from '../../zustand/store';
 
 function Portifolio() {
   const [
-    indexProject, 
+    indexProject,
     currentProjects,
     updateCurrentProjects,
     openDeleteProjectModal,
@@ -51,7 +51,7 @@ function Portifolio() {
         updateCurrentProjects(projectsLoginGoogle);
         return;
       }
-      
+
       if (Object.keys(tokenBackend).length !== 0) {
         const projectsLoginBackend = await projectsWithUser(tokenBackend);
         updateCurrentProjects(projectsLoginBackend);
@@ -66,7 +66,6 @@ function Portifolio() {
 
   return (
     <section className="portifolio_container">
-      
       <AppBar />
       <div className="container_profile">
         <Profile />
@@ -79,21 +78,23 @@ function Portifolio() {
         </div>
         <div className="container_basic_card">
           {containsProjects ? (
-            currentProjects?.filter((project) => project.tag.toLowerCase()
-            .includes(inputSearch.toLowerCase()))
-            .map(({ id, url, imgFile, tag, createdAt }, index) => {
-              return (
-                <BasicCard
-                  key={id}
-                  projectId={id}
-                  index={index}
-                  link={url}
-                  urlImg={imgFile}
-                  tag={tag}
-                  createdAt={createdAt}
-                />
-              );
-            })
+            currentProjects
+              ?.filter((project) =>
+                project.tag.toLowerCase().includes(inputSearch.toLowerCase())
+              )
+              .map(({ id, url, imgFile, tag, createdAt }, index) => {
+                return (
+                  <BasicCard
+                    key={id}
+                    projectId={id}
+                    index={index}
+                    link={url}
+                    urlImg={imgFile}
+                    tag={tag}
+                    createdAt={createdAt}
+                  />
+                );
+              })
           ) : (
             <BasicCard />
           )}
@@ -114,10 +115,9 @@ function Portifolio() {
           <Modal />
         </div>
       )}
-      { openDeleteProjectModal && <ModalExcluir /> }
-      { openEditProjectModal && <ModalEditProject />}
+      {openDeleteProjectModal && <ModalExcluir />}
+      {openEditProjectModal && <ModalEditProject />}
       {openDeleteSuccessModal && <ModalDeletado />}
-
     </section>
   );
 }
