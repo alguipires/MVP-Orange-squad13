@@ -5,14 +5,17 @@ const createProjects = async (req, res) => {
   const userId = req.getPayload.id;
   const userUuid = req.getPayload.uuid;
 
-  // console.log('LOGG REQ file>>>> ', req.file);
+  console.log('LOGG REQ file>>>> ', req.file);
+  console.log('LOGG REQ body>>>> ', req.body);
 
   // pegando o arquivo/location "imgFile" e extraindo do file, key esta o nome original do arquivo se precisar
   // const imgFile = req.file.path; //antigo
+
   const { key: imgName, location: imgFile = '' } = req.file;
+
   // const imgFile = key;
-  // console.log('log imgfile...... ', imgFile); //TODO retirar
-  // console.log('log imgName...... ', imgName); //TODO retirar
+  console.log('log imgfile...... ', imgFile); //TODO retirar
+  console.log('log imgName...... ', imgName); //TODO retirar
 
   const { title, tag, description, url } = req.body;
 
@@ -125,11 +128,15 @@ const deleteProjectById = async (req, res) => {
 const deleteProjectByGoogleId = async (req, res) => {
   const token = req.headers.authorization;
   const projectId = req.params.id;
-  const uuid = req.query.uuid
-  
-  const { status, data } = await projectService.deleteProjectByGoogleIdService(uuid, projectId, token);
+  const uuid = req.query.uuid;
+
+  const { status, data } = await projectService.deleteProjectByGoogleIdService(
+    uuid,
+    projectId,
+    token
+  );
   return res.status(mapStatusHTTP(status)).json(data);
-}
+};
 
 module.exports = {
   createProjects,

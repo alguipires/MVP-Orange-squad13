@@ -368,7 +368,7 @@ export default function FormToAddProject() {
           title={title}
           link={link}
           description={description}
-          urlImg={imgFile}
+          imgUrl={imgFile}
           createdAt={getFormattedMonthAndYear()}
         />
       )}

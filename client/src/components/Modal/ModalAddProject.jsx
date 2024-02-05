@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -21,7 +21,7 @@ export default function FormToAddProject() {
   const [tags, setTags] = useState('');
   const [link, setLink] = useState('');
   const [description, setDescription] = useState('');
-  const [token, setToken] = useState('');
+  const [imgUrl, setImgUrl] = useState(null);
   const [imgFile, setImgFile] = useState(null);
   const [isPreview, setIsPreview] = useState(false);
   const [
@@ -39,41 +39,26 @@ export default function FormToAddProject() {
   const isSmallScreen = useMediaQuery('(max-width:768px)');
   const noProjectImage =
     'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
-  const isImage = imgFile ? imgFile : noProjectImage;
+
+  const isImage = imgUrl ? imgUrl : noProjectImage;
 
   const handleChange = ({ target: { value } }, setState) => {
     setState(value);
   };
-
-  useEffect(() => {
-    const getToken = async () => {
-      const userTokenBackEnd = getSavedUser('@AuthBackend:token');
-      const userTokenGoogle = getSavedUser('@AuthFirebase:token');
-
-      if (userTokenBackEnd) {
-        setToken(userTokenBackEnd);
-      }
-      if (userTokenGoogle) {
-        setToken(userTokenGoogle);
-      }
-    };
-    getToken();
-  }, []);
 
   const inputValidation = () => {
     const titleValidation = validator.isLength(title, { min: 1 });
     const tagsValidation = validator.isLength(tags, { min: 1 });
     const linkValidation = validator.isLength(link, { min: 1 });
     const descriptionValidation = validator.isLength(description, { min: 1 });
-    const imgFileValidation =
-      imgFile && validator.isLength(imgFile, { min: 1 });
+    const imgUrlValidation = imgUrl && validator.isLength(imgUrl, { min: 1 });
 
     if (
       !titleValidation &&
       !tagsValidation &&
       !linkValidation &&
       !descriptionValidation &&
-      !imgFileValidation
+      !imgUrlValidation
     ) {
       handleAlert('Preencha os campos');
       return;
@@ -95,7 +80,7 @@ export default function FormToAddProject() {
       );
     }
 
-    if (!imgFileValidation) {
+    if (!imgUrlValidation) {
       handleAlert('Imagem inválida, insira uma imagem');
     }
   };
@@ -108,36 +93,49 @@ export default function FormToAddProject() {
     const tagsValidation = validator.isLength(tags, { min: 1 });
     const linkValidation = validator.isLength(link, { min: 1 });
     const descriptionValidation = validator.isLength(description, { min: 1 });
-    const imgFileValidation =
-      imgFile && validator.isLength(imgFile, { min: 1 });
+    const imgUrlValidation = imgUrl && validator.isLength(imgUrl, { min: 1 });
 
     if (
       titleValidation &&
       tagsValidation &&
       linkValidation &&
       descriptionValidation &&
-      imgFileValidation
+      imgUrlValidation
     ) {
       handleSubmitRegister();
     }
   };
 
   const handleSubmitRegister = async () => {
-    const saveTagsString = tags.replace(/ /g, ',');
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('tag', tags);
+    formData.append('url', link);
+    formData.append('description', description);
+    console.log('imgFile', imgFile);
+    formData.append('imgFile', imgFile);
 
-    const projectToSave = {
-      title,
-      tag: saveTagsString,
-      url: link,
-      description,
-      imgFile,
-    };
+    const token = await getSavedUser('@AuthFirebase:token');
+    const user = await getSavedUser('@AuthFirebase:user');
+    const tokenBackend = await getSavedUser('@AuthBackend:token');
 
-    const isValidProject = await createNewProject(projectToSave, token);
+    if (tokenBackend) {
+      const isValidProject = await createNewProject(formData, tokenBackend);
 
-    if (isValidProject?.message) {
-      handleAlert(isValidProject.message);
+      if (isValidProject?.message) {
+        handleAlert(isValidProject.message);
+        return;
+      }
       return;
+    }
+    if (token && user) {
+      const uuid = user.uid;
+      const isValidProject = await createNewProject(formData, uuid, token);
+
+      if (isValidProject?.message) {
+        handleAlert(isValidProject.message);
+        return;
+      }
     }
   };
 
@@ -147,7 +145,7 @@ export default function FormToAddProject() {
       tag: tags,
       url: link,
       description,
-      imgFile,
+      imgUrl,
     };
 
     updateCurrentProject(preProject);
@@ -162,10 +160,10 @@ export default function FormToAddProject() {
   };
   const handleFileChange = (event) => {
     const arquivo = event.target.files[0];
-
     if (arquivo) {
       const urlImagem = URL.createObjectURL(arquivo);
-      setImgFile(urlImagem);
+      setImgUrl(urlImagem);
+      setImgFile(arquivo);
     }
   };
 
@@ -174,6 +172,7 @@ export default function FormToAddProject() {
     setTags('');
     setLink('');
     setDescription('');
+    setImgUrl(null);
     setImgFile(null);
     updateOpenModal(!openModal);
   };
@@ -246,7 +245,7 @@ export default function FormToAddProject() {
                       image={isImage}
                       alt="imagem do projeto"
                     />
-                    {!imgFile && (
+                    {!imgUrl && (
                       <p style={{ position: 'relative', top: 30 }}>
                         Compartilhe seu talento com milhares de pessoas
                       </p>
@@ -345,7 +344,7 @@ export default function FormToAddProject() {
           title={title}
           link={link}
           description={description}
-          urlImg={imgFile}
+          imgUrl={imgUrl}
           createdAt={getFormattedMonthAndYear()}
         />
       )}

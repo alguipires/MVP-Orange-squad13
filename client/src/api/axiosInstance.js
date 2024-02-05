@@ -87,24 +87,13 @@ const loginWithGoogle = async (token, user) => {
     });
 };
 
-//TODO fazer rotas de projetos
 const createNewProject = async (formData, token) => {
   const config = {
     headers: {
+      'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
     },
   };
-
-  console.log('token axios,,,, ', token); //TODO retirar log
-  console.log('formData...>> ', formData);
-
-  // try {
-  //   const response = await axios.post(`${endpoint}/project`, formData, config);
-  //   return response.data;
-  // } catch (error) {
-  //   console.error('Error creating new project:', error);
-  //   return error.response.data;
-  // }
 
   return await axios
     .post(`${endpoint}/project`, formData, config)
@@ -118,78 +107,6 @@ const createNewProject = async (formData, token) => {
       // always executed
     });
 };
-
-/* const createNewProject = async (
-  { title, tag, url, description, imgFile },
-  token
-) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  console.log('token axios,,,, ', token); //TODO retirar log
-  console.log('obj...>> ', title, tag, url, description, imgFile);
-
-  return await axios
-    .post(
-      `${endpoint}/project`,
-      {
-        title,
-        tag,
-        url,
-        description,
-        imgFile,
-      },
-      config
-    )
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return error.response.data;
-    })
-    .finally(() => {
-      // always executed
-    });
-}; */
-
-/* const createNewProject = async (
-  { title, tag, url, description, imgFile },
-  token
-) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  console.log('token axios,,,, ', token); //TODO retirar log
-  console.log('obj...>> ', title, tag, url, description, imgFile);
-
-  return await axios
-    .post(
-      `${endpoint}/project`,
-      {
-        title,
-        tag,
-        url,
-        description,
-        imgFile,
-      },
-      config
-    )
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return error.response.data;
-    })
-    .finally(() => {
-      // always executed
-    });
-}; */
 
 const projectsWithUser = async (token) => {
   const config = {
