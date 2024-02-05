@@ -48,7 +48,6 @@ function Portifolio() {
 
   return (
     <section className="portifolio_container">
-      
       <AppBar />
       <div className="container_profile">
         <Profile />
@@ -63,6 +62,7 @@ function Portifolio() {
         <div className="container_basic_card">
           {containsProjects ? (
             projects.map(({ id, url, imgFile, tag, createdAt }, index) => {
+              console.log('projeto.... ', id, url, imgFile, tag, createdAt); //TODO retirar
               return (
                 <BasicCard
                   key={id}
