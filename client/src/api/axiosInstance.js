@@ -87,22 +87,16 @@ const loginWithGoogle = async (token, user) => {
     });
 };
 
-//TODO fazer rotas de projetos
-
-const createNewProject = async ({title, tag, url, description, imgFile}, token) => {
+const createNewProject = async (formData, token) => {
   const config = {
     headers: {
+      'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
     },
   };
+
   return await axios
-    .post(`${endpoint}/project`, {
-      title,
-      tag,
-      url,
-      description,
-      imgFile,
-    }, config)
+    .post(`${endpoint}/project`, formData, config)
     .then((response) => {
       return response?.data;
     })
