@@ -33,6 +33,12 @@ router.post(
 //   upload.single('imgFile'),
 //   projectController.updateProjectById
 // );
+router.patch(
+  '/:id',
+  tokenValidation,
+  multer(multerConfig).single('imgFile'),
+  projectController.updateProjectById
+);
 router.delete('/:id', tokenValidation, projectController.deleteProjectById);
 
 module.exports = router;
