@@ -11,6 +11,7 @@ const Discovery = () => {
   const [projects, setProjects] = useState([]);
   const [indexProject] = useStore((state) => [state.indexProject]);
 
+
   useEffect(() => {
     const loadingProjects = async () => {
       const allProjectsDB = await allProjects();
@@ -19,8 +20,12 @@ const Discovery = () => {
     loadingProjects();
   }, []);
 
+  console.log("Todos os projetos", projects);
+  
+  
   const containsProjects = projects?.rows?.length > 0;
   const projectByIndex = containsProjects && projects?.rows[indexProject];
+  console.log('Índice', projectByIndex);
 
   return (
     <section className="dicovery_container">
@@ -67,6 +72,10 @@ const Discovery = () => {
           description={projectByIndex.description}
           urlImg={projectByIndex.imgFile}
           createdAt={projectByIndex.createdAt}
+          userDBAvatar={projectByIndex.users.avatar}
+          userDBFristName={projectByIndex.users.firstName}
+          userDBLastName={projectByIndex.users.lastName}
+          userDBCreatedAt={projectByIndex.users.createdAt}
         />
       )}
       

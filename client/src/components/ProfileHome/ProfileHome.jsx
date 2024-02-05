@@ -3,7 +3,7 @@ import './ProfileHome.css';
 import BotaoSalvarModal from '../BotaoAdicionarModal/BotaoAdicionarModal';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
 import * as avatars from '../../assets/icons/avatar';
-import NestedModal from '../Modal/Modal';
+import NestedModal from '../Modal/ModalAddProject';
 //import { FormToAddProject } from '../Modal/Modal'
 //import useStore from "../../zustand/store";
 

@@ -14,7 +14,7 @@ import { createNewProject } from '../../api/axiosInstance';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
 import ModalPreview from './ModalPreview';
 import { getFormattedMonthAndYear } from '../../utils/formatedData';
-import './Modal.css';
+import './modalAddProject.css';
 
 export default function FormToAddProject() {
   const [title, setTitle] = useState('');
@@ -25,13 +25,19 @@ export default function FormToAddProject() {
   const [imgFile, setImgFile] = useState(null);
   const [isPreview, setIsPreview] = useState(false);
   const [
-    openModal,
-    updateOpenModal, 
+    openEditProjectModal,
+    currentProjects,
+    indexProject,
+    indexEditProject,
+    updateOpenEditProjectModal, 
     updateCurrentProject,
     updateOpenPreviewModal,
   ] = useStore((state) => [
-    state.openModal,
-    state.updateOpenModal,
+    state.openEditProjectModal,
+    state.currentProjects,
+    state.indexProject,
+    state.indexEditProject,
+    state.updateOpenEditProjectModal,
     state.updateCurrentProject,
     state.updateOpenPreviewModal,
   ]);
@@ -39,7 +45,6 @@ export default function FormToAddProject() {
   const isSmallScreen = useMediaQuery('(max-width:768px)');
   const noProjectImage =
   'https://i.pinimg.com/564x/b9/51/3e/b9513e7050cedff6d53e6ea0cd5a2dc1.jpg';
-  const isImage = imgFile ? imgFile : noProjectImage;
 
   const handleChange = ({ target: { value } }, setState) => {
     setState(value);
@@ -59,6 +64,20 @@ export default function FormToAddProject() {
     };
     getToken();
   }, []);
+
+  const isProject = currentProjects.length > 0;
+  const projectToEdit = isProject && currentProjects[indexProject];
+
+  useEffect(() => {
+    if (projectToEdit !== null) {
+      const projectToEdit = isProject && currentProjects[indexProject];
+      setTitle(projectToEdit?.title);
+      setTags(projectToEdit?.tag);
+      setLink(projectToEdit?.url);
+      setDescription(projectToEdit?.description);
+      setImgFile(projectToEdit?.imgFile);
+    }
+  }, [indexEditProject, projectToEdit, currentProjects]);
 
   const inputValidation = () => {
     const titleValidation = validator.isLength(title, { min: 1 });
@@ -164,7 +183,7 @@ export default function FormToAddProject() {
     setLink('');
     setDescription('');
     setImgFile(null);
-    updateOpenModal(!openModal);
+    updateOpenEditProjectModal(!openEditProjectModal);
   };
 
   const style = {
@@ -190,7 +209,7 @@ export default function FormToAddProject() {
   return (
     <>
     <Modal
-      open={ openModal }
+      open={ openEditProjectModal }
       onClose={ closeModal }
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
@@ -233,7 +252,7 @@ export default function FormToAddProject() {
                       height: 'auto',
                     }}
                     component="img"
-                    image={isImage}
+                    image={imgFile ? imgFile : noProjectImage}
                     alt="imagem do projeto"
                   />
                   {!imgFile && 
@@ -278,6 +297,7 @@ export default function FormToAddProject() {
                 id="outlined-multiline-flexible"
                 className="inputs_box_modal"
                 label="Título"
+                value={title}
                 variant="outlined"
                 onChange={(e) => handleChange(e, setTitle)}
                 style={{
@@ -290,6 +310,7 @@ export default function FormToAddProject() {
                 id="outlined-multiline-flexible"
                 className="inputs_box_modal"
                 label="Tags"
+                value={tags}
                 variant="outlined"
                 onChange={(e) => handleChange(e, setTags)}
                 style={{
@@ -302,6 +323,7 @@ export default function FormToAddProject() {
                 id="outlined-textarea"
                 className="inputs_box_modal"
                 label="Links"
+                value={link}
                 placeholder="Placeholder"
                 variant="outlined"
                 onChange={(e) => handleChange(e, setLink)}
@@ -314,6 +336,7 @@ export default function FormToAddProject() {
               <TextField
                 id="outlined-multiline-static"
                 className="inputs_box_modal input_description"
+                value={description}
                 label="Descrição"
                 multiline
                 rows={3}

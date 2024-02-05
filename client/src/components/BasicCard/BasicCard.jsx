@@ -9,7 +9,7 @@ import ProjectPlaceholder from '../../assets/icons/project_placeholder.svg';
 import useStore from '../../zustand/store';
 import './BasicCard.css';
 import { formattedDate } from '../../utils/formatedData';
-import ModalExcluir from '../Modal/ModalExcluir';
+
 // import { getRandomAvatar } from '../ProfileHome/ProfileHome';
 
 export default function BasicCard({
@@ -29,9 +29,9 @@ export default function BasicCard({
     openModal,
     user,
     discoveryPage,
-    openDeleteProjectModal,
     updateIndexProject,
     updateOpenModal,
+    updateOpenEditProjectModal,
     openVisualizerModalProject,
     updateOpenDeleteProjectModal,
     updateOpenVisualizerModalProject,
@@ -41,9 +41,9 @@ export default function BasicCard({
     state.openModal,
     state.user,
     state.discoveryPage,
-    state.openDeleteProjectModal,
     state.updateIndexProject,
     state.updateOpenModal,
+    state.updateOpenEditProjectModal,
     state.openVisualizerModalProject,
     state.updateOpenDeleteProjectModal,
     state.updateOpenVisualizerModalProject,
@@ -61,9 +61,11 @@ export default function BasicCard({
     setAnchorEl(null);
   };
 
-  const editProject = (idEdit) => {
+  const editProject = (indexChange, idEdit) => {
     setAnchorEl(null);
+    updateIndexProject(indexChange);
     updateIndexEditProject(idEdit);
+    updateOpenEditProjectModal(true);
   };
 
   const deleteProject = (idDelete) => {
@@ -113,7 +115,7 @@ export default function BasicCard({
               marginLeft: 20,
             }}
           >
-            <MenuItem onClick={() => editProject(projectId)} id="edit_project">
+            <MenuItem onClick={() => editProject(index, projectId)} id="edit_project">
               Editar
             </MenuItem>
             <MenuItem
@@ -199,7 +201,7 @@ export default function BasicCard({
           </div>
         </div>
       )}
-      { openDeleteProjectModal && <ModalExcluir /> }
+      
     </div>
   );
 }
