@@ -1,7 +1,9 @@
 const express = require('express');
 const tokenValidation = require('../middlewares/tokenValidation');
 const projectController = require('../controllers/project.controller');
-const upload = require('../../config/multer');
+const multerConfig = require('../../config/multer');
+const multer = require('multer');
+
 const router = express.Router();
 
 //rota para buscar todos os projetos e paginar
@@ -16,15 +18,21 @@ router.get('/userId', tokenValidation, projectController.getProjectsbyUserId);
 router.post(
   '/',
   tokenValidation,
-  upload.single('imgFile'),
+  multer(multerConfig).single('imgFile'),
   projectController.createProjects
 );
-router.patch(
-  '/:id',
+/* router.post(
+  '/',
   tokenValidation,
   upload.single('imgFile'),
-  projectController.updateProjectById
-);
+  projectController.createProjects
+); */
+// router.patch(
+//   '/:id',
+//   tokenValidation,
+//   upload.single('imgFile'),
+//   projectController.updateProjectById
+// );
 router.delete('/:id', tokenValidation, projectController.deleteProjectById);
 
 module.exports = router;

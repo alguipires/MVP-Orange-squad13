@@ -42,6 +42,17 @@ const getAllProjectService = async (page, pageSize) => {
 
     console.log('array de projetos... ', projects); //TODO retirar
 
+    // Converter o caminho do arquivo em base64
+    projects.rows.forEach((project) => {
+      console.log('convertendo...>  imgpath:', project.imgFile);
+      const imgFilePath = project.imgFile; // Supondo que imgFile contenha o caminho do arquivo
+      // const base64Img = fs.readFileSync(imgFilePath).toString('base64');
+      // const base64Img = await fs.readFile(imgFilePath, {encoding: 'base64'});
+      const base64Img = fs.readFileSync(imgFilePath, { encoding: 'base64' });
+      console.log('img base64: ', base64Img);
+      project.imgFile = base64Img;
+    });
+
     return { status: 'SUCCESSFUL', data: projects };
   } catch (error) {
     return { status: 'INTERNAL_ERROR', data: { message: error.message } };
