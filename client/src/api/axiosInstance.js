@@ -155,6 +155,42 @@ const createNewProject = async (formData, token) => {
     });
 }; */
 
+/* const createNewProject = async (
+  { title, tag, url, description, imgFile },
+  token
+) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  console.log('token axios,,,, ', token); //TODO retirar log
+  console.log('obj...>> ', title, tag, url, description, imgFile);
+
+  return await axios
+    .post(
+      `${endpoint}/project`,
+      {
+        title,
+        tag,
+        url,
+        description,
+        imgFile,
+      },
+      config
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response.data;
+    })
+    .finally(() => {
+      // always executed
+    });
+}; */
+
 const projectsWithUser = async (token) => {
   const config = {
     headers: {

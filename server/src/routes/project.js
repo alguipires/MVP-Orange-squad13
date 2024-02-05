@@ -21,7 +21,6 @@ router.post(
   multer(multerConfig).single('imgFile'),
   projectController.createProjects
 );
-
 router.patch(
   '/:id',
   tokenValidation,
