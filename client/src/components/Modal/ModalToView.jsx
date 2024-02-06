@@ -37,7 +37,7 @@ const ModalToView = ({
   const renderUserName = currentUser && !discoveryPage;
   const currentUserName = currentUser?.displayName ? currentUser.displayName : `${currentUser?.firstName} ${currentUser?.lastName}`;
   const userImage = currentUser?.photoURL ? currentUser.photoURL : currentUser?.avatar;
-  const tagArray = tag.split(' ');
+  const tagArray = tag && tag.split(' ');
 
   const style = {
     position: 'absolute',
@@ -107,7 +107,7 @@ const ModalToView = ({
                   </div>
                 )}
                 <div className="container_tags">
-                  {tagArray.map((tag, index) => (
+                  {tagArray?.map((tag, index) => (
                     <div key={index} className="tag_project_modal">{tag}</div>
                   ))}
                 </div>
