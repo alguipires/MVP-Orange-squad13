@@ -108,6 +108,27 @@ const createNewProject = async (formData, token) => {
     });
 };
 
+const createNewProjectWithGoogle = async (formData, uuid, token) => {
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return await axios
+    .post(`${endpoint}/project/google/${uuid}`, formData, config)
+    .then((response) => {
+      return response?.data;
+    })
+    .catch((error) => {
+      return error?.response?.data;
+    })
+    .finally(() => {
+      // always executed
+    });
+};
+
 const projectsWithUser = async (token) => {
   const config = {
     headers: {
@@ -212,4 +233,5 @@ export {
   createNewProject,
   deleteProjectByGoogle,
   getUserByUuid,
+  createNewProjectWithGoogle,
 };

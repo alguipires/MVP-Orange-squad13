@@ -21,6 +21,13 @@ router.post(
   multer(multerConfig).single('imgFile'),
   projectController.createProjects
 );
+
+router.post(
+  '/google/:uuid',
+  multer(multerConfig).single('imgFile'),
+  projectController.createProjectsWithGoogle
+);
+
 router.patch(
   '/:id',
   tokenValidation,

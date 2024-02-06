@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-// import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import ProjectPlaceholder from '../../assets/icons/project_placeholder.svg';
-// import Modal from '../Modal/Modal';
 import useStore from '../../zustand/store';
 import './BasicCard.css';
 import { formattedDate } from '../../utils/formatedData';
-
-// import { getRandomAvatar } from '../ProfileHome/ProfileHome';
 
 export default function BasicCard({
   projectId,
@@ -201,9 +197,11 @@ export default function BasicCard({
               <div className="tag_project">
                 {tagArray[0]}
               </div>
-              <div className="tag_project">
-                {tagArray[1]}
-              </div>
+              {tagArray[1] && (
+                  <div className="tag_project">
+                    {tagArray[1]}
+                  </div>
+              )}
             
 
           </div>

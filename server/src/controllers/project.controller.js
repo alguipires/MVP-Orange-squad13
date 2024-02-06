@@ -5,21 +5,12 @@ const createProjects = async (req, res) => {
   const userId = req.getPayload.id;
   const userUuid = req.getPayload.uuid;
 
-  console.log('LOGG REQ file>>>> ', req.file);
-  console.log('LOGG REQ body>>>> ', req.body);
-
   // pegando o arquivo/location "imgFile" e extraindo do file, key esta o nome original do arquivo se precisar
   // const imgFile = req.file.path; //antigo
 
   const { key: imgName, location: imgFile = '' } = req.file;
 
-  // const imgFile = key;
-  console.log('log imgfile...... ', imgFile); //TODO retirar
-  console.log('log imgName...... ', imgName); //TODO retirar
-
   const { title, tag, description, url } = req.body;
-
-  // console.log('req body....> ', title, tag, description, url, imgFile, imgName);
 
   const { status, data } = await projectService.createProjectPostService(
     title,
@@ -30,6 +21,28 @@ const createProjects = async (req, res) => {
     description,
     userId,
     userUuid
+  );
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
+const createProjectsWithGoogle = async (req, res) => {
+  console.log('entrei....');
+  const userUuid = req.params.uuid;
+  const token = req.headers.authorization;
+
+  const { key: imgName, location: imgFile = '' } = req.file;
+
+  const { title, tag, description, url } = req.body;
+
+  const { status, data } = await projectService.createProjectPostServiceWithGoogle(
+    title,
+    tag,
+    url,
+    imgFile,
+    imgName,
+    description,
+    userUuid,
+    token
   );
   return res.status(mapStatusHTTP(status)).json(data);
 };
@@ -74,8 +87,6 @@ const updateProjectById = async (req, res) => {
   let imgFile = ''; // Inicialize a variável como null
   let imgName = ''; // Inicialize a variável como null
 
-  // console.log('log update>>> req', req);
-
   const { title, tag, description, url } = req.body;
 
   // // Verifique se há um arquivo enviado na requisição
@@ -86,20 +97,6 @@ const updateProjectById = async (req, res) => {
     imgName = req.file.key;
     // const { key: imgName, location: imgFile = '' } = req.file;
   }
-
-  // console.log('log update>>> req', req);
-  console.log('log update>>> req.file', req.file);
-  console.log(
-    'log update>>> obj',
-    title,
-    tag,
-    description,
-    url,
-    'imgfile:',
-    imgFile,
-    'imgname:',
-    imgName
-  );
 
   const { status, data } = await projectService.updateProjectByIdService(
     title,
@@ -140,6 +137,7 @@ const deleteProjectByGoogleId = async (req, res) => {
 
 module.exports = {
   createProjects,
+  createProjectsWithGoogle,
   getProjectsbyUserId,
   getProjectsbyId,
   getAllProjects,

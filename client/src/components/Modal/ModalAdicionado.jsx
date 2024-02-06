@@ -4,33 +4,50 @@ import Modal from '@mui/material/Modal';
 import useStore from '../../zustand/store';
 import { Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import './Modal2.css'
+import { useMediaQuery } from '@mui/material';
+import './modal2.css'
 
 export function ModalAdicionado() {
-    const [updateOpenModal, updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
-    [state.updateOpenModal, state.updateOpenModal2, state.updateCloseModal2 ]
-    );
+  const [  updateOpenEditSuccessModal ] = useStore((state) => 
+  [ state.updateOpenEditSuccessModal ]
+  );
+  const isSmallScreen = useMediaQuery('(max-width:768px)');
   
-  
-    const handleClose = () => {
-      updateOpenModal2(false);
-      updateCloseModal2(true);
-      updateOpenModal(false);
+  const handleClose = () => {
+    updateOpenEditSuccessModal(false);
+  };
+    const style = {
+      position: 'absolute',
+      top: isSmallScreen ? '55%' : '50%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      left: '50%',
+      width: isSmallScreen ? '90vw' : 380,
+      height: isSmallScreen ? '30vh' : 280,
+      transform: 'translate(-50%, -50%)',
+      bgcolor: '#FCFDFF',
+      boxShadow: 2,
+      zIndex: 2,
+      pt: 2,
+      px: 4,
+      pb: 3,
     };
   
   
     return (
-      <Box className='caixaSucesso'> 
+      <Box sx={{ ...style }}> 
       <section className='modalSucesso'>
         
-          <div className='modalTitulo'>
+          <div className='title_modal_add'>
             <h2>Projeto Adicionado com Sucesso!</h2>
           </div>
           <div className='modalImagen'>
-            <CheckCircleIcon sx={{ color: "green",fontSize: 40,}} />
+            <CheckCircleIcon sx={{ color: "green",fontSize: 60,}} />
           </div>
-          <div className='modalBotao'>
-            <Button className='botaoVoltar' onClick={handleClose} variant="contained" color = "success" >Voltar Para Projetos</Button>
+          <div className='container_button_modal_add'>
+            <Button id='button_back_to_projects_add' onClick={handleClose} variant="contained" >Voltar Para Projetos</Button>
         
         </div>
       </section>
@@ -39,26 +56,19 @@ export function ModalAdicionado() {
     );
   }
   export function OpenModalAdicionado() {
-    const [ openModal2,updateOpenModal2, updateCloseModal2 ] = useStore((state) => 
-    [ state.openModal2, state.updateOpenModal2, state.updateCloseModal2 ]
+    const [ openEditSuccessModal, updateOpenEditSuccessModal ] = useStore((state) => 
+    [ state.openEditSuccessModal, state.updateOpenEditSuccessModal ]
     );
-  
-    const handleOpen = () => {
-      updateOpenModal2(true);
-      updateCloseModal2(false);
-    };
-  
+    
     const handleClose = () => {
-      updateOpenModal2(false);
-      updateCloseModal2(true);
+      updateOpenEditSuccessModal(false);
     };
   
   
     return (
       <div>
-        <Button onClick={handleOpen}>Open modal</Button>
         <Modal
-          open={openModal2}
+          open={openEditSuccessModal}
           onClose={handleClose}
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
