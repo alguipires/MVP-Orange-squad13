@@ -10,7 +10,7 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import validator from 'validator';
-import { createNewProject } from '../../api/axiosInstance';
+import { createNewProject, createNewProjectWithGoogle } from '../../api/axiosInstance';
 import { getSavedUser } from '../../utils/sessionStorageLogin';
 import ModalPreview from './ModalPreview';
 import { getFormattedMonthAndYear } from '../../utils/formatedData';
@@ -29,11 +29,17 @@ export default function FormToAddProject() {
     updateOpenModal,
     updateCurrentProject,
     updateOpenPreviewModal,
+    currentProjects,
+    updateCurrentProjects,
+    updateOpenEditSuccessModal,
   ] = useStore((state) => [
     state.openModal,
     state.updateOpenModal,
     state.updateCurrentProject,
     state.updateOpenPreviewModal,
+    state.currentProjects,
+    state.updateCurrentProjects,
+    state.updateOpenEditSuccessModal,
   ]);
   const inputRef = useRef(null);
   const isSmallScreen = useMediaQuery('(max-width:768px)');
@@ -119,24 +125,38 @@ export default function FormToAddProject() {
     const user = await getSavedUser('@AuthFirebase:user');
     const tokenBackend = await getSavedUser('@AuthBackend:token');
 
-    if (tokenBackend) {
+    const newProject = {
+      title,
+      tag: tags,
+      url: link,
+      description,
+      imgUrl,
+    };
+
+    if (Object.keys(tokenBackend).length !== 0){
       const isValidProject = await createNewProject(formData, tokenBackend);
 
       if (isValidProject?.message) {
         handleAlert(isValidProject.message);
         return;
       }
+      updateOpenEditSuccessModal(true);
+      updateCurrentProjects([...currentProjects, newProject]);
       return;
     }
-    if (token && user) {
+    if (Object.keys(token).length !== 0 && Object.keys(user).length !== 0){
       const uuid = user.uid;
-      const isValidProject = await createNewProject(formData, uuid, token);
+      const isValidProject = await createNewProjectWithGoogle(formData, uuid, token);
 
       if (isValidProject?.message) {
         handleAlert(isValidProject.message);
         return;
       }
+      updateOpenEditSuccessModal(true);
+      updateCurrentProjects([...currentProjects, newProject]);
     }
+
+    closeModal();
   };
 
   const previewProject = () => {

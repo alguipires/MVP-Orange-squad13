@@ -30,16 +30,51 @@
   justify-content: center;
   
 }
-.modalTitulo{
-  width: 100%;
-  text-align: center;
-}
+
 .modalImagen{
 margin: 20px;
 }
-.botaoVoltar{
+
+.title_modal_delete {
+  width: 100%;
+  text-align: center;
+  color: #515255;
+  font-size: 24px;
+}
+
+.container_button_modal_delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#button_back_to_projects_del {
   align-items: center;
   justify-content: center;
+  width: 100%;
+  size: 100%;
+  background-color: #F52;
+}
+
+.title_modal_add {
+  width: 100%;
+  text-align: center;
+  color: #515255;
+  font-size: 24px;
+}
+
+.container_button_modal_add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#button_back_to_projects_add {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   size: 100%;
   background-color: #F52;
 }

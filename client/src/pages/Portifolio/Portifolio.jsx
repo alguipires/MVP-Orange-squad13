@@ -13,10 +13,12 @@ import ModalToView from '../../components/Modal/ModalToView';
 import ModalExcluir from '../../components/Modal/ModalExcluir';
 import ModalEditProject from '../../components/Modal/ModalEditProject';
 import ModalDeletado from '../../components/Modal/ModalDeletado';
+import ModalAdicionado from '../../components/Modal/ModalAdicionado';
 import useStore from '../../zustand/store';
 
 function Portifolio() {
   const [
+    openModal,
     indexProject,
     currentProjects,
     updateCurrentProjects,
@@ -24,7 +26,9 @@ function Portifolio() {
     openEditProjectModal,
     openDeleteSuccessModal,
     inputSearch,
+    openEditSuccessModal,
   ] = useStore((state) => [
+    state.openModal,
     state.indexProject,
     state.currentProjects,
     state.updateCurrentProjects,
@@ -32,6 +36,7 @@ function Portifolio() {
     state.openEditProjectModal,
     state.openDeleteSuccessModal,
     state.inputSearch,
+    state.openEditSuccessModal,
   ]);
 
   useEffect(() => {
@@ -59,7 +64,7 @@ function Portifolio() {
       }
     };
     loadingProjects();
-  }, []);
+  }, [openModal]);
 
   const containsProjects = currentProjects?.length > 0;
   const projectByIndex = containsProjects && currentProjects[indexProject];
@@ -118,6 +123,7 @@ function Portifolio() {
       {openDeleteProjectModal && <ModalExcluir />}
       {openEditProjectModal && <ModalEditProject />}
       {openDeleteSuccessModal && <ModalDeletado />}
+      {openEditSuccessModal && <ModalAdicionado />}
     </section>
   );
 }

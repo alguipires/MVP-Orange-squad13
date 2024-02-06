@@ -32,6 +32,48 @@ const createProjectPostService = async (
   }
 };
 
+const createProjectPostServiceWithGoogle = async (
+  title,
+  tag,
+  url,
+  imgFile,
+  imgName,
+  description,
+  userUuid,
+  token
+) => {
+  try {
+    if (!token) {
+      return { status: 'UNAUTHORIZED', data: { message: 'Token não fornecido' } };
+    }
+
+    if (!userUuid) {
+      return { status: 'BAD_REQUEST', data: { message: 'userUuid não fornecido' } };
+    }
+
+    if (!title) {
+      return { status: 'BAD_REQUEST', data: { message: 'title não fornecido' } };
+    }
+
+    const user = await Users.findOne({ where: { uuid: userUuid } });
+  
+    const newProject = await Projects.create({
+      title,
+      tag,
+      url,
+      imgFile,
+      imgName,
+      description,
+      userId: user.id,
+      userUuid,
+    });
+
+    return { status: 'SUCCESSFUL', data: newProject };
+  } catch (error) {
+    return { status: 'INTERNAL_ERROR', data: { message: error.message } };
+  }
+};
+
 const getAllProjectService = async (page, pageSize) => {
   try {
     const offset = (page - 1) * pageSize;
@@ -259,6 +301,7 @@ const deleteProjectByGoogleIdService = async (uuid, projectId, token) => {
 
 module.exports = {
   createProjectPostService,
+  createProjectPostServiceWithGoogle,
   getProjectByUserIdService,
   getProjectByIdService,
   getProjectByGoogleId,

@@ -26,7 +26,7 @@ export function ModalDeletado() {
       alignItems: 'flex-start',
       left: '50%',
       width: isSmallScreen ? '90vw' : 380,
-      height: isSmallScreen ? '85vh' : 230,
+      height: isSmallScreen ? '30vh' : 280,
       transform: 'translate(-50%, -50%)',
       bgcolor: '#FCFDFF',
       boxShadow: 2,
@@ -40,14 +40,14 @@ export function ModalDeletado() {
       <Box sx={{ ...style }}>
       <section className='modalSucesso'>
         
-          <div className='modalTitulo'>
+          <div className='title_modal_delete'>
             <h2>Projeto Deletado com Sucesso!</h2>
           </div>
           <div className='modalImagen'>
-            <CheckCircleIcon sx={{ color: "green",fontSize: 40,}} />
+            <CheckCircleIcon sx={{ color: "green",fontSize: 60,}} />
           </div>
-          <div className='modalBotao'>
-            <Button className='botaoVoltar' onClick={handleClose} variant="contained" color = "success" >Voltar Para Projetos</Button>
+          <div className='container_button_modal_delete'>
+            <Button id='button_back_to_projects_del' onClick={handleClose} variant="contained" >Voltar Para Projetos</Button>
         
         </div>
       </section>
